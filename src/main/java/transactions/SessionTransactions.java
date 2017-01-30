@@ -18,7 +18,7 @@ public class SessionTransactions {
     }
 
     public String action() {
-      Person p = HibernateUtil.getDAOFact().getPersonDAO().findByEmail(email);
+      Person p = HibernateUtil.getDAOFact().getPersonDAO().findByUsername(email);
       if (p != null && p.checkPassword(password)) {
         return Session.addSession(p);
       } else {

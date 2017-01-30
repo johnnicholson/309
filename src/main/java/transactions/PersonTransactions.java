@@ -71,7 +71,7 @@ public class PersonTransactions {
     @Override
     public Integer action() {
       PersonDAO prsDAO = HibernateUtil.getDAOFact().getPersonDAO();
-      if (null == prsDAO.findByEmail(prs.getUsername())
+      if (null == prsDAO.findByUsername(prs.getUsername())
           && (prs.getRole() == Role.Student || isAdmin())) {
         prsDAO.makePersistent(prs);
       } else {
