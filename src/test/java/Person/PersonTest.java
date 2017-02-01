@@ -43,6 +43,7 @@ public class PersonTest {
   @BeforeClass
   public static void topSetup() {
     DAOFactory fact = TestRunner.getMockFact();
+    prsDAO = mock(PersonDAO.class);
     when(fact.getPersonDAO()).thenReturn(prsDAO);
     org.hibernate.Session ssn = mock(org.hibernate.Session.class);
     org.hibernate.Transaction transaction = mock(org.hibernate.Transaction.class);

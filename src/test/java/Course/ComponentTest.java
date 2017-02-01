@@ -34,7 +34,8 @@ public class ComponentTest {
   @BeforeClass
   public static void topSetup() {
     DAOFactory fact = TestRunner.getMockFact();
-
+    prsDAO = mock(PersonDAO.class);
+    ctDAO = mock(ComponentTypeDAO.class);
     when(fact.getPersonDAO()).thenReturn(prsDAO);
     when(fact.getComponentTypeDAO()).thenReturn(ctDAO);
 
