@@ -18,4 +18,6 @@ public abstract class DAOFactory {
   
   public abstract ComponentTypeDAO getComponentTypeDAO();
 
+  public abstract EquipmentDAO getEquipmentDAO();
+
 }

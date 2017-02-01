@@ -1,5 +1,6 @@
 package hibernate;
 
+import model.Equipment;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -28,6 +29,7 @@ public class HibernateUtil {
     configuration.configure("hibernate.cfg.xml");
     configuration.addAnnotatedClass(Person.class);
     configuration.addAnnotatedClass(ComponentType.class);
+    configuration.addAnnotatedClass(Equipment.class);
     ServiceRegistry serviceRegistry =
         new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
     return configuration.buildSessionFactory(serviceRegistry);
