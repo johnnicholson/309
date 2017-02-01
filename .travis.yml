@@ -3,7 +3,7 @@ jdk:
   - oraclejdk8
 services: mysql
 before_script:
-  - mysql -e 'create database 309;' -u root
-  - mysql -e 'grant all on 309.* to travis;' -u root
+  - mysql -e 'create database web309;' -u root
+  - mysql -e 'grant all on web309.* to travis;' -u root
 script:
   - mvn clean install
