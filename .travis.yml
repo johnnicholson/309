@@ -7,3 +7,5 @@ before_script:
   - mysql -e 'grant all on web309.* to travis;' -u root
 script:
   - mvn clean install
+notifications:
+  slack: cpe-309:9m0vdZLZ6B8BO4HYlaF0bZve
