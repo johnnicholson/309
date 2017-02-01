@@ -23,4 +23,6 @@ public abstract class DAOFactory {
   public abstract RoomTypeDAO getRoomTypeDAO();
 
 
+  public abstract EquipmentDAO getEquipmentDAO();
+
 }
