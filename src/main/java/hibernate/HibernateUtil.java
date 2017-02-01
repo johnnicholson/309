@@ -31,14 +31,10 @@ public class HibernateUtil {
   public static void setDAOFactory(DAOFactory fact) {
 	  if (daoFact == null)
 		  daoFact = fact;
-	  else
-		  throw new IllegalArgumentException("The daofactory can only be set on startup");
   }
   public static void setFactory(SessionFactory fact) {
 	  if (factory == null)
 		  factory = fact;
-	  else
-		  throw new IllegalArgumentException("The factory can only be set on startup");
   }
   
   private static SessionFactory initFactory() {
