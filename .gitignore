@@ -4,4 +4,7 @@
 target
 *.log
 *.zip
+.idea
+*.iml
 bower_components
+
