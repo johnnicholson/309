@@ -1,6 +1,6 @@
 package transactions;
 
-//import controller.RoomController;
+import controller.RoomController;
 import dao.RoomDAO;
 import hibernate.HibernateUtil;
 import model.Room;
@@ -92,22 +92,9 @@ public class RoomTransactions {
       this.id = id;
     }
 
-    //@Override
-   /* public Integer action() {
-      RoomDAO roomDAO = HibernateUtil.getDAOFact().getRoomDAO();
-      Room dbroom = roomDAO.findById(id);
-      if (isAdmin()) {
-        //BeanUtils.copyProperties(prs, dbprs, "id", "passwordHash");
-      } else if ((prs.getUsername() != null && !dbprs.getUsername().equals(prs.getUsername()))
-          || (prs.getRole() != null && dbprs.getRole() != prs.getRole())) {
-        this.responseCode = HttpStatus.UNAUTHORIZED;
-        return null;
-      } else {
-        BeanUtils.copyProperties(prs, dbprs, "id", "email", "role", "passwordHash");
-      }
-
+    @Override
+    public Integer action() {
       return null;
-
-    }*/
+    }
   }
 }
