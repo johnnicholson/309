@@ -21,11 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 public class SessionController {
 
   public static class Login {
-    public String email;
+    public String username;
     public String password;
 
-    public Login(String email, String password) {
-      this.email = email;
+    public Login(String username, String password) {
+      this.username = username;
       this.password = password;
     }
 
@@ -37,7 +37,7 @@ public class SessionController {
   @RequestMapping(value = "", method = RequestMethod.POST)
   public static void postSession(@RequestBody Login login, HttpServletRequest req,
       HttpServletResponse res) {
-    PostSession post = new PostSession(login.email, login.password);
+    PostSession post = new PostSession(login.username, login.password);
     String id = post.run(req, res);
     if (post.getResponseCode() == HttpStatus.UNAUTHORIZED) {
       res.setStatus(post.getResponseCode().value());
