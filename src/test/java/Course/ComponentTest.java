@@ -54,7 +54,7 @@ public class ComponentTest {
   }
   
   @Test
-  public void testComponentPost() {
+  public void ComponentPostTest() {
 
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Staff;
