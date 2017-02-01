@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import Home.TestRunner;
 import app.AuthInterceptor;
 import app.Session;
 import app.Util;
@@ -41,10 +42,8 @@ public class PersonTest {
 
   @BeforeClass
   public static void topSetup() {
-    prsDAO = mock(PersonDAO.class);
-    DAOFactory fact = mock(DAOFactory.class);
+    DAOFactory fact = TestRunner.fact;
     when(fact.getPersonDAO()).thenReturn(prsDAO);
-    HibernateUtil.setDAOFactory(fact);
     org.hibernate.Session ssn = mock(org.hibernate.Session.class);
     org.hibernate.Transaction transaction = mock(org.hibernate.Transaction.class);
     SessionFactory sfact = mock(SessionFactory.class);

@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import Home.TestRunner;
 import Person.People;
 import controller.ComponentController;
 import dao.ComponentTypeDAO;
@@ -32,9 +33,8 @@ public class ComponentTest {
 
   @BeforeClass
   public static void topSetup() {
-    prsDAO = mock(PersonDAO.class);
-    ctDAO = mock(ComponentTypeDAO.class);
-    DAOFactory fact = mock(DAOFactory.class);
+    DAOFactory fact = TestRunner.fact;
+
     when(fact.getPersonDAO()).thenReturn(prsDAO);
     when(fact.getComponentTypeDAO()).thenReturn(ctDAO);
 
