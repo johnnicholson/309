@@ -17,7 +17,7 @@ public class HibernateUtil {
 
   public static SessionFactory getFactory() {
     if (factory == null)
-    	initFactory();
+    	factory = initFactory();
     return factory;
   }
 
