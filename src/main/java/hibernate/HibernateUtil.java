@@ -12,15 +12,32 @@ import model.Person;
 
 public class HibernateUtil {
   // Eager initialization of singletons
-  private static SessionFactory factory = initFactory();
-  private static DAOFactory daoFact = new HibernateDAOFactory();
+  private static SessionFactory factory = null;
+  private static DAOFactory daoFact = null;
 
   public static SessionFactory getFactory() {
+    if (factory == null)
+    	initFactory();
     return factory;
   }
 
   public static DAOFactory getDAOFact() {
+    if (daoFact == null)
+    	daoFact = new HibernateDAOFactory();
     return daoFact;
+  }
+  
+  public static void setDAOFactory(DAOFactory fact) {
+	  if (daoFact == null)
+		  daoFact = fact;
+	  else
+		  throw new IllegalArgumentException("The daofactory can only be set on startup");
+  }
+  public static void setFactory(SessionFactory fact) {
+	  if (factory == null)
+		  factory = fact;
+	  else
+		  throw new IllegalArgumentException("The factory can only be set on startup");
   }
   
   private static SessionFactory initFactory() {
