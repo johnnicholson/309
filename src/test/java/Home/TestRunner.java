@@ -14,10 +14,14 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({PersonTest.class})
 public class TestRunner {
-  public static DAOFactory fact;
-  @BeforeClass
-  public static void topSetup() {
-    fact = mock(DAOFactory.class);
-    HibernateUtil.setDAOFactory(fact);
+  private static DAOFactory fact;
+
+  public static DAOFactory getMockFact() {
+    if (fact == null) {
+      fact = mock(DAOFactory.class);
+      HibernateUtil.setDAOFactory(fact); 
+    }
+    return fact;
   }
+
 }
