@@ -24,6 +24,7 @@ import app.Util;
 import controller.PersonController;
 import controller.SessionController;
 import controller.SessionController.Login;
+import dao.DAOFactory;
 import dao.PersonDAO;
 import hibernate.HibernateUtil;
 import model.Person;
@@ -41,8 +42,8 @@ public class PersonTest {
   @BeforeClass
   public static void topSetup() {
     prsDAO = mock(PersonDAO.class);
-    MockDAOFact fact = new MockDAOFact();
-    fact.prsDAO = prsDAO;
+    DAOFactory fact = mock(DAOFactory.class);
+    when(fact.getPersonDAO()).thenReturn(prsDAO);
     HibernateUtil.setDAOFactory(fact);
     org.hibernate.Session ssn = mock(org.hibernate.Session.class);
     org.hibernate.Transaction transaction = mock(org.hibernate.Transaction.class);
