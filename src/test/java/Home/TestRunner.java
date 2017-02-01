@@ -1,18 +1,16 @@
 package Home;
+import Course.ComponentTest;
 import Person.PersonTest;
 import dao.DAOFactory;
-import dao.PersonDAO;
 import hibernate.HibernateUtil;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({PersonTest.class})
+@Suite.SuiteClasses({PersonTest.class, ComponentTest.class})
 public class TestRunner {
   private static DAOFactory fact;
 
