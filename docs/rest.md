@@ -150,14 +150,26 @@ Removes the equipment instance
 AU must be scheduler
 
 
-
-
-
 ## Component Type Resources (could nest inside components)
 ## /component/type
 #### POST
 * name {String}
 * description {String}
+
+#### GET
+returns an array of the component types with the same values as POST /component/type
+
+## /component/type/{cmpTypeId}
+
+## GET
+* name {String}
+* description {String}
+#### PUT
+* name {String}
+* description {String}
+
+#### DELETE
+deletes the resource in question
 
 # Course Resources
 
