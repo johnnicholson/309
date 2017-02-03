@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.ComponentType;
+import transactions.ComponentTypeTransactions.DeleteComponentType;
 import transactions.ComponentTypeTransactions.GetComponentType;
 import transactions.ComponentTypeTransactions.GetComponentTypeList;
 import transactions.ComponentTypeTransactions.PostComponentType;
@@ -42,10 +43,17 @@ public class ComponentTypeController {
 		return cts;
 	}
 	
-	@RequestMapping(value = "/type", method = RequestMethod.PUT)
+	@RequestMapping(value = "/type/{CmpTypeID}", method = RequestMethod.PUT)
 	public static Integer putComponentType(@Valid @RequestBody ComponentType ct, 
-			@PathVariable(value = "CmpID") int cmpId, HttpServletRequest req, HttpServletResponse res) {
+			@PathVariable(value = "CmpTypeID") int cmpId, HttpServletRequest req, HttpServletResponse res) {
 		Integer cmpTypeID = new PutComponentType(ct, cmpId).run(req, res);
+		return cmpTypeID;
+	}
+	
+	@RequestMapping(value = "/type/{CmpTypeID}", method = RequestMethod.DELETE)
+	public static Integer deleteComponentType(@PathVariable(value = "CmpTypeID") int cmpId, 
+			HttpServletRequest req, HttpServletResponse res) {
+		Integer cmpTypeID = new DeleteComponentType(cmpId).run(req, res);
 		return cmpTypeID;
 	}
 }

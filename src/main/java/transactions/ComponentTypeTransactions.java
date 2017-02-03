@@ -89,12 +89,38 @@ public class ComponentTypeTransactions {
 	      ComponentTypeDAO ctDAO = HibernateUtil.getDAOFact().getComponentTypeDAO();
 	      ComponentType dbct = ctDAO.findById(id);
 	      if (isAdmin()) {
-	        BeanUtils.copyProperties(ct, dbct, "name", "description");
+	        BeanUtils.copyProperties(ct, dbct,"id");
 	      }else {
 	    	  this.responseCode = HttpStatus.UNAUTHORIZED;
 	    	  return null;
 	      }
 	      return null;
 	    }
+	}
+	
+	public static class DeleteComponentType extends Transaction<Integer> {
+		private int cmpTypeID;
+
+		public DeleteComponentType(int cmpTypeID) {
+			this.cmpTypeID = cmpTypeID;
+		}
+
+		@Override
+		public Integer action() {
+			ComponentType ct = null;
+			ComponentTypeDAO ctDAO = null;
+			if (isAdmin()) {
+				ctDAO = HibernateUtil.getDAOFact().getComponentTypeDAO();
+				ct = ctDAO.findById(cmpTypeID);
+				if (ct != null) {
+					ctDAO.makeTransient(ct);
+				} else {
+						responseCode = HttpStatus.NOT_FOUND;
+				}
+			} else {
+				responseCode = HttpStatus.UNAUTHORIZED;
+			}
+			return null;
+		}
 	}
 }

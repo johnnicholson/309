@@ -101,16 +101,16 @@ public class ComponentTypeTest {
     assertEquals(otherct.getDescription(), mockct.getDescription());
   }
   
-//  @Test
-//  public void ComponentTypeDeleteTest() {
-//    app.Session mockSession = mock(app.Session.class);
-//    mockSession.role = Role.Admin;
-//    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
-//    
-//    ComponentType mockct = mock(ComponentType.class);
-//    when(ctDAO.findById(1)).thenReturn(mockct);
-//    Integer id = ComponentTypeController.deleteComponentType(1, req, res);
-//    verify(ctDAO, times(1)).makeTransient(mockct);
-//  }
+  @Test
+  public void ComponentTypeDeleteTest() {
+    app.Session mockSession = mock(app.Session.class);
+    mockSession.role = Role.Admin;
+    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+    
+    ComponentType mockct = mock(ComponentType.class);
+    when(ctDAO.findById(1)).thenReturn(mockct);
+    Integer id = ComponentTypeController.deleteComponentType(1, req, res);
+    verify(ctDAO, times(1)).makeTransient(mockct);
+  }
 
 }
