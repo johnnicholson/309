@@ -3,11 +3,14 @@ package transactions;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
 import dao.ComponentTypeDAO;
+import dao.PersonDAO;
 import hibernate.HibernateUtil;
 import model.ComponentType;
+import model.Person;
 
 public class ComponentTypeTransactions {
 	public static class GetComponentType extends Transaction<ComponentType> {
@@ -70,5 +73,28 @@ public class ComponentTypeTransactions {
 			}
 			return cts;
 		}
+	}
+	
+	public static class PutComponentType extends Transaction<Integer> {
+		private ComponentType ct;
+	    private Integer id;
+
+	    public PutComponentType(ComponentType ct, Integer id) {
+	      this.ct = ct;
+	      this.id = id;
+	    }
+
+	    @Override
+	    public Integer action() {
+	      ComponentTypeDAO ctDAO = HibernateUtil.getDAOFact().getComponentTypeDAO();
+	      ComponentType dbct = ctDAO.findById(id);
+	      if (isAdmin()) {
+	        BeanUtils.copyProperties(ct, dbct, "name", "description");
+	      }else {
+	    	  this.responseCode = HttpStatus.UNAUTHORIZED;
+	    	  return null;
+	      }
+	      return null;
+	    }
 	}
 }

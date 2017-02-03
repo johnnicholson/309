@@ -9,7 +9,7 @@ public abstract class DAOFactory {
     try {
       return (DAOFactory) factory.newInstance();
     } catch (Exception ex) {
-      lgr.error(ex);
+      lgr.error(ex); 
       throw new IllegalArgumentException();
     }
   }
