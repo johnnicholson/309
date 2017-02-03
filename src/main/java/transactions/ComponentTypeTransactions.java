@@ -89,7 +89,11 @@ public class ComponentTypeTransactions {
 	      ComponentTypeDAO ctDAO = HibernateUtil.getDAOFact().getComponentTypeDAO();
 	      ComponentType dbct = ctDAO.findById(id);
 	      if (isAdmin()) {
-	        BeanUtils.copyProperties(ct, dbct,"id");
+	    	  if (ct == null) {
+	    		  responseCode = HttpStatus.NOT_FOUND;
+	    	  }	
+	    	  else
+	    		  BeanUtils.copyProperties(ct, dbct,"id");
 	      }else {
 	    	  this.responseCode = HttpStatus.UNAUTHORIZED;
 	    	  return null;

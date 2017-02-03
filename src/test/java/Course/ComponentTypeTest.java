@@ -1,30 +1,27 @@
 package Course;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
 
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import Home.TestRunner;
 import Person.People;
 import controller.ComponentTypeController;
-import controller.PersonController;
 import dao.ComponentTypeDAO;
 import dao.DAOFactory;
 import dao.PersonDAO;
 import hibernate.HibernateUtil;
 import model.ComponentType;
-import model.Person;
 import model.Person.Role;
 
 public class ComponentTypeTest {
@@ -68,7 +65,7 @@ public class ComponentTypeTest {
     ComponentType mockct = mock(ComponentType.class);
     when(ctDAO.findById(1)).thenReturn(mockct);
     ComponentType ct = ComponentTypeController.getComponentType(1, req, res);
-    verify(ctDAO, times(1)).findById(1);
+    verify(ctDAO, times(2)).findById(1);
     assertEquals(ct, mockct);
   }
   
@@ -97,8 +94,8 @@ public class ComponentTypeTest {
     otherct.setName("newComponentName");
     otherct.setDescription("newComponentType");
     ComponentTypeController.putComponentType(otherct, 1, req, res);
-    assertEquals(otherct.getName(), mockct.getName());
-    assertEquals(otherct.getDescription(), mockct.getDescription());
+    verify(mockct).setName("newComponentName");
+    verify(mockct).setDescription("newComponentType");
   }
   
   @Test
