@@ -25,6 +25,10 @@ public class HibernateDAOFactory extends DAOFactory {
   public RoomTypeDAO getRoomTypeDAO() {
 	  return (RoomTypeDAO) instantiateDAO(RoomTypeDAO.class);
   }
+  public CourseDAO getCourseDAO() {
+    return (CourseDAO) instantiateDAO(CourseDAO.class);
+}
+
 
 
 	public ComponentTypeDAO getComponentTypeDAO() {
