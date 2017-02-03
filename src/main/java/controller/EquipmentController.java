@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import transactions.EquipmentTransactions.DeleteEquipment;
 import transactions.EquipmentTransactions.GetEquipment;
 import transactions.EquipmentTransactions.GetEquipmentList;
 import transactions.EquipmentTransactions.PostEquipment;
@@ -50,5 +51,11 @@ public class EquipmentController {
       HttpServletRequest req, HttpServletResponse res) {
     new PutEquipment(equipment, equipID).run(req, res);
     return equipID;
+  }
+
+  @RequestMapping(value = "/{equipID}", method = RequestMethod.DELETE)
+  public static void deleteEquipment(@PathVariable(value = "equipID") int equipID,
+      HttpServletRequest req, HttpServletResponse res) {
+    new DeleteEquipment(equipID).run(req, res);
   }
 }

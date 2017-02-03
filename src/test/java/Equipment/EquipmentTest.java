@@ -87,4 +87,16 @@ public class EquipmentTest {
     assertEquals(i, e);
   }
 
+  @Test
+  public void EquipmentDeleteTest() {
+    app.Session mockSession = mock(app.Session.class);
+    mockSession.role = Role.Admin;
+    when(req.getAttribute(Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+
+    Equipment mockequip = mock(Equipment.class);
+    when(equipDAO.findById(1)).thenReturn(mockequip);
+    EquipmentController.deleteEquipment(1, req, res);
+    verify(equipDAO, times(1)).makeTransient(mockequip);
+  }
+
 }
