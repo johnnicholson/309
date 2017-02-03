@@ -1,5 +1,5 @@
 package Home;
-import Course.ComponentTest;
+import Course.ComponentTypeTest;
 import Person.PersonTest;
 import dao.DAOFactory;
 import hibernate.HibernateUtil;
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({PersonTest.class, ComponentTest.class})
+@Suite.SuiteClasses({PersonTest.class, ComponentTypeTest.class})
 public class TestRunner {
   private static DAOFactory fact;
 

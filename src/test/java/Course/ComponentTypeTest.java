@@ -1,10 +1,11 @@
 package Course;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
 
 import org.hibernate.SessionFactory;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import Home.TestRunner;
 import Person.People;
-import controller.ComponentController;
+import controller.ComponentTypeController;
 import dao.ComponentTypeDAO;
 import dao.DAOFactory;
 import dao.PersonDAO;
@@ -23,7 +24,7 @@ import hibernate.HibernateUtil;
 import model.ComponentType;
 import model.Person.Role;
 
-public class ComponentTest {
+public class ComponentTypeTest {
   static PersonDAO prsDAO;
   static ComponentTypeDAO ctDAO;
   
@@ -55,7 +56,7 @@ public class ComponentTest {
   }
   
   @Test
-  public void ComponentPostTest() {
+  public void ComponentTypeGetTest() {
 
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Staff;
@@ -63,10 +64,50 @@ public class ComponentTest {
 
     ComponentType mockct = mock(ComponentType.class);
     when(ctDAO.findById(1)).thenReturn(mockct);
-    ComponentType ct = ComponentController.getComponentType(1, req, res);
-    verify(ctDAO, times(1)).findById(1);
+    ComponentType ct = ComponentTypeController.getComponentType(1, req, res);
+    verify(ctDAO, times(2)).findById(1);
     assertEquals(ct, mockct);
+  }
+  
+  @Test
+  public void ComponentTypePostTest() {
+    app.Session mockSession = mock(app.Session.class);
+    mockSession.role = Role.Admin;
+    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
+
+    ComponentType mockct = mock(ComponentType.class);
+    when(ctDAO.makePersistent(mockct)).thenReturn(mockct);
+    Integer id = ComponentTypeController.postComponentType(mockct, req, res);
+    verify(ctDAO, times(1)).makePersistent(mockct);
+  }
+  
+  @Test
+  public void ComponentTypePutTest() {
+    app.Session mockSession = mock(app.Session.class);
+    mockSession.role = Role.Admin;
+    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+    
+    ComponentType mockct = mock(ComponentType.class);
+    when(ctDAO.findById(1)).thenReturn(mockct);
+    ComponentType otherct = new ComponentType();
+    otherct.setName("newComponentName");
+    otherct.setDescription("newComponentType");
+    ComponentTypeController.putComponentType(otherct, 1, req, res);
+    verify(mockct).setName("newComponentName");
+    verify(mockct).setDescription("newComponentType");
+  }
+  
+  @Test
+  public void ComponentTypeDeleteTest() {
+    app.Session mockSession = mock(app.Session.class);
+    mockSession.role = Role.Admin;
+    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+    
+    ComponentType mockct = mock(ComponentType.class);
+    when(ctDAO.findById(1)).thenReturn(mockct);
+    Integer id = ComponentTypeController.deleteComponentType(1, req, res);
+    verify(ctDAO, times(1)).makeTransient(mockct);
   }
 
 }
