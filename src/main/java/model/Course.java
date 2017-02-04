@@ -37,6 +37,9 @@ public class Course {
   public void setComponents(List<Component> components) {
     this.components = components;
   }
-  
 
+
+  public void addComponent(Component cmp) {
+    components.add(cmp);
+  }
 }

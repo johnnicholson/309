@@ -1,18 +1,14 @@
 package transactions;
 
-import java.util.List;
-
+import dao.CourseDAO;
+import hibernate.HibernateUtil;
+import model.Component;
+import model.Course;
 import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
-import dao.CourseDAO;
-import dao.PersonDAO;
-import dao.RoomTypeDAO;
-import hibernate.HibernateUtil;
-import model.Course;
-import model.Person;
-import model.RoomType;
+import java.util.List;
 
 public class CourseTransactions {
   public static class GetAllCourses extends Transaction<List<Course>> {
@@ -105,6 +101,61 @@ public class CourseTransactions {
 
      return null;
 
+    }
+  }
+
+  public static class DeleteCourse extends Transaction<Integer> {
+    private int courseId;
+
+    public DeleteCourse(int courseId) {
+      this.courseId = courseId;
+    }
+
+    @Override
+    public Integer action() {
+      Course c = null;
+      if (isAdmin()) {
+        CourseDAO crsDAO = HibernateUtil.getDAOFact().getCourseDAO();
+        c = crsDAO.findById(courseId);
+        if (c != null) {
+            crsDAO.makeTransient(c);
+        } else {
+          // Non admin entities don't need to know if that id exists
+          if (isAdmin()) {
+            responseCode = HttpStatus.NOT_FOUND;
+          }
+        }
+      } else {
+        responseCode = HttpStatus.UNAUTHORIZED;
+      }
+      return null;
+    }
+
+  }
+
+
+  public static class getComponents extends Transaction<List<Component>> {
+    private final int crsId;
+
+    public getComponents(int crsId) {
+      this.crsId = crsId;
+    }
+
+
+    @Override public List<Component> action() {
+      List<Component> cmps = null;
+      if (isStaff()) {
+        CourseDAO crsDAO = HibernateUtil.getDAOFact().getCourseDAO();
+        Course crs = crsDAO.findById(crsId);
+        if (crs != null) {
+          cmps = crs.getComponents();
+        } else {
+          responseCode = HttpStatus.NOT_FOUND;
+        }
+      } else {
+        responseCode = HttpStatus.UNAUTHORIZED;
+      }
+      return cmps;
     }
   }
 }

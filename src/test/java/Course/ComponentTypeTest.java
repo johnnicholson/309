@@ -1,21 +1,6 @@
 package Course;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.hibernate.SessionFactory;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-
 import Home.TestRunner;
-import Person.People;
 import controller.ComponentTypeController;
 import dao.ComponentTypeDAO;
 import dao.DAOFactory;
@@ -23,6 +8,15 @@ import dao.PersonDAO;
 import hibernate.HibernateUtil;
 import model.ComponentType;
 import model.Person.Role;
+import org.hibernate.SessionFactory;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class ComponentTypeTest {
   static PersonDAO prsDAO;
@@ -30,7 +24,6 @@ public class ComponentTypeTest {
   
   MockHttpServletResponse res;
   MockHttpServletRequest req;
-  People people;
 
   @BeforeClass
   public static void topSetup() {

@@ -24,5 +24,5 @@ public abstract class DAOFactory {
   public abstract CourseDAO getCourseDAO();
 
   public abstract EquipmentDAO getEquipmentDAO();
-
+  public abstract ComponentDAO getComponentDAO();
 }

@@ -1,22 +1,21 @@
 package controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import model.Component;
 import model.Course;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.web.bind.annotation.*;
+import transactions.ComponentTransactions;
+import transactions.CourseTransactions;
 import transactions.CourseTransactions.GetAllCourses;
 import transactions.CourseTransactions.GetCourse;
 import transactions.CourseTransactions.PostCourse;
 import transactions.CourseTransactions.PutCourse;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/course")
@@ -50,4 +49,26 @@ public class CourseController {
     return r;
   }
 
+  @RequestMapping(value = "/{crsId}", method = RequestMethod.DELETE)
+  public static void deleteCourse(@PathVariable(value="crsId") int crsId, MockHttpServletRequest req, MockHttpServletResponse res) {
+
+    new CourseTransactions.DeleteCourse(crsId).run(req, res);
+
+  }
+
+  @RequestMapping(value = "/{crsId}/component", method = RequestMethod.POST)
+  public static Integer postComponent(@RequestBody Component cmp, @PathVariable(value="crsId") int crsId, MockHttpServletRequest req,
+      MockHttpServletResponse res) {
+    Integer cmpId = new ComponentTransactions.PostComponent(cmp, crsId).run(req, res);
+    return cmpId;
+  }
+
+
+  @RequestMapping(value = "/{crsId}/component", method = RequestMethod.GET)
+  public static List<Component> getComponents(@PathVariable(value = "crsId") int crsId, MockHttpServletRequest req, MockHttpServletResponse res) {
+  List<Component> cmps = new CourseTransactions.getComponents(crsId).run(req, res);
+
+  return cmps;
+
+  }
 }

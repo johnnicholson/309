@@ -1,7 +1,6 @@
 package dao;
 
 import hibernate.HibernateUtil;
-
 import org.apache.log4j.Logger;
 
 public class HibernateDAOFactory extends DAOFactory {
@@ -17,6 +16,9 @@ public class HibernateDAOFactory extends DAOFactory {
 		return (EquipmentDAO) instantiateDAO(EquipmentDAO.class);
 	}
 
+	public ComponentDAO getComponentDAO() {
+		return (ComponentDAO) instantiateDAO(ComponentDAO.class);
+	}
   
   public RoomDAO getRoomDAO() {
 	  return (RoomDAO) instantiateDAO(RoomDAO.class);
