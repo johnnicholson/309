@@ -28,12 +28,9 @@
          <li>
             <a style="padding:0px;" ui-sref="home"><img class="logo" src="myfavicon.ico" style="height: 70px;"/></a>
          </li>
-         <li ng-if="!user">
-            <a ui-sref="login">Login</a>
-         </li>
-         <li ng-if="!user">
-            <a ui-sref="register">Register</a>
-         </li>
+         <li ng-if="!user"><a ui-sref="login">Login</a></li>
+         <li ng-if="!user"><a ui-sref="register">Register</a></li>
+         <li ng-if="!!user"><a ui-sref="setup">Setup</a></li>
       </ul>
       <ul ng-if="!!user" class="nav navbar-nav pull-right">
          <li >

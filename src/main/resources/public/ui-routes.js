@@ -33,5 +33,11 @@ app.config(['$stateProvider', '$urlRouterProvider',
          url: '/login',
          templateUrl: 'Login/login.template.html',
          controller: 'loginController',
+      })
+      .state('setup', {
+         parent: 'base',
+         url: '/setup',
+         templateUrl: 'Setup/setup.template.html',
+         controller: 'setupController',
       });
    }]);
