@@ -16,6 +16,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import Home.TestRunner;
 import Person.People;
 import controller.RoomController;
+import controller.RoomTypeController;
 import dao.RoomDAO;
 import dao.DAOFactory;
 import dao.PersonDAO;
@@ -71,6 +72,20 @@ public class RoomTest {
   }
   
   @Test
+  public void RoomFailGetTest() {
+
+	    app.Session mockSession = mock(app.Session.class);
+	    mockSession.role = Role.Student;
+	    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+
+	    when(rmDAO.findById(1)).thenReturn(null);
+	    Room rm = RoomController.getRoom(1, req, res);
+	    verify(rmDAO, times(1)).findById(1);
+	    assertEquals(rm, null);
+	    
+  }
+  
+  @Test
   public void RoomPostTest() {
   
 	  app.Session mockSession = mock(app.Session.class);
@@ -89,4 +104,16 @@ public class RoomTest {
 	  
   }
 
+  @Test
+  public void RoomDeleteTest() {
+
+		app.Session mockSession = mock(app.Session.class);
+		mockSession.role = Role.Admin;
+		when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+
+		Room mockRoom = mock(Room.class);
+		when(rmDAO.findById(1)).thenReturn(mockRoom);
+		RoomController.deleteRoom(1, req, res);
+		verify(rmDAO, times(1)).makeTransient(mockRoom);
+	}
 }
