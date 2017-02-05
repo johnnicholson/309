@@ -208,7 +208,7 @@ AU must be scheduler.
 Creates a component attached to a course.
 * workUnits {int} - faculty work units
 * hours {int} - hours per component for the week
-* typeID {int}
+* componentType {int}
 
 #### GET
 AU must be faculty or higher

@@ -2,10 +2,7 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @JsonAutoDetect
@@ -16,7 +13,7 @@ public class Component {
   }
   
   private Integer id;
-  private ComponentType typeID;
+  private ComponentType componentType;
   private Integer workUnits;
   private Integer hours;
 
@@ -28,11 +25,12 @@ public class Component {
   public void setId(Integer id) {
     this.id = id;
   }
-  public ComponentType getTypeID() {
-    return typeID;
+  @OneToOne
+  public ComponentType getComponentType() {
+    return componentType;
   }
-  public void setTypeID(ComponentType typeID) {
-    this.typeID = typeID;
+  public void setComponentType(ComponentType componentType) {
+    this.componentType = componentType;
   }
   public Integer getWorkUnits() {
     return workUnits;

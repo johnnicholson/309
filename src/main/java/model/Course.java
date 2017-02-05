@@ -1,7 +1,12 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@JsonAutoDetect
 public class Course {
   
   public Course() {
@@ -12,7 +17,9 @@ public class Course {
   private String name;
   private Integer units;
   private List<Component> components;
-  
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   public Integer getId() {
     return id;
   }
@@ -31,6 +38,7 @@ public class Course {
   public void setUnits(Integer units) {
     this.units = units;
   }
+  @OneToMany(fetch = FetchType.EAGER)
   public List<Component> getComponents() {
     return components;
   }
