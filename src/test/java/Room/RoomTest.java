@@ -21,6 +21,7 @@ import dao.DAOFactory;
 import dao.PersonDAO;
 import hibernate.HibernateUtil;
 import model.Room;
+import model.RoomType;
 import model.Person.Role;
 
 public class RoomTest {
@@ -78,7 +79,8 @@ public class RoomTest {
 	  
 	  Room mockrm = mock(Room.class);
 	  when(rmDAO.findById(1)).thenReturn(mockrm);
-	  Room rm = new Room(100, "14-255","Lecture Hall");
+	  RoomType roomType = new RoomType("Lecture Hall");
+	  Room rm = new Room(100, "14-255", roomType);
 	  RoomController.postRoom(rm, req, res);
 	  verify(rmDAO, times(1)).findById(1);
 	  Room rm2 = RoomController.getRoom(1, req, res);
