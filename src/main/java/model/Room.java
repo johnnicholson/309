@@ -33,7 +33,7 @@ public class Room {
 
   }
 
-  public Room(int capacity, String roomNumber, String roomType) {
+  public Room(int capacity, String roomNumber, RoomType roomType) {
     super();
     this.capacity = capacity;
     this.roomNumber = roomNumber;
@@ -44,7 +44,7 @@ public class Room {
   private Integer id;
   private Integer capacity;
   private String roomNumber;
-  private String roomType;
+  private RoomType roomType;
   
 
   @Id
@@ -77,11 +77,11 @@ public class Room {
   }
 
   @JsonProperty
-  public String getRoomType() {
+  public RoomType getRoomType() {
     return roomType;
   }
 
-  public void setRoomType(String roomType) {
+  public void setRoomType(RoomType roomType) {
     this.roomType = roomType;
   }
 
