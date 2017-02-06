@@ -1,4 +1,4 @@
-app.controller('setupController', ['$scope', '$state'],
+app.controller('setupController', ['$scope', '$state',
   function ($scope, $state) {
   
-  });
+  }]);
