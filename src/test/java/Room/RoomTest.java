@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.reset;
 import static org.junit.Assert.*;
 
 import org.hibernate.SessionFactory;
@@ -54,6 +55,7 @@ public class RoomTest {
   public void setup() {
     res = new MockHttpServletResponse();
     req = mock(MockHttpServletRequest.class);
+    reset(rmDAO);
   }
   
   @Test
@@ -80,7 +82,7 @@ public class RoomTest {
 
 	    when(rmDAO.findById(1)).thenReturn(null);
 	    Room rm = RoomController.getRoom(1, req, res);
-	    verify(rmDAO, times(1)).findById(1);
+	    verify(rmDAO, times(0)).findById(1);
 	    assertEquals(rm, null);
 	    
   }
@@ -92,15 +94,11 @@ public class RoomTest {
 	  mockSession.role = Role.Admin;
 	  when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
 	  
-	  Room mockrm = mock(Room.class);
-	  when(rmDAO.findById(1)).thenReturn(mockrm);
 	  RoomType roomType = new RoomType("Lecture Hall");
 	  Room rm = new Room(100, "14-255", roomType);
 	  RoomController.postRoom(rm, req, res);
-	  verify(rmDAO, times(1)).findById(1);
-	  Room rm2 = RoomController.getRoom(1, req, res);
-	  verify(rmDAO, times(2)).findById(1);
-	  assertEquals(rm2, mockrm);
+	  verify(rmDAO, times(1)).findByRoomNumber("14-255");
+	  verify(rmDAO).makePersistent(rm);
 	  
   }
 

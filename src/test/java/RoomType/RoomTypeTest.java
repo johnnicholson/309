@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.reset;
 import static org.junit.Assert.*;
 
 import org.hibernate.SessionFactory;
@@ -52,6 +53,7 @@ public class RoomTypeTest {
 	public void setup() {
 		res = new MockHttpServletResponse();
 		req = mock(MockHttpServletRequest.class);
+		reset(rtDAO);
 	}
 
 	@Test
@@ -64,7 +66,7 @@ public class RoomTypeTest {
 		RoomType mockrt = mock(RoomType.class);
 		when(rtDAO.findById(1)).thenReturn(mockrt);
 		RoomType rt = RoomTypeController.getRoomType(1, req, res);
-		verify(rtDAO, times(2)).findById(1);
+		verify(rtDAO, times(1)).findById(1);
 		assertEquals(rt, mockrt);
 
 	}
