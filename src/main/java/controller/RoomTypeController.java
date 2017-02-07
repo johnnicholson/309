@@ -17,12 +17,19 @@ import transactions.RoomTypeTransactions.GetAllRoomTypes;
 import transactions.RoomTypeTransactions.GetRoomType;
 import transactions.RoomTypeTransactions.PostRoomType;
 import transactions.RoomTypeTransactions.PutRoomType;
+import transactions.RoomTypeTransactions.DeleteRoomType;
 
 @RestController
 @RequestMapping(value = "/api/roomType")
 public class RoomTypeController {
 
 
+   @RequestMapping(value = "/{TypeId}", method = RequestMethod.GET)
+   public static RoomType getRoomType(@PathVariable(value = "TypeId") int typeId, HttpServletRequest req, HttpServletResponse res) {
+      RoomType r = new GetRoomType(typeId).run(req, res);
+	  return r;
+	}
+   
   @RequestMapping(value = "", method = RequestMethod.GET)
   public static List<RoomType> getAllRoomTypes(HttpServletRequest req, HttpServletResponse res) {
     List<RoomType> types = new GetAllRoomTypes().run(req, res);
@@ -30,13 +37,16 @@ public class RoomTypeController {
     return types;
   }
 
+  
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public static void postRoomType(@RequestBody RoomType type, HttpServletRequest req,
+  public static Integer postRoomType(@RequestBody RoomType type, HttpServletRequest req,
       HttpServletResponse res) {
     Integer typeId = new PostRoomType(type).run(req, res);
     res.setHeader("Location", "roomType/" + typeId);
-    return;
+    return typeId;
   }
+  
+ 
 
   @RequestMapping(value = "/{TypeId}", method = RequestMethod.PUT)
   public static void putRoom(@Valid @RequestBody RoomType type,
@@ -45,11 +55,12 @@ public class RoomTypeController {
     return;
   }
 
-  @RequestMapping(value = "/{RoomTypeId}", method = RequestMethod.GET)
-  public static RoomType getRoomType(@PathVariable(value = "TypeId") int typeId, HttpServletRequest req,
+  
+  
+  @RequestMapping(value = "/{TypeId}", method = RequestMethod.DELETE)
+  public static void deleteRoomType(@PathVariable(value = "TypeId") int typeId, HttpServletRequest req,
       HttpServletResponse res) {
-    RoomType r = new GetRoomType(typeId).run(req, res);
-    return r;
+    new DeleteRoomType(typeId).run(req, res);
   }
 
 

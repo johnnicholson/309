@@ -17,6 +17,7 @@ import transactions.RoomTransactions.GetAllRooms;
 import transactions.RoomTransactions.GetRoom;
 import transactions.RoomTransactions.PostRoom;
 import transactions.RoomTransactions.PutRoom;
+import transactions.RoomTransactions.DeleteRoom;
 
 @RestController
 @RequestMapping(value = "/api/room")
@@ -50,6 +51,12 @@ public class RoomController {
       HttpServletResponse res) {
     Room r = new GetRoom(roomId).run(req, res);
     return r;
+  }
+  
+  @RequestMapping(value = "/{RoomId}", method = RequestMethod.DELETE)
+  public static void deleteRoom(@PathVariable(value = "RoomId") int roomId, HttpServletRequest req,
+      HttpServletResponse res) {
+    new DeleteRoom(roomId).run(req, res);
   }
 
 

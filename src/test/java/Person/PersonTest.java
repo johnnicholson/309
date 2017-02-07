@@ -1,8 +1,6 @@
 package Person;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -20,8 +18,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import Home.TestRunner;
 import app.AuthInterceptor;
-import app.Session;
-import app.Util;
 import controller.PersonController;
 import controller.SessionController;
 import controller.SessionController.Login;
