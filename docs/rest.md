@@ -228,3 +228,29 @@ Fields are the same as /component POST
 AU must be scheduler.
 NO BODY
 
+# Term Resources
+## /term
+
+#### POST
+(optional) QueryPrm baseTermId
+* name
+* season
+* isPublished
+
+## /term/{termId}
+
+#### GET
+if isPublished, AU can be student, otherwise au must be Faculty
+* id
+* name
+* season
+* isPublished
+
+#### PUT
+AU must be Scheduler
+Same fields as get without id
+
+#### DELETE
+User must be Scheduler
+
+
