@@ -253,4 +253,24 @@ Same fields as get without id
 #### DELETE
 User must be Scheduler
 
+# Section Resources
 
+## /term/{termId}/section
+
+#### POST
+AU must be Scheduler 
+* Component
+  * id
+* startTime
+* endTime
+* daysOfWeek {List of enums?}
+
+## /section/{sectionId}
+
+#### GET
+-- TODO
+#### PUT
+-- TODO
+#### DELETE
+AU must be Scheduler
+NO BODY
