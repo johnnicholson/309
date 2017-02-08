@@ -12,7 +12,15 @@ import hibernate.HibernateUtil;
 import model.ComponentType;
 import model.Person;
 
+/* This class is the Transactions for the Component Type transactions
+ * 
+ * Christiana Ushana & John Nicholson
+ * Created on Feb 8 2017
+ */
 public class ComponentTypeTransactions {
+	/* GET Transaction
+	 * 
+	 */
 	public static class GetComponentType extends Transaction<ComponentType> {
 		private int cmpTypeID;
 
