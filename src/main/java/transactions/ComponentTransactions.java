@@ -6,6 +6,7 @@ import hibernate.HibernateUtil;
 import model.Component;
 import model.Course;
 import org.hibernate.Hibernate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -64,6 +65,32 @@ public class ComponentTransactions {
                 responseCode = HttpStatus.UNAUTHORIZED;
             }
             return cmp;
+        }
+    }
+
+
+    public static class PutComponent extends Transaction<Integer> {
+        private final Component cmp;
+        private final int cmpId;
+
+        public PutComponent(Component cmp, int cmpId) {
+            this.cmp = cmp;
+            this.cmpId = cmpId;
+        }
+
+        @Override
+        public Integer action() {
+            ComponentDAO cmpDAO = HibernateUtil.getDAOFact().getComponentDAO();
+            Component dbcmp = cmpDAO.findById(cmpId);
+            if (isAdmin()) {
+                BeanUtils.copyProperties(cmp, dbcmp, "id");
+            } else  {
+                this.responseCode = HttpStatus.UNAUTHORIZED;
+                return null;
+            }
+
+            return null;
+
         }
     }
 }

@@ -1,5 +1,6 @@
 package transactions;
 
+import com.google.api.services.gmail.Gmail.Users.Drafts.Delete;
 import dao.EquipmentDAO;
 import java.util.List;
 
@@ -102,4 +103,34 @@ public class EquipmentTransactions {
 
   }
 
+  public static class DeleteEquipment extends Transaction<Integer> {
+
+    private int equipID;
+
+    public DeleteEquipment(int equipID) {
+      this.equipID = equipID;
+    }
+
+    @Override
+    public Integer action() {
+      Equipment equipment = null;
+      EquipmentDAO equipDao = null;
+
+      // Check permissions
+      if (isAdmin()) {
+        equipDao = HibernateUtil.getDAOFact().getEquipmentDAO();
+        equipment = equipDao.findById(equipID);
+
+        // Delete if found
+        if (equipment != null) {
+          equipDao.makeTransient(equipment);
+        } else {
+          responseCode = HttpStatus.NOT_FOUND;
+        }
+      } else {
+        responseCode = HttpStatus.UNAUTHORIZED;
+      }
+      return null;
+    }
+  }
 }

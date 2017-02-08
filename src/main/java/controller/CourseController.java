@@ -2,8 +2,6 @@ package controller;
 
 import model.Component;
 import model.Course;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import transactions.ComponentTransactions;
 import transactions.CourseTransactions;
@@ -50,22 +48,22 @@ public class CourseController {
   }
 
   @RequestMapping(value = "/{crsId}", method = RequestMethod.DELETE)
-  public static void deleteCourse(@PathVariable(value="crsId") int crsId, MockHttpServletRequest req, MockHttpServletResponse res) {
+  public static void deleteCourse(@PathVariable(value="crsId") int crsId, HttpServletRequest req, HttpServletResponse res) {
 
     new CourseTransactions.DeleteCourse(crsId).run(req, res);
 
   }
 
   @RequestMapping(value = "/{crsId}/component", method = RequestMethod.POST)
-  public static Integer postComponent(@RequestBody Component cmp, @PathVariable(value="crsId") int crsId, MockHttpServletRequest req,
-      MockHttpServletResponse res) {
+  public static Integer postComponent(@RequestBody Component cmp, @PathVariable(value="crsId") int crsId, HttpServletRequest req,
+      HttpServletResponse res) {
     Integer cmpId = new ComponentTransactions.PostComponent(cmp, crsId).run(req, res);
     return cmpId;
   }
 
 
   @RequestMapping(value = "/{crsId}/component", method = RequestMethod.GET)
-  public static List<Component> getComponents(@PathVariable(value = "crsId") int crsId, MockHttpServletRequest req, MockHttpServletResponse res) {
+  public static List<Component> getComponents(@PathVariable(value = "crsId") int crsId, HttpServletRequest req, HttpServletResponse res) {
   List<Component> cmps = new CourseTransactions.getComponents(crsId).run(req, res);
 
   return cmps;

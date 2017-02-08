@@ -208,7 +208,7 @@ AU must be scheduler.
 Creates a component attached to a course.
 * workUnits {int} - faculty work units
 * hours {int} - hours per component for the week
-* typeID {int}
+* componentType {int}
 
 #### GET
 AU must be faculty or higher
@@ -228,3 +228,49 @@ Fields are the same as /component POST
 AU must be scheduler.
 NO BODY
 
+# Term Resources
+## /term
+
+#### POST
+(optional) QueryPrm baseTermId
+* name
+* season
+* isPublished
+
+## /term/{termId}
+
+#### GET
+if isPublished, AU can be student, otherwise au must be Faculty
+* id
+* name
+* season
+* isPublished
+
+#### PUT
+AU must be Scheduler
+Same fields as get without id
+
+#### DELETE
+User must be Scheduler
+
+# Section Resources
+
+## /term/{termId}/section
+
+#### POST
+AU must be Scheduler 
+* Component
+  * id
+* startTime
+* endTime
+* daysOfWeek {List of enums?}
+
+## /section/{sectionId}
+
+#### GET
+-- TODO
+#### PUT
+-- TODO
+#### DELETE
+AU must be Scheduler
+NO BODY

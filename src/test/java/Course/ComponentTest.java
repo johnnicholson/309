@@ -106,4 +106,19 @@ public class ComponentTest {
 
     assertEquals(cmps, crs.getComponents());
   }
+
+  @Test
+  public void putComponentTest() {
+
+    app.Session mockSession = mock(app.Session.class);
+    mockSession.role = Person.Role.Admin;
+    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+    Component cmp = new Component();
+    cmp.setHours(1);
+    Component mkcmp = mock(Component.class);
+    when(cmpDAO.findById(1)).thenReturn(mkcmp);
+    ComponentController.editComponent(cmp, 1, req, res);
+    verify(mkcmp).setHours(1);
+
+  }
 }

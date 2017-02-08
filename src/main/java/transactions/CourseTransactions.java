@@ -66,11 +66,15 @@ public class CourseTransactions {
     @Override
     public Integer action() {
       CourseDAO courseDAO = HibernateUtil.getDAOFact().getCourseDAO();
-      if (null == courseDAO.findByName(course.getName())){
-        courseDAO.makePersistent(course);
+      if (isAdmin()) {
+        if (course.getName() != null && null == courseDAO.findByName(course.getName())) {
+          courseDAO.makePersistent(course);
+        } else {
+          responseCode = HttpStatus.BAD_REQUEST;
+          return null;
+        }
       } else {
-        responseCode = HttpStatus.BAD_REQUEST;
-        return null;
+        responseCode = HttpStatus.UNAUTHORIZED;
       }
       return course.getId();
     }
