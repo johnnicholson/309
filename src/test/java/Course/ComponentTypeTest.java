@@ -18,6 +18,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+/* This class is the Tests for everything relating to the Component Type Model
+ * 
+ * Christiana Ushana & John Nicholson
+ * Created on Feb 8 2017
+ */
 public class ComponentTypeTest {
   static PersonDAO prsDAO;
   static ComponentTypeDAO ctDAO;
@@ -48,6 +53,9 @@ public class ComponentTypeTest {
     req = mock(MockHttpServletRequest.class);
   }
   
+  /* Get Test
+   * This method tests getting (a) component type object(s).
+   */
   @Test
   public void ComponentTypeGetTest() {
 
@@ -62,6 +70,9 @@ public class ComponentTypeTest {
     assertEquals(ct, mockct);
   }
   
+  /* Post Test
+   * This method tests creating a single component type object.
+   */
   @Test
   public void ComponentTypePostTest() {
     app.Session mockSession = mock(app.Session.class);
@@ -75,6 +86,9 @@ public class ComponentTypeTest {
     verify(ctDAO, times(1)).makePersistent(mockct);
   }
   
+  /* Put Test
+   * This method tests reassigning data for a single component type object.
+   */
   @Test
   public void ComponentTypePutTest() {
     app.Session mockSession = mock(app.Session.class);
@@ -91,6 +105,9 @@ public class ComponentTypeTest {
     verify(mockct).setDescription("newComponentType");
   }
   
+  /* Delete Test
+   * This method tests deletes a single component type object.
+   */
   @Test
   public void ComponentTypeDeleteTest() {
     app.Session mockSession = mock(app.Session.class);
