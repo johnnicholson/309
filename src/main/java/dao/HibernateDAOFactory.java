@@ -29,7 +29,11 @@ public class HibernateDAOFactory extends DAOFactory {
   }
   public CourseDAO getCourseDAO() {
     return (CourseDAO) instantiateDAO(CourseDAO.class);
-}
+  }
+  public TermDAO getTermDAO() {
+	  return ((TermDAO) instantiateDAO(TermDAO.class));
+  }
+  
 
 
 
