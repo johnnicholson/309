@@ -10,6 +10,6 @@ app.controller('addEquipmentController', ['$scope', '$state', '$http', 'notifyDl
     };
 
     scope.quit = function() {
-      $state.go('home');
+      $state.go('equipment');
     };
 }]);
