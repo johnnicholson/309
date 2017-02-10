@@ -4,3 +4,12 @@
     padding-top: 0;
     padding-bottom: 0;
 }
+
+.navbar-nav-center {
+  width: 100%;
+  text-align: center;
+    li {
+    float: none;
+    display: inline-block;
+  }
+}

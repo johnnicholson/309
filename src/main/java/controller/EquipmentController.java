@@ -38,7 +38,7 @@ public class EquipmentController {
     return equipID;
   }
 
-  @RequestMapping(value = "/equip", method = RequestMethod.GET)
+  @RequestMapping(value = "", method = RequestMethod.GET)
   public static List<Equipment> getEquipmentList(HttpServletRequest req,
       HttpServletResponse res) {
     List<Equipment> equipments = new GetEquipmentList().run(req, res);
