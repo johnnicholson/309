@@ -67,6 +67,9 @@ app.service("login", ["$http", "$rootScope", '$q', 'notifyDlg', '$state',
       },
       isLoggedIn: function() {
         return $rootScope.user === null;
+      },
+      isAdmin: function() {
+        return $rootScope.user && $rootScope.user.role === "Admin";
       }
     };
   }

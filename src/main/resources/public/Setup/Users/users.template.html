@@ -14,8 +14,8 @@
     <tr ng-repeat="user in users">
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
-      <td>{{users.username}}</td>
-      <td>{{users.role}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.role}}</td>
     </tr>
   </table>
   <div ng-if="!users">No users to display.</div>

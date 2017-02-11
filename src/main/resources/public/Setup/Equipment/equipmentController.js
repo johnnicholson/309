@@ -1,5 +1,8 @@
-app.controller('equipmentController', ['$scope', '$state', '$http', 'notifyDlg',
-function ($scope, $state, $http, notifyDlg) {
+app.controller('equipmentController', ['$scope', '$state', '$http', 'notifyDlg', 'login',
+function ($scope, $state, $http, notifyDlg, login) {
+
+  // Only admin users can edit
+  $scope.showEdit = login.isAdmin();
 
   // Define equipment endpoint interface
   $scope.fetchAllEquip = function() {
