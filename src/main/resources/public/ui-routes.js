@@ -48,6 +48,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
       .state('addequipment', {
         parent:'setup',
         url: '/addequipment',
+        params: {
+         equip: null
+        },
         templateUrl: 'Setup/Equipment/addequipment.template.html',
         controller: 'addEquipmentController'
       })
