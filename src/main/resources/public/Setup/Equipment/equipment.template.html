@@ -1,5 +1,5 @@
 <div>
-  <button ui-sref="addequipment" class="btn pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+  <button ui-sref="addequipment" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
   <table st-table="rowCollection" class="table table-striped">
     <thead>
       <tr>
@@ -10,7 +10,13 @@
     <tr ng-repeat="equip in equipment">
       <td>{{equip.name}}</td>
       <td>{{equip.description}}</td>
+      <td>
+        <div>
+        <button class="btn btn-warning pull-right" ng-click="removeEquip(equip.id)">DELETE</button>
+        </div>
+      </td>
     </tr>
   </table>
   <div ng-if="!equipment">No equipment to display.</div>
+
 </div>
