@@ -69,4 +69,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Setup/Users/users.template.html',
         controller: 'usersController'
       })
+      .state('rooms', {
+        parent: 'setup',
+        url: '/room',
+        templateUrl: 'Setup/Rooms/rooms.template.html',
+        controller: 'roomsController'
+      })
+
+
    }]);
