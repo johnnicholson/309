@@ -20,7 +20,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
          url: '/',
          templateUrl: 'Home/home.template.html',
          controller: 'homeController'
-
       })
       .state('register', {
          parent: 'base',
@@ -51,5 +50,23 @@ app.config(['$stateProvider', '$urlRouterProvider',
         url: '/addequipment',
         templateUrl: 'Setup/Equipment/addequipment.template.html',
         controller: 'addEquipmentController'
-      });
+      })
+      .state('roomtypes', {
+        parent: 'setup',
+        url: '/roomType',
+        templateUrl: 'Setup/RoomType/roomtypes.template.html',
+        controller: 'roomTypeController'
+      })
+      .state('addroomtype', {
+        parent: 'setup',
+        url: '/addroomtype',
+        templateUrl: 'Setup/RoomType/addRoomType.template.html',
+        controller: 'addRoomTypeController'
+      })
+      .state('users', {
+        parent: 'setup',
+        url: '/prss',
+        templateUrl: 'Setup/Users/users.template.html',
+        controller: 'usersController'
+      })
    }]);
