@@ -8,8 +8,9 @@
 .navbar-nav-center {
   width: 100%;
   text-align: center;
-    li {
-    float: none;
-    display: inline-block;
-  }
+}
+
+.cpn-edit-grp .btn {
+  margin-left: 3px;
+  margin-right: 3px;
 }
