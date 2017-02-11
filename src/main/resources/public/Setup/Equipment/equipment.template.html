@@ -12,7 +12,8 @@
       <td>{{equip.description}}</td>
       <td>
         <div>
-        <button class="btn btn-warning pull-right" ng-click="removeEquip(equip.id)">DELETE</button>
+        <button class="btn btn-danger pull-right" ng-click="removeEquip(equip.id)">DELETE</button>
+        <button class="btn btn-warning pull-right" ui-sref="addequipment({equip:equip})">EDIT</button>
         </div>
       </td>
     </tr>

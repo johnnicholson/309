@@ -30,6 +30,7 @@ function ($scope, $state, $http, notifyDlg) {
     });
   };
 
+
   // Fetch equip on startup
   $scope.fetchAllEquip();
 }]);
