@@ -101,6 +101,26 @@ public class RoomTest {
 	  verify(rmDAO).makePersistent(rm);
 	  
   }
+  
+  @Test
+  public void RoomPutTest() {
+    app.Session mockSession = mock(app.Session.class);
+    mockSession.role = Role.Admin;
+    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+    
+    Room mockrm = mock(Room.class);
+    when(rmDAO.findById(1)).thenReturn(mockrm);
+    Room otherRM = new Room();
+    otherRM.setCapacity(50);
+    otherRM.setRoomNumber("14-255");
+    RoomType rm = mock(RoomType.class);
+    otherRM.setRoomType(rm);
+    
+    RoomController.putRoom(otherRM, 1, req, res);
+    verify(mockrm).setCapacity(50);
+    verify(mockrm).setRoomNumber("14-255");
+    verify(mockrm).setRoomType(rm);
+  }
 
   @Test
   public void RoomDeleteTest() {

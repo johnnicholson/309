@@ -110,30 +110,6 @@ public class TermTransactions {
 	    }
 	  }
 	  
-	  public static class PutEquipment extends Transaction<Integer> {
-		    private Equipment equipment;
-		    private Integer id;
-
-		    public PutEquipment(Equipment equipment, Integer id) {
-		      this.equipment = equipment;
-		      this.id = id;
-		    }
-
-
-		    @Override
-		    public Integer action() {
-		      EquipmentDAO equipmentDAO = HibernateUtil.getDAOFact().getEquipmentDAO();
-		      Equipment dbequipment = equipmentDAO.findById(id);
-		      if (isAdmin()) {
-		        BeanUtils.copyProperties(equipment, dbequipment, "id");
-		      } else {
-		        this.responseCode = HttpStatus.UNAUTHORIZED;
-		      }
-		      return null;
-		    }
-
-
-		  }
 	  
 	  public static class DeleteTerm extends Transaction<Integer> {
 			private int termID;

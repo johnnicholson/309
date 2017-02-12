@@ -23,6 +23,7 @@ import transactions.TermTransactions.GetAllTerms;
 @RestController
 @RequestMapping(value = "/api/term")
 public class TermController {
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public static Term getTerm(@PathVariable(value = "TermID") int termID, 
 			HttpServletRequest req, HttpServletResponse res) {
