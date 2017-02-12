@@ -78,6 +78,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Setup/Rooms/rooms.template.html',
         controller: 'roomsController'
       })
+      .state('calendar', {
+        parent: 'base',
+        url: '/calendar',
+        templateUrl: 'Schedule/Calendar/calendar.template.html',
+        controller: 'calendarController'
+      })
 
 
    }]);
