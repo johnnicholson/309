@@ -78,6 +78,21 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Setup/Rooms/rooms.template.html',
         controller: 'roomsController'
       })
+      .state('componenttype', {
+        parent: 'setup',
+        url: '/component/type/',
+        templateUrl: 'Setup/ComponentType/componentType.template.html',
+        controller: 'componentTypeController'
+      })
+      .state('addeditcomponenttype', {
+        parent: 'setup',
+        url: '/component/type/addedit',
+        templateUrl: 'Setup/ComponentType/addEditComponentType.template.html',
+        controller: 'addEditComponentTypeController',
+        params: {
+          cType: null
+        }
+      })
       .state('calendar', {
         parent: 'base',
         url: '/calendar',
