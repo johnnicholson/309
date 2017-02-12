@@ -21,12 +21,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Home/home.template.html',
          controller: 'homeController'
       })
-      .state('register', {
-         parent: 'base',
-         url: '/register',
-         templateUrl: 'Register/register.template.html',
-         controller: 'registerController',
-      })
       .state('login', {
          parent: 'base',
          url: '/login',
@@ -71,6 +65,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
         url: '/prss',
         templateUrl: 'Setup/Users/users.template.html',
         controller: 'usersController'
+      })
+      .state('adduser', {
+        parent: 'setup',
+        url: '/prss/add',
+        templateUrl: 'Setup/Users/addUser.template.html',
+        controller: 'addUserController'
       })
       .state('rooms', {
         parent: 'setup',

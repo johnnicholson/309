@@ -1,6 +1,7 @@
-app.controller('usersController', ['$scope', '$state', '$http',
-  function ($scope, $state, $http) {
+app.controller('usersController', ['$scope', '$state', '$http', 'login',
+  function ($scope, $state, $http, login) {
 
+    $scope.showEdit = login.isAdmin();
     // Define users endpoint interface
     fetchAllUsers= function() {
         $http({

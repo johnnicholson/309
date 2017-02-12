@@ -29,6 +29,7 @@
 <script src="Setup/RoomType/roomTypeController.js"></script>
 <script src="Setup/RoomType/addRoomTypeController.js"></script>
 <script src="Setup/Users/usersController.js"></script>
+<script src="Setup/Users/addUserController.js"></script>
 <script src="Setup/Rooms/roomsController.js"></script>
 <script src="Setup/Equipment/addEquipmentController.js"></script>
 <script src="Setup/ComponentType/componentTypeController.js"></script>
@@ -45,7 +46,6 @@
             <a style="padding:0px;" ui-sref="home"><img class="logo" src="myfavicon.ico" style="height: 70px;"/></a>
          </li>
          <li ng-if="!user"><a ui-sref="login">login</a></li>
-         <li ng-if="!user"><a ui-sref="register">register</a></li>
          <li ng-if="!!user"><a ui-sref="setup">setup</a></li>
          <li ng-if="!!user"><a ui-sref="calendar">calendar</a></li>
       </ul>
