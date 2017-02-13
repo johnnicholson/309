@@ -22,7 +22,11 @@ public abstract class DAOFactory {
   public abstract RoomDAO getRoomDAO();
   public abstract RoomTypeDAO getRoomTypeDAO();
   public abstract CourseDAO getCourseDAO();
+  public abstract TermDAO getTermDAO();
 
   public abstract EquipmentDAO getEquipmentDAO();
   public abstract ComponentDAO getComponentDAO();
+  public abstract SectionDAO getSectionDAO();
+  
+  
 }

@@ -18,11 +18,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**This class represents the Room data type. 
+ * It contains an id which represents its place in the database. 
+ * It's fields include capacity, roomNumber, and roomType. 
+ * These can be modified through the get and set methods. 
+ * We overwrote the hashCode method which creates a hashCode based on the instance variables.
+ * We overwrote the equals method to check to see if two rooms have the same values.
+ * @author salonee and ryan
+ * @since 2017-02-08
+ */
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"roomNumber"})})
 @JsonAutoDetect

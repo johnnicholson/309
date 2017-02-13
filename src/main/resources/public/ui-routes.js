@@ -21,12 +21,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Home/home.template.html',
          controller: 'homeController'
       })
-      .state('register', {
-         parent: 'base',
-         url: '/register',
-         templateUrl: 'Register/register.template.html',
-         controller: 'registerController',
-      })
       .state('login', {
          parent: 'base',
          url: '/login',
@@ -50,7 +44,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
         url: '/addequipment',
         params: {
          equip: null
-        },
+       },
         templateUrl: 'Setup/Equipment/addequipment.template.html',
         controller: 'addEquipmentController'
       })
@@ -72,11 +66,32 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Setup/Users/users.template.html',
         controller: 'usersController'
       })
+      .state('adduser', {
+        parent: 'setup',
+        url: '/prss/add',
+        templateUrl: 'Setup/Users/addUser.template.html',
+        controller: 'addUserController'
+      })
       .state('rooms', {
         parent: 'setup',
         url: '/room',
         templateUrl: 'Setup/Rooms/rooms.template.html',
         controller: 'roomsController'
+      })
+      .state('componenttype', {
+        parent: 'setup',
+        url: '/component/type/',
+        templateUrl: 'Setup/ComponentType/componentType.template.html',
+        controller: 'componentTypeController'
+      })
+      .state('addeditcomponenttype', {
+        parent: 'setup',
+        url: '/component/type/addedit',
+        templateUrl: 'Setup/ComponentType/addEditComponentType.template.html',
+        controller: 'addEditComponentTypeController',
+        params: {
+          cType: null
+        }
       })
       .state('calendar', {
         parent: 'base',
