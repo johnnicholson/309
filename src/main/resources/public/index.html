@@ -4,20 +4,37 @@
     <title>309 Project</title>
     <link rel="icon" type="image/x-icon" href="/myfavicon.ico">
 </head>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="bower_components/file-saver/FileSaver.min.js"></script>
+<script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+<script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+<link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
 <link rel="stylesheet" href="theme.min.css">
 <link rel="stylesheet" href="custom.css">
 <script src="app.js"></script>
 <script src="Home/homeController.js"></script>
 <script src="Register/registerController.js"></script>
-<script src="Location/locationController.js"></script>
 <script src="Login/loginController.js"></script>
 <script src="Login/loginService.js"></script>
+<script src="Setup/setupController.js"></script>
+<script src="Setup/Equipment/equipmentController.js"></script>
+<script src="Setup/RoomType/roomTypeController.js"></script>
+<script src="Setup/RoomType/addRoomTypeController.js"></script>
+<script src="Setup/Users/usersController.js"></script>
+<script src="Setup/Users/addUserController.js"></script>
+<script src="Setup/Rooms/roomsController.js"></script>
+<script src="Setup/Equipment/addEquipmentController.js"></script>
+<script src="Setup/ComponentType/componentTypeController.js"></script>
+<script src="Setup/ComponentType/addEditComponentTypeController.js"></script>
+<script src="Schedule/Calendar/CalendarController.js"></script>
 <script src="Util/notifyDlg.js"></script>
 
 <script src="ui-routes.js"></script>
@@ -28,19 +45,16 @@
          <li>
             <a style="padding:0px;" ui-sref="home"><img class="logo" src="myfavicon.ico" style="height: 70px;"/></a>
          </li>
-         <li ng-if="!user">
-            <a ui-sref="login">Login</a>
-         </li>
-         <li ng-if="!user">
-            <a ui-sref="register">Register</a>
-         </li>
+         <li ng-if="!user"><a ui-sref="login">login</a></li>
+         <li ng-if="!!user"><a ui-sref="setup">setup</a></li>
+         <li ng-if="!!user"><a ui-sref="calendar">calendar</a></li>
       </ul>
       <ul ng-if="!!user" class="nav navbar-nav pull-right">
          <li >
-            <a>Signed in as: {{user.firstName}} {{user.lastName}}</a>
+            <a>signed in as: {{user.firstName}} {{user.lastName}}</a>
          </li>
          <li>
-            <a ng-click="logout()">Logout</a>
+            <a ng-click="logout()">logout</a>
          </li>
       </ul>
    </nav>

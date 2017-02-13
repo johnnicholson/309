@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.OneToOne;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import org.hibernate.validator.constraints.NotBlank;

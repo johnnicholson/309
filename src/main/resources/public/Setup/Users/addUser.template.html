@@ -1,0 +1,37 @@
+<div>
+  <form>
+    <fieldset class="form-group">
+      <label>Username</label>
+      <input type="username" class="form-control" placeholder="Enter username" ng-model="user.username">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>First Name</label>
+      <input type="text" class="form-control" placeholder="First Name" ng-model="user.firstName">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Last Name</label>
+      <input type="text" class="form-control" placeholder="Last Name" ng-model="user.lastName">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" placeholder="Password" ng-model="confPass">
+      <h3 ng-if="confPass != user.password">Passwords do not match</h3>
+    </fieldset>
+
+    <div class="form-group">
+      <label for="sel">Select user role:</label>
+      <select class="form-control" id="sell" ng-model="user.role">
+        <option value="Admin">Admin</option>
+        <option value="Staff">Faculty</option>
+      </select>
+    </div>
+
+    <button type="button" class="btn btn-primary" ng-click="registerUser()"
+    ng-disabled="user.password !== confPass">Submit</button>
+    <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
+  </form>
+</div>

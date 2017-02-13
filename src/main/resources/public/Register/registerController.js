@@ -10,7 +10,7 @@ app.controller('registerController', ['$scope', '$state', '$http', 'notifyDlg', 
       })
       .then(function(btn) {
          if (btn == "Yes") {
-            login.login({email: scope.user.email, password: scope.user.password});
+            login.login({username: scope.user.username, password: scope.user.password});
             $state.go('home');
          }
          else {
