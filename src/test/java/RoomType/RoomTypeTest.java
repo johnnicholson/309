@@ -17,11 +17,16 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import Home.TestRunner;
 import Person.People;
 import controller.RoomTypeController;
+import controller.SectionController;
 import dao.RoomTypeDAO;
 import dao.DAOFactory;
 import dao.PersonDAO;
 import hibernate.HibernateUtil;
+import model.Component;
+import model.Course;
+import model.Person;
 import model.RoomType;
+import model.Section;
 import model.Person.Role;
 
 public class RoomTypeTest {
@@ -90,6 +95,21 @@ public class RoomTypeTest {
 		assertEquals(rPost, check);
 
 	}
+	
+	@Test
+	public void RoomTypePutTest() {
+	   app.Session mockSession = mock(app.Session.class);
+	    mockSession.role = Role.Admin;
+	    when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
+	    
+	    RoomType mockrt = mock(RoomType.class);
+	    when(rtDAO.findById(1)).thenReturn(mockrt);
+	    RoomType otherRT = new RoomType();
+	    otherRT.setRoomType("Lecture");
+	    
+	    RoomTypeController.putRoomType(otherRT, 1, req, res);
+	    verify(mockrt).setRoomType("Lecture");
+	  }
 
 	@Test
 	public void RoomTypeDeleteTest() {

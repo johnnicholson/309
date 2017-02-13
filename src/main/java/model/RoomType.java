@@ -8,6 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**This class represents the RoomType data type. 
+ * It contains an id which represents its place in the database. 
+ * It's fields include the name of the RoomType.
+ * These can be modified through the get and set methods. 
+ * We overwrote the hashCode method which creates a hashCode based on the instance variables.
+ * We overwrote the equals method to check to see if two room types have the same values.
+ * @author salonee and ryan
+ * @since 2017-02-08
+ */
 @Entity
 @JsonAutoDetect
 public class RoomType {
