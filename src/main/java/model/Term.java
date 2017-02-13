@@ -40,9 +40,6 @@ public class Term {
 	    this.id = id;
   }
   
-  @Id
-  @JsonProperty
-  @GeneratedValue(strategy = GenerationType.AUTO)
   public String getName() {
 	    return name;
   }
@@ -51,9 +48,7 @@ public class Term {
 	    this.name = name;
   }
   
-  @Id
-  @JsonProperty
-  @GeneratedValue(strategy = GenerationType.AUTO)
+
   public Integer getStatus() {
 	    return status;
   }

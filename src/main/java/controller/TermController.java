@@ -24,7 +24,7 @@ import transactions.TermTransactions.GetAllTerms;
 @RequestMapping(value = "/api/term")
 public class TermController {
 	
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/{TermID}", method = RequestMethod.GET)
 	public static Term getTerm(@PathVariable(value = "TermID") int termID, 
 			HttpServletRequest req, HttpServletResponse res) {
 		Term t = new GetTerm(termID).run(req, res);
@@ -39,20 +39,20 @@ public class TermController {
 		return termID;
 	}
 	
-	@RequestMapping(value = "/term", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public static List<Term> getTermList(HttpServletRequest req, HttpServletResponse res) {
 		List<Term> ts = new GetAllTerms().run(req, res);
 		return ts;
 	}
 	
-	@RequestMapping(value = "/term/{TermID}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{TermID}", method = RequestMethod.PUT)
 	public static Integer putTerm(@Valid @RequestBody Term t, 
 			@PathVariable(value = "TermID") int tID, HttpServletRequest req, HttpServletResponse res) {
 		Integer termID = new PutTerm(t, tID).run(req, res);
 		return termID;
 	}
 	
-	@RequestMapping(value = "/term/{TermID}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{TermID}", method = RequestMethod.DELETE)
 	public static Integer deleteTerm(@PathVariable(value = "TermID") int tID, 
 			HttpServletRequest req, HttpServletResponse res) {
 		Integer termID = new DeleteTerm(tID).run(req, res);
