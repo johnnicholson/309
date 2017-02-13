@@ -101,13 +101,13 @@ public class SectionTest {
     othersect.setComponent(c);
     Course cs = mock(Course.class);
     othersect.setCourse(cs);
-    othersect.setStartTime(5);
+//    othersect.setStartTime(5);
     SectionController.putSection(othersect, 1, req, res);
     verify(mocksect).setNameSect("CPE309-01");
     verify(mocksect).setProf(p);
     verify(mocksect).setComponent(c);
     verify(mocksect).setCourse(cs);
-    verify(mocksect).setStartTime(5);
+//    verify(mocksect).setStartTime(5);
   }
  
   @Test
