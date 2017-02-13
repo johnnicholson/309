@@ -20,7 +20,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
          url: '/',
          templateUrl: 'Home/home.template.html',
          controller: 'homeController'
-
       })
       .state('register', {
          parent: 'base',
@@ -33,5 +32,58 @@ app.config(['$stateProvider', '$urlRouterProvider',
          url: '/login',
          templateUrl: 'Login/login.template.html',
          controller: 'loginController',
-      });
+      })
+      .state('setup', {
+         parent: 'base',
+         url: '/setup',
+         templateUrl: 'Setup/setup.template.html',
+         controller: 'setupController',
+      })
+      .state('equipment', {
+        parent:'setup',
+        url: '/equipment',
+        templateUrl: 'Setup/Equipment/equipment.template.html',
+        controller: 'equipmentController'
+      })
+      .state('addequipment', {
+        parent:'setup',
+        url: '/addequipment',
+        params: {
+         equip: null
+        },
+        templateUrl: 'Setup/Equipment/addequipment.template.html',
+        controller: 'addEquipmentController'
+      })
+      .state('roomtypes', {
+        parent: 'setup',
+        url: '/roomType',
+        templateUrl: 'Setup/RoomType/roomtypes.template.html',
+        controller: 'roomTypeController'
+      })
+      .state('addroomtype', {
+        parent: 'setup',
+        url: '/addroomtype',
+        templateUrl: 'Setup/RoomType/addRoomType.template.html',
+        controller: 'addRoomTypeController'
+      })
+      .state('users', {
+        parent: 'setup',
+        url: '/prss',
+        templateUrl: 'Setup/Users/users.template.html',
+        controller: 'usersController'
+      })
+      .state('rooms', {
+        parent: 'setup',
+        url: '/room',
+        templateUrl: 'Setup/Rooms/rooms.template.html',
+        controller: 'roomsController'
+      })
+      .state('calendar', {
+        parent: 'base',
+        url: '/calendar',
+        templateUrl: 'Schedule/Calendar/calendar.template.html',
+        controller: 'calendarController'
+      })
+
+
    }]);

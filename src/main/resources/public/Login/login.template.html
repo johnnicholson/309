@@ -1,8 +1,8 @@
 <div>
    <form>
       <fieldset class="form-group">
-        <label>Email address</label>
-        <input type="email" class="form-control" placeholder="Enter email" ng-model="user.email">
+        <label>Username</label>
+        <input type="username" class="form-control" placeholder="Enter username" ng-model="user.username">
       </fieldset>
       <fieldset class="form-group">
         <label>Password</label>
@@ -10,6 +10,6 @@
       </fieldset>
 
   <button type="submit" value="Submit" class="btn btn-primary" ng-click="login()"
-  ng-disabled="!user.password || !user.email">Submit</button>
+  ng-disabled="!user.password || !user.username">Submit</button>
 </form>
 </div>
