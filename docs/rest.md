@@ -19,7 +19,7 @@ Student
 Used to create a new person.
 * firstName {String}
 * lastName {String}
-* email {String} - must be a calpoly.edu email unless AU is faculty
+* username {String}
 * password {String}
 * role - (optional) AU must be admin to specify role other than student
 
@@ -34,8 +34,8 @@ Fields are the same as /prss/{prsId}
 Must be admin or prsId must be AU
 * firstName
 * lastName
+* username
 * role
-* email
 
 #### PUT
 Same fields as for GET, except email cannot be modified and modifying role is only
@@ -47,49 +47,6 @@ Removes the person in question, AU must be the person or staff
 
 
 
-_**AU must be a scheduler to modify or edit rooms**_
-
-# Room Resources
-## /room
-#### POST
-Used to create a new room.
-* building_roomNumber {String}
-* capacity{Integer} 
-* typeOfRoom {RoomType}
-
-#### GET
-returns an array of Rooms for that department
-AU will also be scheduler and faculty
-
-Fields are the same as /room/{roomID}
-
-
-## /room/{roomID}
-
-#### GET
-Returns a single room 
-* building_roomNumber
-* capacity
-* typeOfRoom
-Same fields as for POST, AU must be scheduler
-
-#### PUT 
-Same fields as for GET, AU must be admin
-
-#### DELETE
-Removes the room in question
-AU must be admin
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## Room Type Resources
@@ -97,11 +54,11 @@ AU must be admin
 
 #### POST
 Used to create a new room type.
-*roomType {String}
+* type {String}
 
 #### GET
 returns an array of room types
-*roomType {String}
+* type {String}
 
 
 
@@ -109,7 +66,7 @@ returns an array of room types
 
 #### GET
 Returns a single room type
-* roomType{String}
+* type {String}
 
 #### PUT 
 Same fields as for GET
@@ -118,7 +75,6 @@ Same fields as for GET
 Removes the room type in question
 
 
-
 # Equipment Resources
 
 ## /equip
@@ -140,7 +96,7 @@ Fields are the same as /equip/{equipID}
 Returns an equipment instance
 * name {String}
 * description {String}
-* id {Int}
+* id {int}
 
 #### PUT 
 Same fields as for GET, AU must be scheduler
@@ -148,6 +104,42 @@ Same fields as for GET, AU must be scheduler
 #### DELETE
 Removes the equipment instance
 AU must be scheduler
+
+
+
+_**AU must be a scheduler to modify or edit rooms**_
+
+# Room Resources
+## /room
+#### POST
+Used to create a new room.
+* roomNumber {String}
+* capacity{Integer} 
+* roomType RoomType {
+    id: {RoomType.id}
+  }
+* equipment Array<Equipment>
+ * id: Equipment.id
+
+#### GET
+returns an array of Rooms for that department
+AU will also be scheduler and faculty
+
+Fields are the same as /room/{roomID}
+
+
+## /room/{roomID}
+
+#### GET
+Returns a single room 
+Same fields as for POST, AU must be scheduler
+
+#### PUT 
+Same fields as for GET, AU must be admin
+
+#### DELETE
+Removes the room in question
+AU must be admin
 
 
 ## Component Type Resources (could nest inside components)
@@ -179,6 +171,7 @@ AU must be scheduler.
 * name {String}
 * units {int}
 * components {array} - (optional) array of components
+
 
 #### GET
 AU must be faculty or higher.
