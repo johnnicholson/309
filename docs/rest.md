@@ -227,7 +227,7 @@ NO BODY
 #### POST
 (optional) QueryPrm baseTermId
 * name {String} - name and year of term
-* isPublished {int} - published (1) or not published (0)
+* isPublished {boolean} - published or not published
 
 ## /term/{termId}
 
@@ -252,7 +252,7 @@ User must be Scheduler
 AU must be Scheduler 
 * name {String}
 * comp {Component}
-* course {Course} 
+  * id
 * prof {Person}
 * startTime {Date}
 * endTime {Date}
