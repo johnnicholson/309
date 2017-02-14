@@ -226,9 +226,8 @@ NO BODY
 
 #### POST
 (optional) QueryPrm baseTermId
-* name
-* season
-* isPublished
+* name {String} - name and year of term
+* isPublished {int} - published (1) or not published (0)
 
 ## /term/{termId}
 
@@ -236,7 +235,6 @@ NO BODY
 if isPublished, AU can be student, otherwise au must be Faculty
 * id
 * name
-* season
 * isPublished
 
 #### PUT
@@ -252,18 +250,29 @@ User must be Scheduler
 
 #### POST
 AU must be Scheduler 
-* Component
-  * id
-* startTime
-* endTime
-* daysOfWeek {List of enums?}
-
-## /section/{sectionId}
+* name {String}
+* comp {Component}
+* course {Course} 
+* prof {Person}
+* startTime {Date}
+* endTime {Date}
 
 #### GET
--- TODO
+AU must be faculty or higher.
+Fields are the same as /section POST 
+Return a list of sections.
+
+## /section/{sectionId}
+#### GET
+AU must be faculty or higher.
+Fields are the same as /section POST with the addition of:
+* id {int}
+Returns a single section.
+
 #### PUT
--- TODO
+AU must be scheduler.
+Fields are the same as /section POST
+
 #### DELETE
-AU must be Scheduler
+AU must be scheduler.
 NO BODY
