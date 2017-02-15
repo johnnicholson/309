@@ -47,6 +47,20 @@ app.config(['$stateProvider', '$urlRouterProvider',
        },
         templateUrl: 'Setup/Equipment/addequipment.template.html',
         controller: 'addEquipmentController'
+      }).state('course', {
+        parent:'setup',
+        url: '/course',
+        templateUrl: 'Setup/Course/course.template.html',
+        controller: 'courseController'
+      })
+      .state('addcourse', {
+        parent:'setup',
+        url: '/addcourse',
+        params: {
+         course: null
+       },
+        templateUrl: 'Setup/Course/addcourse.template.html',
+        controller: 'addCourseController'
       })
       .state('roomtypes', {
         parent: 'setup',
