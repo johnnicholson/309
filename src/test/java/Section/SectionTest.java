@@ -1,13 +1,21 @@
-package Course;
+package Section;
 
 import Home.TestRunner;
 import controller.ComponentTypeController;
-import dao.ComponentTypeDAO;
+import controller.TermController;
+import controller.SectionController;
+import dao.TermDAO;
 import dao.DAOFactory;
 import dao.PersonDAO;
+import dao.SectionDAO;
 import hibernate.HibernateUtil;
 import model.ComponentType;
+import model.Component;
+import model.Course;
+import model.Term;
 import model.Person.Role;
+import model.Person;
+import model.Section;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -17,15 +25,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.reset;
 
-/* This class is the Tests for everything relating to the Component Type Model
- * 
- * Christiana Ushana & John Nicholson
- * Created on Feb 8 2017
- */
-public class ComponentTypeTest {
+public class SectionTest {
   static PersonDAO prsDAO;
-  static ComponentTypeDAO ctDAO;
+  static SectionDAO sectDAO;
   
   MockHttpServletResponse res;
   MockHttpServletRequest req;
@@ -34,9 +38,9 @@ public class ComponentTypeTest {
   public static void topSetup() {
     DAOFactory fact = TestRunner.getMockFact();
     prsDAO = mock(PersonDAO.class);
-    ctDAO = mock(ComponentTypeDAO.class);
+    sectDAO = mock(SectionDAO.class);
     when(fact.getPersonDAO()).thenReturn(prsDAO);
-    when(fact.getComponentTypeDAO()).thenReturn(ctDAO);
+    when(fact.getSectionDAO()).thenReturn(sectDAO);
 
     HibernateUtil.setDAOFactory(fact);
     org.hibernate.Session ssn = mock(org.hibernate.Session.class);
@@ -51,73 +55,71 @@ public class ComponentTypeTest {
   public void setup() {
     res = new MockHttpServletResponse();
     req = mock(MockHttpServletRequest.class);
+    reset(sectDAO);
   }
   
-  /* Get Test
-   * This method tests getting (a) component type object(s).
-   */
   @Test
-  public void ComponentTypeGetTest() {
+  public void SectionGetTest() {
 
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Staff;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
 
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.findById(1)).thenReturn(mockct);
-    ComponentType ct = ComponentTypeController.getComponentType(1, req, res);
-    verify(ctDAO, times(2)).findById(1);
-    assertEquals(ct, mockct);
+    Section mocksect = mock(Section.class);
+    when(sectDAO.findById(1)).thenReturn(mocksect);
+    Section s = SectionController.getSection(1, req, res);
+    verify(sectDAO, times(1)).findById(1);
+    assertEquals(s, mocksect);
   }
   
-  /* Post Test
-   * This method tests creating a single component type object.
-   */
   @Test
-  public void ComponentTypePostTest() {
+  public void SectionPostTest() {
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Admin;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
-
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.makePersistent(mockct)).thenReturn(mockct);
-    Integer id = ComponentTypeController.postComponentType(mockct, req, res);
-    verify(ctDAO, times(1)).makePersistent(mockct);
+    Section mocksect = mock(Section.class);
+    when(sectDAO.makePersistent(mocksect)).thenReturn(mocksect);
+    SectionController.postSection(mocksect, req, res);
+    verify(sectDAO, times(1)).makePersistent(mocksect);
   }
   
-  /* Put Test
-   * This method tests reassigning data for a single component type object.
-   */
   @Test
-  public void ComponentTypePutTest() {
+  public void SectionPutTest() {
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Admin;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.findById(1)).thenReturn(mockct);
-    ComponentType otherct = new ComponentType();
-    otherct.setName("newComponentName");
-    otherct.setDescription("newComponentType");
-    ComponentTypeController.putComponentType(otherct, 1, req, res);
-    verify(mockct).setName("newComponentName");
-    verify(mockct).setDescription("newComponentType");
+    Section mocksect = mock(Section.class);
+    when(sectDAO.findById(1)).thenReturn(mocksect);
+    Section othersect = new Section();
+    othersect.setNameSect("CPE309-01");
+    //othersect.setStatus(1);
+    Person p = mock(Person.class);
+    othersect.setProf(p);
+    Component c = mock(Component.class);
+    othersect.setComponent(c);
+    Course cs = mock(Course.class);
+    othersect.setCourse(cs);
+//    othersect.setStartTime(5);
+    SectionController.putSection(othersect, 1, req, res);
+    verify(mocksect).setNameSect("CPE309-01");
+    verify(mocksect).setProf(p);
+    verify(mocksect).setComponent(c);
+    verify(mocksect).setCourse(cs);
+//    verify(mocksect).setStartTime(5);
   }
-  
-  /* Delete Test
-   * This method tests deletes a single component type object.
-   */
+ 
   @Test
-  public void ComponentTypeDeleteTest() {
+  public void SectionDeleteTest() {
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Admin;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.findById(1)).thenReturn(mockct);
-    Integer id = ComponentTypeController.deleteComponentType(1, req, res);
-    verify(ctDAO, times(1)).makeTransient(mockct);
+    Section mocksect = mock(Section.class);
+    when(sectDAO.findById(1)).thenReturn(mocksect);
+    SectionController.deleteSection(1, req, res);
+    verify(sectDAO, times(1)).makeTransient(mocksect);
   }
 
 }

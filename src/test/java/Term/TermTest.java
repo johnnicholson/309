@@ -1,12 +1,14 @@
-package Course;
+package Term;
 
 import Home.TestRunner;
 import controller.ComponentTypeController;
-import dao.ComponentTypeDAO;
+import controller.TermController;
+import dao.TermDAO;
 import dao.DAOFactory;
 import dao.PersonDAO;
 import hibernate.HibernateUtil;
 import model.ComponentType;
+import model.Term;
 import model.Person.Role;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
@@ -17,15 +19,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.reset;
 
-/* This class is the Tests for everything relating to the Component Type Model
- * 
- * Christiana Ushana & John Nicholson
- * Created on Feb 8 2017
- */
-public class ComponentTypeTest {
+public class TermTest {
   static PersonDAO prsDAO;
-  static ComponentTypeDAO ctDAO;
+  static TermDAO termDAO;
   
   MockHttpServletResponse res;
   MockHttpServletRequest req;
@@ -34,9 +32,9 @@ public class ComponentTypeTest {
   public static void topSetup() {
     DAOFactory fact = TestRunner.getMockFact();
     prsDAO = mock(PersonDAO.class);
-    ctDAO = mock(ComponentTypeDAO.class);
+    termDAO = mock(TermDAO.class);
     when(fact.getPersonDAO()).thenReturn(prsDAO);
-    when(fact.getComponentTypeDAO()).thenReturn(ctDAO);
+    when(fact.getTermDAO()).thenReturn(termDAO);
 
     HibernateUtil.setDAOFactory(fact);
     org.hibernate.Session ssn = mock(org.hibernate.Session.class);
@@ -51,73 +49,61 @@ public class ComponentTypeTest {
   public void setup() {
     res = new MockHttpServletResponse();
     req = mock(MockHttpServletRequest.class);
+    reset(termDAO);
   }
   
-  /* Get Test
-   * This method tests getting (a) component type object(s).
-   */
   @Test
-  public void ComponentTypeGetTest() {
+  public void TermGetTest() {
 
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Staff;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
 
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.findById(1)).thenReturn(mockct);
-    ComponentType ct = ComponentTypeController.getComponentType(1, req, res);
-    verify(ctDAO, times(2)).findById(1);
-    assertEquals(ct, mockct);
+    Term mockterm = mock(Term.class);
+    when(termDAO.findById(1)).thenReturn(mockterm);
+    Term t = TermController.getTerm(1, req, res);
+    verify(termDAO, times(1)).findById(1);
+    assertEquals(t, mockterm);
   }
   
-  /* Post Test
-   * This method tests creating a single component type object.
-   */
   @Test
-  public void ComponentTypePostTest() {
+  public void TermPostTest() {
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Admin;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
-
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.makePersistent(mockct)).thenReturn(mockct);
-    Integer id = ComponentTypeController.postComponentType(mockct, req, res);
-    verify(ctDAO, times(1)).makePersistent(mockct);
+    Term mockterm = mock(Term.class);
+    when(termDAO.makePersistent(mockterm)).thenReturn(mockterm);
+    Integer id = TermController.postTerm(mockterm, req, res);
+    verify(termDAO, times(1)).makePersistent(mockterm);
   }
   
-  /* Put Test
-   * This method tests reassigning data for a single component type object.
-   */
   @Test
-  public void ComponentTypePutTest() {
+  public void TermPutTest() {
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Admin;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.findById(1)).thenReturn(mockct);
-    ComponentType otherct = new ComponentType();
-    otherct.setName("newComponentName");
-    otherct.setDescription("newComponentType");
-    ComponentTypeController.putComponentType(otherct, 1, req, res);
-    verify(mockct).setName("newComponentName");
-    verify(mockct).setDescription("newComponentType");
+    Term mockterm = mock(Term.class);
+    when(termDAO.findById(1)).thenReturn(mockterm);
+    Term otherterm = new Term();
+    otherterm.setName("newTermWithDate");
+    otherterm.setStatus(1);
+    TermController.putTerm(otherterm, 1, req, res);
+    verify(mockterm).setName("newTermWithDate");
+    verify(mockterm).setStatus(1);
   }
-  
-  /* Delete Test
-   * This method tests deletes a single component type object.
-   */
+ 
   @Test
-  public void ComponentTypeDeleteTest() {
+  public void TermDeleteTest() {
     app.Session mockSession = mock(app.Session.class);
     mockSession.role = Role.Admin;
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
-    ComponentType mockct = mock(ComponentType.class);
-    when(ctDAO.findById(1)).thenReturn(mockct);
-    Integer id = ComponentTypeController.deleteComponentType(1, req, res);
-    verify(ctDAO, times(1)).makeTransient(mockct);
+    Term mockterm = mock(Term.class);
+    when(termDAO.findById(1)).thenReturn(mockterm);
+    Integer id = TermController.deleteTerm(1, req, res);
+    verify(termDAO, times(1)).makeTransient(mockterm);
   }
 
 }

@@ -12,7 +12,15 @@ import hibernate.HibernateUtil;
 import model.ComponentType;
 import model.Person;
 
+/* This class is the Transactions for the Component Type transactions
+ * 
+ * Christiana Ushana & John Nicholson
+ * Created on Feb 8 2017
+ */
 public class ComponentTypeTransactions {
+	/* GET Transaction
+	 * This transaction returns a single component type object
+	 */
 	public static class GetComponentType extends Transaction<ComponentType> {
 		private int cmpTypeID;
 
@@ -37,6 +45,9 @@ public class ComponentTypeTransactions {
 		}
 	}
 	
+	/* POST Transaction
+	 * This transaction creates a single component type object
+	 */
 	public static class PostComponentType extends Transaction<Integer> {
 		private ComponentType ct;
 
@@ -57,6 +68,9 @@ public class ComponentTypeTransactions {
 	    }
 	}
 	
+	/* GET Transaction
+	 * This transaction returns a list of component type objects
+	 */
 	public static class GetComponentTypeList extends Transaction<List<ComponentType>> {
 		@Override
 		public List<ComponentType> action() {
@@ -75,6 +89,9 @@ public class ComponentTypeTransactions {
 		}
 	}
 	
+	/* PUT Transaction
+	 * This transaction reassigns values in a single component type object
+	 */
 	public static class PutComponentType extends Transaction<Integer> {
 		private ComponentType ct;
 	    private Integer id;
@@ -102,6 +119,9 @@ public class ComponentTypeTransactions {
 	    }
 	}
 	
+	/* DELETE Transaction
+	 * This transaction deletes a single component type object
+	 */
 	public static class DeleteComponentType extends Transaction<Integer> {
 		private int cmpTypeID;
 

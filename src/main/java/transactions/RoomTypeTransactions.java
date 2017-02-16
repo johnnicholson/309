@@ -10,11 +10,20 @@ import org.springframework.beans.BeanUtils;
 import org.hibernate.Hibernate;
 
 import java.util.List;
-
+/**This represents a RoomTypeTransaction class that holds all the transactions (HTTPS verbs).
+ * 
+ * @author salonee and ryan
+ * @since 2017-02-08
+ */
 public class RoomTypeTransactions {
 
+	/** This class represents how the GetAllRoomTypes method in the Controller interacts with our database.
+	 */
 	public static class GetAllRoomTypes extends Transaction<List<RoomType>> {
 
+		/** The action method creates a DAO for room types and retrieves all of them.
+		 * @return - list of room types in database if there is any, otherwise null.
+		 */
 		@Override
 		public List<RoomType> action() {
 			if (isAdmin()) {
