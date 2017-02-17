@@ -135,4 +135,34 @@ public class PersonTransactions {
 
     }
   }
+
+    public static class DeletePerson extends Transaction<Integer>{
+
+    private int prsID;
+
+    public DeletePerson(int prsId) {
+      this.prsID = prsId;
+    }
+
+    @Override
+    public Integer action() {
+      PersonDAO prsDAO;
+      Person prs;
+      // Check permissions
+      if (isAdmin()) {
+        prsDAO = HibernateUtil.getDAOFact().getPersonDAO();
+        prs = prsDAO.findById(prsID);
+
+        // Delete if found
+        if (prs != null) {
+          prsDAO.makeTransient(prs);
+        } else {
+          responseCode = HttpStatus.NOT_FOUND;
+        }
+      } else {
+        responseCode = HttpStatus.UNAUTHORIZED;
+      }
+      return null;
+    }
+  }
 }
