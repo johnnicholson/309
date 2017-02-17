@@ -1,5 +1,5 @@
-app.controller('usersController', ['$scope', '$state', '$http', 'login',
-function ($scope, $state, $http, login) {
+app.controller('usersController', ['$scope', '$state', '$http', 'login', 'notifyDlg',
+function ($scope, $state, $http, login, notifyDlg) {
 
   $scope.showEdit = login.isAdmin();
   // Define users endpoint interface
