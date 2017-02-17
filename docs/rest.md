@@ -276,3 +276,89 @@ Fields are the same as /section POST
 #### DELETE
 AU must be scheduler.
 NO BODY
+
+#Filter Queries
+AU must be scheduler.
+
+## /filter
+
+#### GET
+Returns a list of all data tables that can be filtered.
+
+## /filter{?table}
+* table {enum} - Name of selected CSV file
+  - demand - Historic Demand Data
+  - cohort - Student Cohort Data
+  - plan - Student Plan Data
+
+#### GET
+Returns specified table from database.
+
+## /filter?table=demand&{term, course, courselvl, util}
+* term {Term} (optional)
+  - id {Term.id}
+* course {Course} (optional)
+  - id {Course.id}
+* courselvl {enum} (optional)
+  - 1 - returns all courses starting with this number
+  - 2 - returns all courses starting with this number
+  - 3 - returns all courses starting with this number
+  - 4 - returns all courses starting with this number
+  - 5 - returns all courses starting with this number
+* util {int} (optional) - returns all courses with a Utilization greater than or equal to input
+
+#### GET
+Returns filtered table according to inputs.
+
+## /filter?table=cohort&{term, course, courselvl, class, major}
+* term {Term} (optional)
+  - id {Term.id}
+* course {Course} (optional)
+  - id {Course.id}
+* courselvl {enum} (optional)
+  - 1 - returns all courses starting with this number
+  - 2 - returns all courses starting with this number
+  - 3 - returns all courses starting with this number
+  - 4 - returns all courses starting with this number
+  - 5 - returns all courses starting with this number
+* class {enum} (optional)
+  - fresh - returns all Students that are Freshman
+  - soph - returns all Students that are Sophomores
+  - jun - returns all Students that are Juniors
+  - sen - returns all Students that are Seniors
+* major {enum} (optional)
+  - CSC - Returns all Students that are CSC majors
+  - SE - Returns all Students that are SE majors
+  - CPE - Returns all Students that are CPE majors
+
+#### GET
+Returns filtered table according to inputs.
+
+## /filter?table=plan&{term, college, department, course, courselvl, courseid, subject, catalognum, title, component, requirement, demand, offer, capacity, unmet, percentunmet}
+* term {Term}
+  - id {Term.id}
+* college {String}
+* department {String} (optional)
+* course {Course} (optional)
+  - id {Course.id}
+* courselvl {enum} (optional)
+  - 1 - returns all courses starting with this number
+  - 2 - returns all courses starting with this number
+  - 3 - returns all courses starting with this number
+  - 4 - returns all courses starting with this number
+  - 5 - returns all courses starting with this number
+* courseid {int} (optional)
+* subject {String} (optional)
+* catalognum {int} (optional)
+* title {String} - Returns all Courses with this String in their name
+* component {Component} (optional)
+  - id {Component.id}
+* requirement {String} (optional) - Returns all Courses with this requirement type. ex: COOP
+* demand {int} (optional) - Returns all Courses with this many or more seats demanded.
+* offer {int} (optional) - Returns all Courses with this many or more Sections offered.
+* capacity {int} (optional) - Returns all Courses with this many or more seats available.
+* unmet {int} (optional) - Returns all Courses with this many or more seats demanded.
+* percentunmet {int} (optional) - Returns all Courses with this much or more percent of unmet demand.
+
+#### GET
+Returns filtered table according to inputs.
