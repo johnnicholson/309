@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.Person;
+import transactions.PersonTransactions;
 import transactions.PersonTransactions.ChangePassword;
 import transactions.PersonTransactions.GetAllPeople;
 import transactions.PersonTransactions.GetPerson;
@@ -55,6 +56,13 @@ public class PersonController {
       HttpServletResponse res) {
     Person p = new GetPerson(prsId).run(req, res);
     return p;
+  }
+
+  @RequestMapping(value = "/{PrsId}", method = RequestMethod.DELETE)
+  public static void deletePerson(@PathVariable(value = "PrsId") int prsId, HttpServletRequest req,
+      HttpServletResponse res) {
+    new PersonTransactions.DeletePerson(prsId).run(req, res);
+    return;
   }
 
   @RequestMapping(value = "/{PrsId}/password", method = RequestMethod.PUT)
