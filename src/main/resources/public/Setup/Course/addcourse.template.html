@@ -1,27 +1,48 @@
 <div>
   <form>
-  <fieldset class="form-group">
-    <label>Course Name</label>
-    <input type="text" class="form-control" placeholder="Enter equipment name" ng-model="course.name">
-  </fieldset>
-  <fieldset class="form-group">
-    <label>Number Of Units</label>
-    <input type="number" class="form-control" placeholder="4" ng-model="course.units">
-  </fieldset>
-    <div class="btn-group" uib-dropdown is-open="status.isopen" on-toggle="toggled(open)">
-      <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-        Button dropdown <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-        <li ng-repeat="comp in componentTypes">
-          {{comp.name}}
-        </li>
-      </ul>
+    <fieldset class="form-group">
+      <label>Course Name</label>
+      <input type="text" class="form-control" placeholder="Enter course name" ng-model="course.name">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Number Of Units</label>
+      <input type="number" class="form-control" placeholder="4" ng-model="course.units">
+    </fieldset>
+    <div>
+      <div>
+        <label>Components</label>
+        <button ng-click="addComponent()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+      </div>
+      <table st-table="rowCollection" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Work Units</th>
+            <th>Hours</th>
+          </tr>
+        </thead>
+        <tr ng-repeat="component in course.components">
+          <td>
+            <div class="form-group">
+              <select class="form-control" id="sell" ng-model="component.componentType.id">
+                <option ng-repeat="cType in componentTypes" value="{{cType.id}}">{{cType.name}}</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <fieldset class="form-group">
+              <input type="number" class="form-control" placeholder="3" ng-model="component.workUnits">
+            </fieldset>
+          </td>
+          <td>
+            <fieldset class="form-group">
+              <input type="number" class="form-control" placeholder="3" ng-model="component.hours">
+            </fieldset></td>
+        </tr>
+      </table>
     </div>
 
-
-
-  <button type="button" class="btn btn-primary" ng-click="addCourse()">Submit</button>
-  <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
+    <button type="button" class="btn btn-primary" ng-click="addCourse()">Submit</button>
+    <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
   </form>
 </div>

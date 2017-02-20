@@ -1,12 +1,14 @@
 app.controller('addCourseController', ['$scope', '$state', '$http', 'notifyDlg', '$stateParams', function(scope, $state, $http, nDlg, params) {
 
-  if (params.course === null)
-    scope.course = {units:4};
-  else
-    scope.course = params.course;
-  scope.toggled = function(open) {
-    console.log(open + " clicked");
+  if (params.course === null) {
+      scope.course = {units:4};
   }
+  else {
+      scope.course = params.course;
+  }
+
+  scope.course.components = [];
+
   $http.get("/api/component/type")
   .then(function(response) {
     scope.componentTypes = response.data;
@@ -36,6 +38,12 @@ app.controller('addCourseController', ['$scope', '$state', '$http', 'notifyDlg',
     }
 
   };
+
+  // adds a new component to the selected course
+  scope.addComponent = function() {
+    console.log(scope.course.components);
+    scope.course.components.push({});
+  }
 
   scope.quit = function() {
     $state.go('course');

@@ -38,7 +38,7 @@ public class Course {
   public void setUnits(Integer units) {
     this.units = units;
   }
-  @OneToMany(fetch = FetchType.EAGER)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   public List<Component> getComponents() {
     return components;
   }

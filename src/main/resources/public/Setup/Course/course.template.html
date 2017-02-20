@@ -4,12 +4,19 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Description</th>
+        <th>Units</th>
+        <th>Components</th>
       </tr>
     </thead>
     <tr ng-repeat="course in courses">
       <td>{{course.name}}</td>
-      <td>{{course.description}}</td>
+      <td>{{course.units}}</td>
+      <td>
+        <span ng-if="!course.components[0]">No components added yet</span>
+        <ul class="list-unstyled pull-left">
+          <li ng-repeat="component in course.components">{{component.componentType.name}} | {{component.workUnits}} Work Units</li>
+        </ul>
+      </td>
       <td>
         <div ng-if="showEdit" class="btn-group-sm cpn-edit-grp">
           <button class="btn btn-primary pull-right" ui-sref="addcourse({course:course})">
