@@ -72,7 +72,10 @@ app.config(['$stateProvider', '$urlRouterProvider',
         parent: 'setup',
         url: '/addroomtype',
         templateUrl: 'Setup/RoomType/addRoomType.template.html',
-        controller: 'addRoomTypeController'
+        controller: 'addRoomTypeController',
+        params: {
+          roomtype: null
+        }
       })
       .state('users', {
         parent: 'setup',

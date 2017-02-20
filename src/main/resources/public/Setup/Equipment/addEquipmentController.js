@@ -5,6 +5,8 @@ app.controller('addEquipmentController', ['$scope', '$state', '$http', 'notifyDl
   else
     scope.equipment = params.equip;
 
+
+
   scope.addEquipment = function() {
     if (scope.equipment.id === undefined) {
       $http.post("api/equip", scope.equipment)

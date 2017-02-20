@@ -3,11 +3,12 @@ function ($scope, $state, $http, login, notifyDlg) {
 
   $scope.showEdit = login.isAdmin();
   // Define users endpoint interface
-  fetchAllUsers= function() {
+  fetchAllUsers = function() {
     $http({
       method: 'GET',
       url: 'api/prss'
-    }).then(function success(response) {
+    })
+    .then(function success(response) {
       $scope.users = response.data;
     })
     .catch(function error(response) {
@@ -23,10 +24,10 @@ function ($scope, $state, $http, login, notifyDlg) {
     })
     .then(function success(response) {
       // If successful, fetch user list
-      $scope.fetchAllUsers();
+      fetchAllUsers();
     })
     .catch(function error(response) {
-      return notifyDlg.show($scope, "Could not delete user: " + response.status);
+      return notifyDlg.show($scope, "Could not delete this user: " + response.status);
     });
   };
 

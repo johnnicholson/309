@@ -1,16 +1,41 @@
 
-app.controller('addRoomTypeController', ['$scope', '$state', '$http', 'notifyDlg', function(scope, $state, $http, nDlg) {
-  scope.roomtype = {};
+app.controller('addRoomTypeController', ['$scope', '$state', '$http', 'notifyDlg', '$stateParams', function(scope, $state, $http, nDlg, params) {
 
+  if (params.roomtype === undefined) {
+    console.log("its undefined")
+    scope.roomtype = {};
+  }
+  else {
+    scope.roomtype = params.roomtype
+    console.log("beginingn: ---")
+    console.log(scope.roomtype);
+  }
   scope.addRoomType = function() {
-    $http.post("api/roomType", scope.roomtype)
-    .then(function(response){
-      $state.go('roomtypes');
-      //if we have time we can show the dialog box where they click OK afterwards, for now going back to the equipment page is more important!
-      // return nDlg.show(scope, "Addition succeeded.", );
-    }).catch(function(response) {
-      return nDlg.show(scope, "Addition failed.")
-    })
+    if (scope.roomtype.id === undefined) {
+
+      $http.post("api/roomType", scope.roomtype)
+      .then(function(response){
+        return nDlg.show(scope, "New RoomType Added")
+      })
+      .then(function(response){
+        $state.go('roomtypes');
+      }).catch(function(response) {
+        return nDlg.show(scope, "Addition failed.")
+      })
+    }
+    else {
+      $http.put("api/roomType/" + scope.roomtype.id)
+      .then(function(response) {
+        console.log("successful!!!");
+        return nDlg.show(scope, "RoomType Modified")
+      })
+      .then(function(response) {
+        scope.quit();
+      }).catch(function(response) {
+        console.log("failureee");
+        return nDlg.show(scope, "Modification Failed.")
+      })
+    }
   };
 
   scope.quit = function() {

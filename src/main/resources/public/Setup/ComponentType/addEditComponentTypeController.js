@@ -3,6 +3,10 @@ app.controller('addEditComponentTypeController', ['$scope', '$state', '$http', '
   // Bind cType to scope if exists
   scope.cType = params.cType === undefined ? {} : params.cType;
 
+  console.log("beginingn: ---")
+  console.log("this is the id: " + scope.cType.id);
+  console.log("and this is the ctype: " + scope.cType);
+  console.log("---");
 
   scope.submitChange= function() {
     if (scope.cType.id === undefined) {
