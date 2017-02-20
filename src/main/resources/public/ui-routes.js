@@ -107,6 +107,18 @@ app.config(['$stateProvider', '$urlRouterProvider',
           cType: null
         }
       })
+      .state('term-home', {
+        parent: 'base',
+        url: '/term',
+        templateUrl: 'Schedule/Term/term.template.html',
+        controller: 'termController'
+      })
+      .state('term-edit', {
+        parent: 'base',
+        url: '/term/:id/edit',
+        templateUrl: 'Schedule/Term/termEdit.template.html',
+        controller: 'termEditController'
+      })
       .state('calendar', {
         parent: 'base',
         url: '/calendar',

@@ -4,6 +4,7 @@ import dao.ComponentDAO;
 import dao.ComponentTypeDAO;
 import dao.CourseDAO;
 import hibernate.HibernateUtil;
+import java.util.ArrayList;
 import model.Component;
 import model.ComponentType;
 import model.Course;
@@ -71,9 +72,12 @@ public class CourseTransactions {
     @Override
     public Integer action() {
       CourseDAO courseDAO = HibernateUtil.getDAOFact().getCourseDAO();
+      ComponentDAO componentDAO = HibernateUtil.getDAOFact().getComponentDAO();
       if (isAdmin()) {
         if (course.getName() != null && null == courseDAO.findByName(course.getName())) {
+
           courseDAO.makePersistent(course);
+
         } else {
           responseCode = HttpStatus.BAD_REQUEST;
           return null;

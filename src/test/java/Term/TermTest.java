@@ -88,10 +88,10 @@ public class TermTest {
     when(termDAO.findById(1)).thenReturn(mockterm);
     Term otherterm = new Term();
     otherterm.setName("newTermWithDate");
-    otherterm.setStatus(1);
+    otherterm.setIsPublished(1);
     TermController.putTerm(otherterm, 1, req, res);
     verify(mockterm).setName("newTermWithDate");
-    verify(mockterm).setStatus(1);
+    verify(mockterm).setIsPublished(1);
   }
  
   @Test
