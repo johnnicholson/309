@@ -25,7 +25,7 @@ public class Term {
   
   private Integer id;
   private String name;
-  private Integer status; // published or not
+  private Integer isPublished; // published or not
 //  private Section listOfSections;
   
 
@@ -49,11 +49,11 @@ public class Term {
   }
   
 
-  public Integer getStatus() {
-	    return status;
+  public Integer getIsPublished() {
+	    return isPublished;
   }
   
-  public void setStatus(Integer status) {
-	    this.status = status;
+  public void setIsPublished(Integer isPublished) {
+	    this.isPublished = isPublished;
   }
 }
