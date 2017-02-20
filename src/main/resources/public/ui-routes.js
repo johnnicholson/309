@@ -72,7 +72,10 @@ app.config(['$stateProvider', '$urlRouterProvider',
         parent: 'setup',
         url: '/addroomtype',
         templateUrl: 'Setup/RoomType/addRoomType.template.html',
-        controller: 'addRoomTypeController'
+        controller: 'addRoomTypeController',
+        params: {
+          roomtype: null
+        }
       })
       .state('users', {
         parent: 'setup',
@@ -84,13 +87,22 @@ app.config(['$stateProvider', '$urlRouterProvider',
         parent: 'setup',
         url: '/prss/add',
         templateUrl: 'Setup/Users/addUser.template.html',
-        controller: 'addUserController'
+        controller: 'addUserController',
+        params: {
+          user: null
+        }
       })
       .state('rooms', {
         parent: 'setup',
         url: '/room',
         templateUrl: 'Setup/Rooms/rooms.template.html',
         controller: 'roomsController'
+      })
+      .state('addroom', {
+        parent:'setup',
+        url:'/addroom',
+        templateUrl: 'Setup/Rooms/addRoom.template.html',
+        controller: 'addRoomController'
       })
       .state('componenttype', {
         parent: 'setup',

@@ -1,8 +1,9 @@
-app.controller('roomTypeController', ['$scope', '$state', '$http',
-  function ($scope, $state, $http) {
+app.controller('roomTypeController', ['$scope', '$state', '$http', 'login', 'notifyDlg',
+  function ($scope, $state, $http, login, notifyDlg) {
+    $scope.showEdit = login.isAdmin();
 
     // Define room type endpoint interface
-    fetchAllRoomTypes = function() {
+    $scope.fetchAllRoomTypes = function() {
         $http({
             method: 'GET',
             url: 'api/roomType'
@@ -11,6 +12,18 @@ app.controller('roomTypeController', ['$scope', '$state', '$http',
         });
     };
 
+    $scope.removeRoomType = function(roomTypeID) {
+      $http({
+        method: 'DELETE',
+        url: 'api/roomType/' + roomTypeID
+      })
+      .then(function success(response) {
+        $scope.fetchAllRoomTypes();
+      }).catch(function error(response) {
+        return notifyDlg.show($scope, "Could not delete Room Type: " + response.status)
+      });
+    };
+
     // Fetch equip on startup
-    fetchAllRoomTypes();
+    $scope.fetchAllRoomTypes();
   }]);
