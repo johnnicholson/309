@@ -1,9 +1,11 @@
 package transactions;
 
 import controller.RoomController;
+import dao.EquipmentDAO;
 import dao.RoomDAO;
 import dao.RoomTypeDAO;
 import hibernate.HibernateUtil;
+import model.Equipment;
 import model.Room;
 import model.RoomType;
 
@@ -13,17 +15,24 @@ import org.springframework.http.HttpStatus;
 import org.hibernate.Hibernate;
 
 import java.util.List;
-/**This represents a RoomTransaction class that holds all the transactions (HTTPS verbs).
+
+/**
+ * This represents a RoomTransaction class that holds all the transactions
+ * (HTTPS verbs).
  * 
  * @author salonee and ryan
  * @since 2017-02-08
  */
 public class RoomTransactions {
 
-	/** This class represents how the GetAllRooms method in the Controller interacts with our database.
+	/**
+	 * This class represents how the GetAllRooms method in the Controller
+	 * interacts with our database.
 	 */
 	public static class GetAllRooms extends Transaction<List<Room>> {
-		/** The action method creates a DAO for rooms and retrieves all of them.
+		/**
+		 * The action method creates a DAO for rooms and retrieves all of them.
+		 * 
 		 * @return - list of rooms in database if there is any, otherwise null.
 		 */
 		@Override
@@ -38,8 +47,10 @@ public class RoomTransactions {
 			}
 		}
 	}
-	
-	/** This class represents how the GetRoom method in the Controller interacts with our database.
+
+	/**
+	 * This class represents how the GetRoom method in the Controller interacts
+	 * with our database.
 	 */
 	public static class GetRoom extends Transaction<Room> {
 		private int roomId;
@@ -48,9 +59,15 @@ public class RoomTransactions {
 			this.roomId = roomId;
 		}
 
-		/** The action method creates a DAO for rooms and retrieves the specified one based on the id given in the constructor.
-		 * @param roomId - specified in constructor; represents the id of the room to get.
-		 * @return - specified room based on id, otherwise sets the response code. 
+		/**
+		 * The action method creates a DAO for rooms and retrieves the specified
+		 * one based on the id given in the constructor.
+		 * 
+		 * @param roomId
+		 *            - specified in constructor; represents the id of the room
+		 *            to get.
+		 * @return - specified room based on id, otherwise sets the response
+		 *         code.
 		 */
 		@Override
 		public Room action() {
@@ -73,7 +90,9 @@ public class RoomTransactions {
 
 	}
 
-	/** This class represents how the PostRoom method in the Controller interacts with our database.
+	/**
+	 * This class represents how the PostRoom method in the Controller interacts
+	 * with our database.
 	 */
 	public static class PostRoom extends Transaction<Integer> {
 		private Room room;
@@ -82,9 +101,14 @@ public class RoomTransactions {
 			this.room = room;
 		}
 
-		/** The action method adds a new room to the database.
-		 * @param room - specified in constructor; represents the room to be added.
-		 * @return - the id of the room added, otherwise sets the response code and returns null
+		/**
+		 * The action method adds a new room to the database.
+		 * 
+		 * @param room
+		 *            - specified in constructor; represents the room to be
+		 *            added.
+		 * @return - the id of the room added, otherwise sets the response code
+		 *         and returns null
 		 */
 		@Override
 		public Integer action() {
@@ -100,8 +124,10 @@ public class RoomTransactions {
 		}
 
 	}
-	
-	/** This class represents how the PutRoom method in the Controller interacts with our database.
+
+	/**
+	 * This class represents how the PutRoom method in the Controller interacts
+	 * with our database.
 	 */
 	public static class PutRoom extends Transaction<Integer> {
 		private Room room;
@@ -112,10 +138,14 @@ public class RoomTransactions {
 			this.id = id;
 		}
 
-		/** The action method edits a room in the database.
-		 * @param room - specified in constructor; represents the edited room.
-		 * @param id - the id of the room to be changed.
-		 * @return - null if successful. 
+		/**
+		 * The action method edits a room in the database.
+		 * 
+		 * @param room
+		 *            - specified in constructor; represents the edited room.
+		 * @param id
+		 *            - the id of the room to be changed.
+		 * @return - null if successful.
 		 */
 		@Override
 		public Integer action() {
@@ -126,12 +156,14 @@ public class RoomTransactions {
 			} else {
 				this.responseCode = HttpStatus.UNAUTHORIZED;
 			}
-			
+
 			return null;
 		}
 	}
 
-	/** This class represents how the DeleteRoom method in the Controller interacts with our database.
+	/**
+	 * This class represents how the DeleteRoom method in the Controller
+	 * interacts with our database.
 	 */
 	public static class DeleteRoom extends Transaction<Integer> {
 
@@ -141,9 +173,13 @@ public class RoomTransactions {
 			this.rmID = roomID;
 		}
 
-		/** The action method removes specified room from database.
-		 * @param roomId - specified in constructor; represents the id of the room to remove.
-		 * @return - null if successful. 
+		/**
+		 * The action method removes specified room from database.
+		 * 
+		 * @param roomId
+		 *            - specified in constructor; represents the id of the room
+		 *            to remove.
+		 * @return - null if successful.
 		 */
 		@Override
 		public Integer action() {
@@ -167,4 +203,49 @@ public class RoomTransactions {
 			return null;
 		}
 	}
+
+	public static class GetEquipmentList extends Transaction<List<Equipment>> {
+		private int roomId;
+
+		public GetEquipmentList(int roomId) {
+			this.roomId = roomId;
+		}
+
+		@Override
+		public List<Equipment> action() {
+			List<Equipment> equipments = null;
+			Room room;
+			RoomDAO roomDAO;
+			if (isAdmin()) {
+				roomDAO = HibernateUtil.getDAOFact().getRoomDAO();
+				room = roomDAO.findById(roomId);
+				equipments = room.getEquipmentList();
+			} else {
+				responseCode = HttpStatus.UNAUTHORIZED;
+			}
+			return equipments;
+		}
+	}
+	
+	public static class PutEquipmentList extends Transaction<Integer> {
+		private List<Equipment> equipments;
+	    private Integer id;
+
+	    public PutEquipmentList(List<Equipment> equipments, Integer id) {
+	      this.equipments = equipments;
+	      this.id = id;
+	    }
+
+	    @Override
+	    public Integer action() {
+	    	RoomDAO roomDAO = HibernateUtil.getDAOFact().getRoomDAO();
+	    	Room room = roomDAO.findById(id);	    
+	      if (isAdmin()) {
+	    	  room.setEquipmentList(equipments);
+	      } else {
+	        this.responseCode = HttpStatus.UNAUTHORIZED;
+	      }
+	      return null;
+	    }
+	  }
 }

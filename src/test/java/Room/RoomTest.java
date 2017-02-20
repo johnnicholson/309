@@ -1,11 +1,13 @@
 package Room;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.reset;
-import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.junit.Before;
@@ -17,18 +19,20 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import Home.TestRunner;
 import Person.People;
 import controller.RoomController;
-import controller.RoomTypeController;
-import dao.RoomDAO;
 import dao.DAOFactory;
+import dao.EquipmentDAO;
 import dao.PersonDAO;
+import dao.RoomDAO;
 import hibernate.HibernateUtil;
+import model.Equipment;
+import model.Person.Role;
 import model.Room;
 import model.RoomType;
-import model.Person.Role;
 
 public class RoomTest {
   static PersonDAO prsDAO;
   static RoomDAO rmDAO;
+  static EquipmentDAO eqDAO;
   
   MockHttpServletResponse res;
   MockHttpServletRequest req;
@@ -39,8 +43,10 @@ public class RoomTest {
     DAOFactory fact = TestRunner.getMockFact();
     prsDAO = mock(PersonDAO.class);
     rmDAO = mock(RoomDAO.class);
+    eqDAO = mock(EquipmentDAO.class);
     when(fact.getPersonDAO()).thenReturn(prsDAO);
     when(fact.getRoomDAO()).thenReturn(rmDAO);
+    when(fact.getEquipmentDAO()).thenReturn(eqDAO);
 
     HibernateUtil.setDAOFactory(fact);
     org.hibernate.Session ssn = mock(org.hibernate.Session.class);
@@ -95,7 +101,8 @@ public class RoomTest {
 	  when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
 	  
 	  RoomType roomType = new RoomType("Lecture Hall");
-	  Room rm = new Room(100, "14-255", roomType);
+//	  List<Equipment> listOfEquipment = (List<Equipment>) new Equipment();
+	  Room rm = new Room(100, "14-255", roomType); //, listOfEquipment);	// NEED TO FIX THIS
 	  RoomController.postRoom(rm, req, res);
 	  verify(rmDAO, times(1)).findByRoomNumber("14-255");
 	  verify(rmDAO).makePersistent(rm);
@@ -111,8 +118,10 @@ public class RoomTest {
     Room mockrm = mock(Room.class);
     when(rmDAO.findById(1)).thenReturn(mockrm);
     Room otherRM = new Room();
+//    List<Equipment> listOfEquipment = (List<Equipment>) new Equipment();
     otherRM.setCapacity(50);
     otherRM.setRoomNumber("14-255");
+//    otherRM.setEquipmentList(listOfEquipment);
     RoomType rm = mock(RoomType.class);
     otherRM.setRoomType(rm);
     

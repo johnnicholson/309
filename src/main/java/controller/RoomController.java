@@ -12,15 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import model.Equipment;
 import model.Room;
+import transactions.RoomTransactions.DeleteRoom;
 import transactions.RoomTransactions.GetAllRooms;
+import transactions.RoomTransactions.GetEquipmentList;
+import transactions.RoomTransactions.PutEquipmentList;
 import transactions.RoomTransactions.GetRoom;
 import transactions.RoomTransactions.PostRoom;
 import transactions.RoomTransactions.PutRoom;
-import transactions.RoomTransactions.DeleteRoom;
 /**This class represents the Room controller.
  * We created methods for each of the HTTPS verbs - GET, POST, PUT, and DELETE.
- * @author salonee and ryan
+ * @author salonee, ryan and christiana
  * @since 2017-02-08
  */
 @RestController
@@ -89,5 +92,17 @@ public class RoomController {
     new DeleteRoom(roomId).run(req, res);
   }
 
+  @RequestMapping(value = "/{RoomId}/equipment", method = RequestMethod.GET)
+  public static List<Equipment> getRoomEquipment(@PathVariable(value = "RoomId") int roomId, HttpServletRequest req,
+      HttpServletResponse res) {
+    List<Equipment> l = new GetEquipmentList(roomId).run(req, res);
+    return l;
+  }
+  
+  @RequestMapping(value = "/{RoomId}/equipment", method = RequestMethod.PUT)
+  public static void putRoomEquipment(@Valid @RequestBody List<Equipment> listOfEquipment,
+      @PathVariable(value = "RoomId") int roomId, HttpServletRequest req, HttpServletResponse res) {
+    new PutEquipmentList(listOfEquipment, roomId).run(req, res);
+  }
 
 }
