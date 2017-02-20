@@ -37,6 +37,7 @@
 <script src="Setup/ComponentType/componentTypeController.js"></script>
 <script src="Setup/ComponentType/addEditComponentTypeController.js"></script>
 <script src="Schedule/Calendar/CalendarController.js"></script>
+<script src="Schedule/scheduleOverviewController.js"></script>
 <script src="Util/notifyDlg.js"></script>
 
 <script src="ui-routes.js"></script>
@@ -47,9 +48,9 @@
          <li>
             <a style="padding:0px;" ui-sref="home"><img class="logo" src="myfavicon.ico" style="height: 70px;"/></a>
          </li>
-         <li ng-if="!user"><a ui-sref="login">login</a></li>
-         <li ng-if="!!user"><a ui-sref="setup">setup</a></li>
-         <li ng-if="!!user"><a ui-sref="calendar">calendar</a></li>
+         <li ng-if="!user"><a ui-sref="login">Login</a></li>
+         <li ng-if="!!user"><a ui-sref="setup">Resources</a></li>
+         <li ng-if="!!user"><a ui-sref="schedule-overview">Scheduling</a></li>
       </ul>
       <ul ng-if="!!user" class="nav navbar-nav pull-right">
          <li >

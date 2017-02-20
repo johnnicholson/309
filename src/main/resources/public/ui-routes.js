@@ -107,6 +107,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
           cType: null
         }
       })
+      .state('schedule-overview', {
+        parent: 'base',
+        url: '/schedule',
+        templateUrl: 'Schedule/scheduleOverview.template.html',
+        controller: 'scheduleOverviewController'
+      })
       .state('calendar', {
         parent: 'base',
         url: '/calendar',
