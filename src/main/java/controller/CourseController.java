@@ -3,6 +3,7 @@ package controller;
 import model.Component;
 import model.Course;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import transactions.ComponentTransactions;
 import transactions.CourseTransactions;
 import transactions.CourseTransactions.GetAllCourses;
@@ -13,6 +14,7 @@ import transactions.CourseTransactions.PutCourse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -52,6 +54,19 @@ public class CourseController {
 
     new CourseTransactions.DeleteCourse(crsId).run(req, res);
 
+  }
+
+  @RequestMapping(consumes ={"multipart/form-data"}, value = "/import", method = RequestMethod.POST)
+  public static Integer loadFile(@RequestParam("file") MultipartFile file, HttpServletRequest req,
+      HttpServletResponse res) {
+    String courseFile = null;
+    try {
+      courseFile = new String(file.getBytes());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    new CourseTransactions.ImportCourses(courseFile).run(req, res);
+    return 0;
   }
 
   @RequestMapping(value = "/{crsId}/component", method = RequestMethod.POST)

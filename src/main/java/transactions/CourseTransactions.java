@@ -1,14 +1,19 @@
 package transactions;
 
+import dao.ComponentDAO;
+import dao.ComponentTypeDAO;
 import dao.CourseDAO;
 import hibernate.HibernateUtil;
 import model.Component;
+import model.ComponentType;
 import model.Course;
 import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class CourseTransactions {
   public static class GetAllCourses extends Transaction<List<Course>> {
@@ -162,4 +167,46 @@ public class CourseTransactions {
       return cmps;
     }
   }
+
+  public static class ImportCourses extends Transaction<Integer> {
+        private String courseFile;
+
+        public ImportCourses(String courseFile) {
+            this.courseFile = courseFile;
+        }
+
+        @Override public Integer action() {
+            ComponentTypeDAO cmpTypeDAO = HibernateUtil.getDAOFact().getComponentTypeDAO();
+            CourseDAO crsDAO = HibernateUtil.getDAOFact().getCourseDAO();
+            ComponentDAO cmpDAO = HibernateUtil.getDAOFact().getComponentDAO();
+
+            Scanner scanner = new Scanner(courseFile);
+            while (scanner.hasNextLine()) {
+                String[] courseInfo = scanner.nextLine().split(",");
+                Course course = new Course();
+                course.setName(courseInfo[0]);
+                //course.setDescription(courseInfo[1]);
+                course.setUnits(4);
+                course.setComponents(new ArrayList<Component>());
+                for (int i = 2; i < courseInfo.length; i += 2) {
+                    Component comp = new Component();
+                    String cmpType = courseInfo[i].trim().split(" ")[1];
+                    ComponentType type = cmpTypeDAO.findByName(cmpType);
+                    if (type == null) {
+                        type = new ComponentType();
+                        type.setName(cmpType);
+                        type.setDescription("generated");
+                        cmpTypeDAO.makePersistent(type);
+                    }
+                    comp.setComponentType(type);
+                    comp.setHours(Integer.parseInt(courseInfo[i].trim().split(" ")[0]));
+                    comp.setWorkUnits(Integer.parseInt(courseInfo[i].trim().split(" ")[0]));
+                    cmpDAO.makePersistent(comp);
+                    course.addComponent(comp);
+                }
+                crsDAO.makePersistent(course);
+            }
+            return null;
+        }
+    }
 }

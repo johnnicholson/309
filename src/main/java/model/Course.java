@@ -10,7 +10,7 @@ import java.util.List;
 public class Course {
   
   public Course() {
-    
+
   }
   
   private Integer id;

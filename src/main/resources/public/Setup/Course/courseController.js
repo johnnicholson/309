@@ -1,8 +1,10 @@
-app.controller('courseController', ['$scope', '$state', '$http', 'notifyDlg', 'login',
-function ($scope, $state, $http, notifyDlg, login) {
+app.controller('courseController', ['$scope', '$state', '$http', 'notifyDlg', 'login', '$uibModal',
+function ($scope, $state, $http, notifyDlg, login , $uibM) {
 
   // Only admin users can edit
   $scope.showEdit = login.isAdmin();
+
+  files = undefined;
 
   // Define equipment endpoint interface
   $scope.fetchAllCourses = function() {
@@ -33,6 +35,48 @@ function ($scope, $state, $http, notifyDlg, login) {
     });
   };
 
+  $scope.loadFile = function() {
+    $uibM.open({
+      templateUrl: "Setup/Course/courseImport.template.html",
+      scope: $scope
+    }).result
+    .then(function(result) {
+      if (result === "QUIT")
+        return $q.reject("QUIT");
+      return $http({
+        method: "POST",
+        url: "/api/course/import",
+        headers: {
+          'Content-Type': undefined
+        },
+        data: {
+          file: files[0]
+        },
+        transformRequest: function(data, headersGetter) {
+          var formData = new FormData();
+          angular.forEach(data, function(value, key) {
+            formData.append(key, value);
+          });
+          var headers = headersGetter();
+          return formData;
+        }
+      });
+    })
+    .then(function() {
+      return notifyDlg.show($scope, "Courses Imported",
+      "Success");
+    }).then(function() {
+      $state.reload();
+    }).catch(function(result) {
+      console.log(result);
+      if (!(result === "QUIT" || result === 'backdrop click'))
+        notifyDlg.show($scope, "Failed to Import Courses", "Error");
+    });
+  };
+
+  $scope.storeFile = function(formFiles) {
+    files = formFiles;
+  };
 
   // Fetch equip on startup
   $scope.fetchAllCourses();

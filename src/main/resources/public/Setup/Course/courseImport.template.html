@@ -1,0 +1,12 @@
+<div>
+    <fieldset class="form-group">
+        <label>File</label>
+        <input type="file" class="form-control" onchange="angular.element(this).scope().storeFile(this.files)">
+    </fieldset>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="$close('QUIT')">Cancel</button>
+        <button class="btn btn-primary" ng-click="$close(true)">Create Request</button>
+    </div>
+
+</div>
