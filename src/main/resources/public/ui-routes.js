@@ -107,11 +107,17 @@ app.config(['$stateProvider', '$urlRouterProvider',
           cType: null
         }
       })
-      .state('schedule-overview', {
+      .state('term-home', {
         parent: 'base',
-        url: '/schedule',
-        templateUrl: 'Schedule/scheduleOverview.template.html',
-        controller: 'scheduleOverviewController'
+        url: '/term',
+        templateUrl: 'Schedule/Term/term.template.html',
+        controller: 'termController'
+      })
+      .state('term-edit', {
+        parent: 'base',
+        url: '/term/:id/edit',
+        templateUrl: 'Schedule/Term/termEdit.template.html',
+        controller: 'termEditController'
       })
       .state('calendar', {
         parent: 'base',
