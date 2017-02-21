@@ -106,7 +106,7 @@ public class CourseTransactions {
      CourseDAO crsDAO = HibernateUtil.getDAOFact().getCourseDAO();
      Course dbcrs = crsDAO.findById(id);
      if (isAdmin()) {
-       BeanUtils.copyProperties(crs, dbcrs, "id", "passwordHash");
+       BeanUtils.copyProperties(crs, dbcrs, "id");
      } else  {
        this.responseCode = HttpStatus.UNAUTHORIZED;
        return null;
