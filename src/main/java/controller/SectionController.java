@@ -30,13 +30,7 @@ public class SectionController {
 		return s;
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public static Integer postSection(@RequestBody Section s, HttpServletRequest req,
-			HttpServletResponse res) {
-		Integer sectID = new PostSection(s).run(req, res);
-		res.setHeader("Location", "/section" + sectID);
-		return sectID;
-	}
+
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public static List<Section> getSectionList(HttpServletRequest req, HttpServletResponse res) {

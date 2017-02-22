@@ -2,6 +2,8 @@ package transactions;
 
 import java.util.List;
 
+import model.Component;
+import model.Section;
 import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -136,5 +138,6 @@ public class TermTransactions {
 				return null;
 			}
 		}
-	  
+
+
 }

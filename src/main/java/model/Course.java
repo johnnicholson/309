@@ -16,6 +16,8 @@ public class Course {
   private Integer id;
   private String name;
   private Integer units;
+
+  @OneToMany(fetch = FetchType.EAGER)
   private List<Component> components;
 
   @Id

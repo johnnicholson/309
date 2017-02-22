@@ -72,7 +72,6 @@ public class CourseTransactions {
     @Override
     public Integer action() {
       CourseDAO courseDAO = HibernateUtil.getDAOFact().getCourseDAO();
-      ComponentDAO componentDAO = HibernateUtil.getDAOFact().getComponentDAO();
       if (isAdmin()) {
         if (course.getName() != null && null == courseDAO.findByName(course.getName())) {
 

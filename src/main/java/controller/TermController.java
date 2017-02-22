@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import model.Section;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.Term;
+import transactions.SectionTransactions.PostSection;
 import transactions.TermTransactions.DeleteTerm;
 import transactions.TermTransactions.GetTerm;
 import transactions.TermTransactions.PostTerm;
@@ -57,5 +59,12 @@ public class TermController {
 			HttpServletRequest req, HttpServletResponse res) {
 		Integer termID = new DeleteTerm(tID).run(req, res);
 		return termID;
+	}
+
+	@RequestMapping(value = "/{TermID}/section", method = RequestMethod.POST)
+	public static Integer postSection(@PathVariable(value = "TermID") int tID, @RequestBody Section s,
+			HttpServletRequest req, HttpServletResponse res) {
+		Integer sectionID = new PostSection(tID, s).run(req, res);
+		return sectionID;
 	}
 }

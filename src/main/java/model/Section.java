@@ -24,10 +24,10 @@ public class Section {
 
 	}
 
-	public Section(String nameOfSect, Person prof, Course course, Component comp, Date startTime, Date endTime) {
+	public Section(String name, Person prof, Course course, Component comp, Date startTime, Date endTime) {
 		super();
-		this.nameOfSect = nameOfSect;
-		this.prof = prof;
+		this.name = name;
+		this.professor = professor;
 		this.course = course;
 		this.comp = comp;
 		this.startTime = startTime;
@@ -35,8 +35,8 @@ public class Section {
 	}
 
 	private Integer id;
-	private String nameOfSect;
-	private Person prof;
+	private String name;
+	private Person professor;
 	private Course course;
 	private Component comp;
 	private Date startTime, endTime;
@@ -52,21 +52,21 @@ public class Section {
 		this.id = id;
 	}
 
-	public String getNameSect() {
-		return nameOfSect;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameSect(String nameOfSect) {
-		this.nameOfSect = nameOfSect;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@ManyToOne
-	public Person getProf() {
-		return prof;
+	public Person getProfessor() {
+		return professor;
 	}
 
-	public void setProf(Person prof) {
-		this.prof = prof;
+	public void setProfessor(Person professor) {
+		this.professor = professor;
 	}
 
 	

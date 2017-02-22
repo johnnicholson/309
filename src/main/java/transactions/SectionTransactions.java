@@ -1,7 +1,9 @@
 package transactions;
 
+import dao.TermDAO;
 import java.util.List;
 
+import model.Term;
 import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -63,22 +65,33 @@ public class SectionTransactions {
 	  }
 
 	  public static class PostSection extends Transaction<Integer> {
-	    private Section s;
+	    private Section section;
+	    private int termID;
 
-	    public PostSection(Section section) {
-	      this.s = section;
+	    public PostSection(int termID, Section section)
+			{
+				this.termID = termID;
+	      this.section = section;
 	    }
 
 	    @Override
 	    public Integer action() {
+				TermDAO termDAO = HibernateUtil.getDAOFact().getTermDAO();
 	      SectionDAO sectDAO = HibernateUtil.getDAOFact().getSectionDAO();
+				Term term = termDAO.findById(termID);
+
 	      if (isAdmin()) {
-	        sectDAO.makePersistent(s);
+	      	if (term == null) {
+						responseCode = HttpStatus.NOT_FOUND;
+					} else {
+						sectDAO.makePersistent(section);
+						term.addSection(section);
+					}
 	      } else {
 	        responseCode = HttpStatus.BAD_REQUEST;
 	        return null;
 	      }
-	      return s.getId();
+	      return section.getId();
 	    }
 
 	  }
