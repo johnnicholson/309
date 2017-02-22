@@ -1,6 +1,7 @@
 package dao;
 
 import hibernate.HibernateUtil;
+import model.CohortData;
 import org.apache.log4j.Logger;
 
 public class HibernateDAOFactory extends DAOFactory {
@@ -9,6 +10,10 @@ public class HibernateDAOFactory extends DAOFactory {
 
 	public PersonDAO getPersonDAO() {
 		return (PersonDAO) instantiateDAO(PersonDAO.class);
+	}
+
+	public CohortDataDAO getCohortDataDAO() {
+		return (CohortDataDAO) instantiateDAO(CohortDataDAO.class);
 	}
 
 

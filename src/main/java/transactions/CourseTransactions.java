@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static app.Application.lgr;
+
 public class CourseTransactions {
   public static class GetAllCourses extends Transaction<List<Course>> {
 
