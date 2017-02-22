@@ -33,6 +33,12 @@ public class HibernateUtil {
 	  if (factory == null)
 		  factory = fact;
   }
+  public static void resetObjects() {
+    if (factory != null)
+      factory.close();
+    factory = null;
+    daoFact = null;
+  }
   
   private static SessionFactory initFactory() {
     Configuration configuration = new Configuration();

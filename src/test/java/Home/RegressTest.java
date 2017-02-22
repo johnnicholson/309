@@ -8,6 +8,7 @@ import controller.SessionController;
 import controller.SessionController.Login;
 import hibernate.HibernateUtil;
 import model.Person;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class RegressTest {
 
   @Before
   public void setup() {
+    HibernateUtil.resetObjects();
     people = new People();
     HibernateUtil.getFactory().getCurrentSession().beginTransaction();
     HibernateUtil.getFactory().getCurrentSession().createSQLQuery("delete from Person")
@@ -39,6 +41,12 @@ public class RegressTest {
     auth = new AuthInterceptor();
     res = new MockHttpServletResponse();
     req = new MockHttpServletRequest();
+  }
+
+  @After
+  public void cleanup() {
+    HibernateUtil.resetObjects();
+    TestRunner.resetObjects();
   }
 
   // Move this to the student tests
