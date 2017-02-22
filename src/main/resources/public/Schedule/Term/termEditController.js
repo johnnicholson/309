@@ -1,7 +1,10 @@
 app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg',
 function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
 
+  // Get hold on termID for adding sections
+  $scope.termID = $stateParams.id;
 
+  //Generate day to post sections relative to
   var date = new Date();
   var d = date.getDate();
   var m = date.getMonth();

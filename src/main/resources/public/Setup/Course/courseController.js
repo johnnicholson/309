@@ -6,7 +6,7 @@ function ($scope, $state, $http, notifyDlg, login , $uibM) {
 
   files = undefined;
 
-  // Define equipment endpoint interface
+  // Define courses endpoints
   $scope.fetchAllCourses = function() {
     $http({
       method: 'GET',
