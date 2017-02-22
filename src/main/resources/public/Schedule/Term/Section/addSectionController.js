@@ -17,7 +17,8 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     });
   };
 
-  $scope.fetchAllStaff = function() {
+  // Fetch professors
+  $scope.fetchAllProfessors = function() {
     $http({
       method: 'GET',
       url: 'api/prss'
@@ -28,6 +29,23 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     .catch(function error(response) {
       return notifyDlg.show($scope, "Could not fetch: " + response.status);
     });
+  };
+
+  $scope.startNewSections = function() {
+    var sections = [];
+
+    // Get course, add its components to a new list
+    var selectedComponents = $scope.selectedCourse.components;
+    for (var cID in selectedComponents) {
+      var curComp = selectedComponents[cID];
+      var newSection = {};
+      newSection.component = curComp;
+      newSection.course = $scope.selectedCourse;
+      sections.push(newSection);
+    }
+
+    // Set new components
+    $scope.sections = sections;
   }
 
   $scope.quit = function() {
@@ -35,5 +53,5 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
   }
 
   $scope.fetchAllCourses()
-  $scope.fetchAllStaff();
+  $scope.fetchAllProfessors();
 }]);

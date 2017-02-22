@@ -2,28 +2,34 @@
   <form>
     <div class="form-group">
       <label for="sel-course">Select course:</label>
-      <select class="form-control" id="sel-course" ng-model="selectedCourse" ng-options="course.name for course in courses">
+      <select class="form-control" id="sel-course"
+      ng-model="selectedCourse" ng-options="course.name for course in courses" ng-change="startNewSections()">
       </select>
     </div>
 
-    <button ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Components</button>
+    <div ng-repeat="section in sections">
+      <br/>
+      <h3 ng-if="!section.name">New section</h3>
+      <h3>{{section.name}}</h3>
+      <div class="form-group">
+        <label for="sel-component">Component:</label>
+        <select ng-disabled="!selectedCourse" class="form-control" id="sel-component" ng-model="section.component"
+        ng-options="component.componentType.name + ' - ' + component.componentType.description for component in selectedCourse.components">
+        </select>
+      </div>
+      <fieldset class="form-group">
+        <label>Section Name:</label>
+        <input type="text" class="form-control" placeholder="Enter section name" ng-model="section.name">
+      </fieldset>
+      <div class="form-group">
+        <label for="sel-prof">Select professor:</label>
+        <select class="form-control" id="sel-prof" ng-model="selectedProfessor"
+        ng-options="user.firstName + ' ' + user.lastName for user in users">
+        </select>
+      </div>
+    </div>
+
+    <button ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
     <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
   </form>
 </div>
-
-<!-- <fieldset class="form-group">
-  <label>Section Name</label>
-  <input type="text" class="form-control" placeholder="Enter section name" ng-model="section.name">
-</fieldset>
-<div class="form-group">
-  <label for="sel-component">Select component:</label>
-  <select ng-disabled="!selectedCourse" class="form-control" id="sel-component" ng-model="selectedComponent"
-  ng-options="component.componentType.name + '-' + component.componentType.description for component in selectedCourse.components">
-  </select>
-</div>
-<div class="form-group">
-  <label for="sel-prof">Select professor:</label>
-  <select class="form-control" id="sel-prof" ng-model="selectedProfessor"
-  ng-options="user.firstName + ' ' + user.lastName for user in users">
-  </select>
-</div> -->
