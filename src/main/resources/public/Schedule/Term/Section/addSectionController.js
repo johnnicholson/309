@@ -1,5 +1,5 @@
-app.controller('addSectionController', ['$scope', '$state', '$http', 'notifyDlg', '$q', 'login','$stateParams',
-function($scope, $state, $http, nDlg, $q, login, params) {
+app.controller('addSectionController', ['$scope', '$state', '$http', 'notifyDlg', '$q', 'login','$stateParams', 'notifyDlg',
+function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
 
   $scope.termID = params.id;
 
