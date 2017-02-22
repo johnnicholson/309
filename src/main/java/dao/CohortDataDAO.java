@@ -2,7 +2,6 @@ package dao;
 
 import model.CohortData;
 import model.CohortDataFilter;
-import model.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,7 +13,11 @@ public class CohortDataDAO extends GenericHibernateDAO<CohortData> {
     //TODO make this not super vulnerable to SQL injection
     @Nullable
     public CohortData findByFilters(@NotNull CohortDataFilter filter) {
-        getSession().createSQLQuery("Select * from CohortData where");
+        String query = "Select * from CohortData";
+
+        for (String string : filter.getDepts()) {
+            query += " where dept = :dept";
+        }
         return null;
     }
 }

@@ -315,7 +315,7 @@ Returns filtered table according to inputs.
   - id {Term.id}
 * course {Course} (optional)
   - id {Course.id}
-* courselvl {enum} (optional)
+* courselvl {int} (optional)
   - 1 - returns all courses starting with this number
   - 2 - returns all courses starting with this number
   - 3 - returns all courses starting with this number

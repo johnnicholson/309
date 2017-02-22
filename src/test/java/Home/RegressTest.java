@@ -1,4 +1,5 @@
 package Home;
+
 import Person.People;
 import app.AuthInterceptor;
 import app.Util;
@@ -7,23 +8,17 @@ import controller.SessionController;
 import controller.SessionController.Login;
 import hibernate.HibernateUtil;
 import model.Person;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
-public class Regress {
+import static org.junit.Assert.*;
+
+public class RegressTest {
 
   AuthInterceptor auth;
   MockHttpServletResponse res;
