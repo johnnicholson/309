@@ -3,6 +3,8 @@ app.controller('addRoomController', ['$scope', '$state', '$http', 'notifyDlg', '
     scope.room = {};
   else
     scope.room = params.room;
+
+
   scope.toggled = function(open) {
     console.log(open + " clicked");
   }
@@ -11,7 +13,7 @@ app.controller('addRoomController', ['$scope', '$state', '$http', 'notifyDlg', '
   .then(function(response) {
     scope.roomTypes = response.data;
   })
-  
+
   scope.addRoom = function() {
     if (scope.room.id === undefined) {
       $http.post("api/room", scope.room)
