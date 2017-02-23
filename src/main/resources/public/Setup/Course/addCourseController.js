@@ -26,7 +26,7 @@ app.controller('addCourseController', ['$scope', '$state', '$http', 'notifyDlg',
         return nDlg.show(scope, "Addition failed.")
       })
     } else {
-      $http.put("api/equip/" + scope.course.id, scope.course)
+      $http.put("api/course/" + scope.course.id, scope.course)
       .then(function(response) {
         return nDlg.show(scope, "Course Modified")
       })
