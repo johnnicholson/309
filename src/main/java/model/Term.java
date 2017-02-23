@@ -3,17 +3,18 @@ package model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 @JsonAutoDetect
 public class Term {
 
-  private static final int BCRYPT_ROUNDS = 12;
-  
   public Term() {
 	  
   }
@@ -26,7 +27,7 @@ public class Term {
   private Integer id;
   private String name;
   private Integer isPublished; // published or not
-//  private Section listOfSections;
+  private List<Section> sections;
   
 
   @Id
@@ -55,5 +56,18 @@ public class Term {
   
   public void setIsPublished(Integer isPublished) {
 	    this.isPublished = isPublished;
+  }
+
+  @OneToMany(fetch = FetchType.EAGER)
+  public List<Section> getSections() {
+    return sections;
+  }
+
+  public void setSections(List<Section> sections) {
+    this.sections = sections;
+  }
+
+  public void addSection(Section section) {
+    sections.add(section);
   }
 }

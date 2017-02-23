@@ -30,6 +30,7 @@ import static org.mockito.Mockito.reset;
 public class SectionTest {
   static PersonDAO prsDAO;
   static SectionDAO sectDAO;
+  static TermDAO termDAO;
   
   MockHttpServletResponse res;
   MockHttpServletRequest req;
@@ -39,8 +40,10 @@ public class SectionTest {
     DAOFactory fact = TestRunner.getMockFact();
     prsDAO = mock(PersonDAO.class);
     sectDAO = mock(SectionDAO.class);
+    termDAO = mock(TermDAO.class);
     when(fact.getPersonDAO()).thenReturn(prsDAO);
     when(fact.getSectionDAO()).thenReturn(sectDAO);
+    when(fact.getTermDAO()).thenReturn(termDAO);
 
     HibernateUtil.setDAOFactory(fact);
     org.hibernate.Session ssn = mock(org.hibernate.Session.class);
@@ -79,8 +82,10 @@ public class SectionTest {
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
     
     Section mocksect = mock(Section.class);
+    Term mockTerm = mock(Term.class);
     when(sectDAO.makePersistent(mocksect)).thenReturn(mocksect);
-    SectionController.postSection(mocksect, req, res);
+    when(termDAO.findById(0)).thenReturn(mockTerm);
+    TermController.postSection(0, mocksect, req, res);
     verify(sectDAO, times(1)).makePersistent(mocksect);
   }
   
@@ -93,18 +98,18 @@ public class SectionTest {
     Section mocksect = mock(Section.class);
     when(sectDAO.findById(1)).thenReturn(mocksect);
     Section othersect = new Section();
-    othersect.setNameSect("CPE309-01");
+    othersect.setName("CPE309-01");
     //othersect.setStatus(1);
     Person p = mock(Person.class);
-    othersect.setProf(p);
+    othersect.setProfessor(p);
     Component c = mock(Component.class);
     othersect.setComponent(c);
     Course cs = mock(Course.class);
     othersect.setCourse(cs);
 //    othersect.setStartTime(5);
     SectionController.putSection(othersect, 1, req, res);
-    verify(mocksect).setNameSect("CPE309-01");
-    verify(mocksect).setProf(p);
+    verify(mocksect).setName("CPE309-01");
+    verify(mocksect).setProfessor(p);
     verify(mocksect).setComponent(c);
     verify(mocksect).setCourse(cs);
 //    verify(mocksect).setStartTime(5);
