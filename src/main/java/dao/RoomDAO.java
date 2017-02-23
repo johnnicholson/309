@@ -7,7 +7,7 @@ public class RoomDAO extends GenericHibernateDAO<Room> {
 
   public Room findByRoomNumber(String roomNumber) {
     return (Room) HibernateUtil.getFactory().getCurrentSession()
-        .createQuery("from Room where roomNumber = :roomNumber").uniqueResult();
+        .createQuery("from Room where roomNumber = :roomNumber").setParameter("roomNumber", roomNumber).uniqueResult();
   }
 
 }

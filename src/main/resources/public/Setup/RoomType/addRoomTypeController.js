@@ -24,7 +24,7 @@ app.controller('addRoomTypeController', ['$scope', '$state', '$http', 'notifyDlg
       })
     }
     else {
-      $http.put("api/roomType/" + scope.roomtype.id)
+      $http.put("api/roomType/" + scope.roomtype.id, scope.roomtype)
       .then(function(response) {
         console.log("successful!!!");
         return nDlg.show(scope, "RoomType Modified")
