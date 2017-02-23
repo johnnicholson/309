@@ -23,13 +23,34 @@
       </fieldset>
       <div class="form-group">
         <label for="sel-prof">Select professor:</label>
-        <select class="form-control" id="sel-prof" ng-model="selectedProfessor"
+        <select class="form-control" id="sel-prof" ng-model="section.selectedProfessor"
         ng-options="user.firstName + ' ' + user.lastName for user in users">
         </select>
       </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="sel-time">Start Time:</label>
+            <select class="form-control" id="sel-time" ng-model="section.startTime"
+            ng-options="timeToReadable(time) for time in times">
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="sel-end-time">End Time:</label>
+            <select class="form-control" id="sel-end-time" ng-model="section.endTime"
+            ng-options="timeToReadable(time) for time in times">
+            </select>
+            <label class="label-warning" ng-if="section.startTime && section.endTime && !timeValid(section)">
+              End must come after start time
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <button ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
+    <button ng-click="printSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
     <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
   </form>
 </div>

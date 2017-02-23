@@ -3,6 +3,37 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
 
   $scope.termID = params.id;
 
+  // Generate array containing contiguous integers from
+  // start to end inclusive
+  function genRange(start, end) {
+    var range = [];
+    while (start <= end) {
+      range.push(start);
+      start += 1;
+    }
+    return range;
+  }
+
+  // Returns the human readable string for a time
+  $scope.timeToReadable = function(tVal) {
+    var reducedNum = tVal % 12 > 0 ? tVal % 12 : 12;
+    return "" + reducedNum + (tVal / 12 < 1 ? " AM" : " PM");
+  }
+
+  // Returns db ready string for given time
+  $scope.timeToDBReady = function(tVal) {
+    return "" + tVal + ":00";
+  }
+
+  // Returns whether start and end time are valid
+  // Assumed start and end time exist
+  $scope.timeValid = function(section) {
+    return section.startTime < section.endTime;
+  }
+
+  $scope.times = genRange(6, 23);
+
+
   // Fetches courses
   $scope.fetchAllCourses = function() {
     $http({
@@ -46,6 +77,10 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
 
     // Set new components
     $scope.sections = sections;
+  }
+
+  $scope.printSections = function() {
+    console.log($scope.sections);
   }
 
   $scope.quit = function() {
