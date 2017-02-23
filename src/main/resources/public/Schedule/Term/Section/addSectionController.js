@@ -62,6 +62,8 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     });
   };
 
+  // Called when a new course is selected
+  // Wipes all previously filled out sections
   $scope.startNewSections = function() {
     var sections = [];
 
@@ -79,8 +81,40 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     $scope.sections = sections;
   }
 
-  $scope.printSections = function() {
-    console.log($scope.sections);
+  // Replaces any necessary fields in the sections to prepare them for
+  // the database.
+  // * Changes startTime and endTime to be DB ready
+  function createDBReadySections(inSections) {
+
+    // Makes a deep copy of the sections passed in
+    var sections = JSON.parse(JSON.stringify(inSections));
+
+    // Iterate through and modify values
+    for (var sKey in sections) {
+      var section = sections[sKey];
+      if (section.startTime) {
+        section.startTime = $scope.timeToDBReady(section.startTime);
+      }
+      if (section.endTime) {
+        section.endTime = $scope.timeToDBReady(section.endTime);
+      }
+    }
+    return sections;
+  }
+
+  // Prepares and submits sections to db
+  $scope.submitSections = function() {
+    var dbReady = createDBReadySections($scope.sections);
+    for (var sKey in dbReady) {
+      var section = dbReady[sKey];
+
+      $http.post("api/term/" + $scope.termID + "/section", section)
+      .then(function(response) {
+        return nDlg.show($scope, "New Section Added: " + section.name);
+      }).catch(function(response) {
+        return nDlg.show($scope, "Addition failed: " + section.name);
+      })
+    }
   }
 
   $scope.quit = function() {
