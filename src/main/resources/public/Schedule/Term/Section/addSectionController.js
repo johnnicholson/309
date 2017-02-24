@@ -3,6 +3,17 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
 
   $scope.termID = params.id;
 
+  // Supply days of week data
+  $scope.daysOfWeek = [
+    {sName: "Su", lName: "Sunday"},
+    {sName: "M", lName: "Monday"},
+    {sName: "T", lName: "Tuesday"},
+    {sName: "W", lName: "Wednesday"},
+    {sName: "Th", lName: "Thursday"},
+    {sName: "F", lName: "Friday"},
+    {sName: "Sa", lName: "Saturday"}
+  ];
+
   // Generate array containing contiguous integers from
   // start to end inclusive
   function genRange(start, end) {
@@ -62,6 +73,20 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     });
   };
 
+  // Fetch rooms
+  $scope.fetchAllRooms = function() {
+    $http({
+      method: 'GET',
+      url: 'api/room'
+    })
+    .then(function success(response) {
+      $scope.rooms = response.data;
+    })
+    .catch(function error(response) {
+      return notifyDlg.show($scope, "Could not fetch: " + response.status);
+    });
+  }
+
   // Called when a new course is selected
   // Wipes all previously filled out sections
   $scope.startNewSections = function() {
@@ -106,8 +131,9 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
   $scope.submitSections = function() {
     var dbReady = createDBReadySections($scope.sections);
     for (var sKey in dbReady) {
-      var section = dbReady[sKey];
+      var section = JSON.parse(JSON.stringify(dbReady[sKey]));
 
+      console.log(section);
       $http.post("api/term/" + $scope.termID + "/section", section)
       .then(function(response) {
         return nDlg.show($scope, "New Section Added: " + section.name);
@@ -123,4 +149,5 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
 
   $scope.fetchAllCourses()
   $scope.fetchAllProfessors();
+  $scope.fetchAllRooms();
 }]);

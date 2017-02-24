@@ -15,7 +15,7 @@ public class Section {
 
 	}
 
-	public Section(String name, Person prof, Course course, Component comp, Date startTime, Date endTime) {
+	public Section(String name, Person prof, Course course, Component comp, Date startTime, Date endTime, Room room) {
 		super();
 		this.name = name;
 		this.professor = prof;
@@ -23,6 +23,7 @@ public class Section {
 		this.comp = comp;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.room = room;
 	}
 
 	private Integer id;
@@ -31,6 +32,19 @@ public class Section {
 	private Course course;
 	private Component comp;
 	private Date startTime, endTime;
+	private Room room;
+
+	// Days of week
+	// Other representations are possible but this is simple
+//	private Boolean Sunday;
+//	private Boolean Monday;
+//	private Boolean Tuesday;
+//	private Boolean Wednesday;
+//	private Boolean Thursday;
+//	private Boolean Friday;
+//	private Boolean Saturday;
+
+
 
 	@Id
 	@JsonProperty
@@ -98,5 +112,14 @@ public class Section {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+
+	@ManyToOne
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
 
 }

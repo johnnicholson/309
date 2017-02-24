@@ -27,6 +27,12 @@
         ng-options="user.firstName + ' ' + user.lastName for user in users">
         </select>
       </div>
+      <div class="form-group">
+        <label for="sel-room">Select room:</label>
+        <select class="form-control" id="sel-room" ng-model="section.room"
+        ng-options="room.roomNumber for room in rooms">
+        </select>
+      </div>
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
@@ -48,6 +54,13 @@
           </div>
         </div>
       </div>
+      <!-- <div>
+        <label>Days of Week:</label><br/>
+        <div ng-repeat="day in daysOfWeek">
+          <label>{{day.sName}}:
+          <input type="checkbox" ng-model="section[day.lName]"></label>
+        </div>
+      </div> -->
     </div>
 
     <button ng-click="submitSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>

@@ -26,19 +26,21 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
     //Iterate through sections and add them to events
     for (var sId in sections) {
       var section = sections[sId];
+
+      // Get start and end times
+      var startTime = parseInt(section.startTime.split(/:/)[0], 10);
+      var endTime = parseInt(section.endTime.split(/:/)[0], 10);
+
+      // Add new event
       $scope.sections.events.push(
         {
           title: section.name,
-          start: new Date(y, m, d + 1, 19, 0),
-          end: new Date(y, m, d + 1, 22, 0),
+          start: new Date(y, m, d + 1, startTime, 0),
+          end: new Date(y, m, d + 1, endTime, 0),
           allDay: false
         }
       );
     }
-    // console.log(newEvents);
-    // console.log($scope.sections)
-    // $scope.sections.events = newEvents;
-    // console.log($scope.sections);
   }
 
   /* alert on eventClick */
