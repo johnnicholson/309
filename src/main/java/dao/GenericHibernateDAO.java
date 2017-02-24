@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import java.lang.reflect.ParameterizedType;
@@ -37,7 +38,8 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T> {
 
   @SuppressWarnings("unchecked")
   public List<T> findAll() {
-    return getSession().createCriteria(getPersistentClass()).list();
+    return getSession().createCriteria(getPersistentClass()).setResultTransformer(
+        Criteria.DISTINCT_ROOT_ENTITY).list();
   }
 
   public T makePersistent(T entity) {
