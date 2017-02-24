@@ -1,20 +1,16 @@
 package transactions;
 
 import model.Person;
-
-import static hibernate.HibernateUtil.getFactory;
-
+import org.hibernate.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import org.hibernate.JDBCException;
-import org.hibernate.Session;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static hibernate.HibernateUtil.getFactory;
 
 @Component
 public abstract class Transaction<T> {
@@ -82,9 +78,14 @@ public abstract class Transaction<T> {
         val = action();
         session.getTransaction().commit();
         done = true;
-      } catch (JDBCException ex) {
+      } catch (Exception ex) {
         ex.printStackTrace();
-        session.getTransaction().rollback();
+        try {
+          if (session.isOpen())
+              session.getTransaction().rollback();
+        }catch (Exception rollBackEx) {
+
+        }
         counter--;
       }
     }
