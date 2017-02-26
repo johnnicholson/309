@@ -1,4 +1,4 @@
-<div>
+<div class="container-fluid">
   <form>
     <div class="form-group">
       <label for="sel-course">Select course:</label>
@@ -54,13 +54,14 @@
           </div>
         </div>
       </div>
-      <!-- <div>
+      <div class="row">
         <label>Days of Week:</label><br/>
         <div ng-repeat="day in daysOfWeek">
-          <label>{{day.sName}}:
-          <input type="checkbox" ng-model="section[day.lName]"></label>
+          <div class="col-sm-1">
+            <label><input type="checkbox" ng-model="section[day.lName]"> {{day.sName}}</label>
+          </div>
         </div>
-      </div> -->
+      </div>
     </div>
 
     <button ng-click="submitSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>

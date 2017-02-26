@@ -5,13 +5,13 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
 
   // Supply days of week data
   $scope.daysOfWeek = [
-    {sName: "Su", lName: "Sunday"},
-    {sName: "M", lName: "Monday"},
-    {sName: "T", lName: "Tuesday"},
-    {sName: "W", lName: "Wednesday"},
-    {sName: "Th", lName: "Thursday"},
-    {sName: "F", lName: "Friday"},
-    {sName: "Sa", lName: "Saturday"}
+    {sName: "Sun", lName: "sunday"},
+    {sName: "Mon", lName: "monday"},
+    {sName: "Tue", lName: "tuesday"},
+    {sName: "Wed", lName: "wednesday"},
+    {sName: "Thu", lName: "thursday"},
+    {sName: "Fri", lName: "friday"},
+    {sName: "Sat", lName: "saturday"}
   ];
 
   // Generate array containing contiguous integers from
