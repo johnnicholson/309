@@ -7,10 +7,20 @@
       </select>
     </div>
 
-    <div ng-repeat="section in sections">
+    <div ng-repeat="section in sections track by $index">
       <br/>
-      <h3 ng-if="!section.name">New section</h3>
-      <h3>{{section.name}}</h3>
+      <div>
+        <div>
+          <h3 ng-if="!section.name">New section</h3>
+          <h3>{{section.name}}</h3>
+        </div>
+        <div>
+          <button class="btn btn-danger btn-sm pull-right" ng-click="sections.splice($index, 1)">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="sel-component">Component:</label>
         <select ng-disabled="!selectedCourse" class="form-control" id="sel-component" ng-model="section.component"
@@ -63,8 +73,14 @@
         </div>
       </div>
     </div>
+    <div>
+      <button ng-click="addSection()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Add Another Section</button>
+    </div>
+    <br /><br />
+    <div>
+      <button ng-click="submitSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
+      <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
+    </div>
 
-    <button ng-click="submitSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
-    <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
   </form>
 </div>

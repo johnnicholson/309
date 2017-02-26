@@ -127,6 +127,13 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     return sections;
   }
 
+  // Adds another empty section template
+  $scope.addSection = function() {
+    var newSection = {};
+    newSection.course = $scope.selectedCourse;
+    $scope.sections.push(newSection);
+  }
+
   // Prepares and submits sections to db
   $scope.submitSections = function() {
     var dbReady = createDBReadySections($scope.sections);
