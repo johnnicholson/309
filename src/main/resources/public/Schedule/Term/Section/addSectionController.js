@@ -127,18 +127,11 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     return sections;
   }
 
-  // Adds another empty section template
-  $scope.addSection = function() {
-    var newSection = {};
-    newSection.course = $scope.selectedCourse;
-    $scope.sections.push(newSection);
-  }
-
   // Prepares and submits sections to db
   $scope.submitSections = function() {
     var dbReady = createDBReadySections($scope.sections);
     for (var sKey in dbReady) {
-      var section = JSON.parse(JSON.stringify(dbReady[sKey]));
+      var section = dbReady[sKey];
 
       console.log(section);
       $http.post("api/term/" + $scope.termID + "/section", section)

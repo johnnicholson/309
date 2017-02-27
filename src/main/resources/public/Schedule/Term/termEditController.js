@@ -93,13 +93,13 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
       //This allows drag and drop
       //editable: true,
       header:{
-        left: 'title',
+        left: '',
         center: '',
         right: ''
       },
       defaultView: 'agendaWeek',
       columnFormat: 'dddd',
-      titleFormat: 'YYYY',
+      // titleFormat: 'YYYY',
       defaultDate: date,
       eventClick: $scope.alertOnEventClick,
       eventDrop: $scope.alertOnDrop,
