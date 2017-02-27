@@ -45,6 +45,8 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
   $scope.times = genRange(6, 23);
 
 
+  // Gets
+
   // Fetches courses
   $scope.fetchAllCourses = function() {
     $http({
@@ -133,7 +135,6 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     for (var sKey in dbReady) {
       var section = dbReady[sKey];
 
-      console.log(section);
       $http.post("api/term/" + $scope.termID + "/section", section)
       .then(function(response) {
         return nDlg.show($scope, "New Section Added: " + section.name);
@@ -141,6 +142,13 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
         return nDlg.show($scope, "Addition failed: " + section.name);
       })
     }
+  }
+
+  // Adds another empty section template
+  $scope.addSection = function() {
+    var newSection = {};
+    newSection.course = $scope.selectedCourse;
+    $scope.sections.push(newSection);
   }
 
   $scope.quit = function() {

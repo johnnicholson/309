@@ -146,6 +146,15 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Schedule/Term/Section/addSection.template.html',
         controller: 'addSectionController'
       })
+      .state('section-edit', {
+        parent: 'base',
+        url: '/term/section/:id/edit',
+        templateUrl: 'Schedule/Term/Section/editSection.template.html',
+        controller: 'editSectionController',
+        params: {
+          section : null
+        }
+      })
       .state('calendar', {
         parent: 'base',
         url: '/calendar',
