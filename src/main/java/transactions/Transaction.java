@@ -15,7 +15,7 @@ import static hibernate.HibernateUtil.getFactory;
 @Component
 public abstract class Transaction<T> {
 
-  public static final int MAX_RETRIES = 10;
+  public static final int MAX_RETRIES = 2;
 
   protected HttpStatus responseCode = HttpStatus.OK;
 
