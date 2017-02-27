@@ -12,6 +12,13 @@
     <div class="col-sm-2">
       <h3>Section Info</h3>
       <hr />
+      <span ng-if="!selectedSection">Click on a section to see info about it</span>
+      <div ng-if="selectedSection">
+          Course: {{selectedSection.course.name}}<br />
+          Section: {{selectedSection.name}}<br />
+          Type: {{selectedSection.component.componentType.name}}<br />
+          Room: {{selectedSection.room.roomNumber}}
+      </div>
     </div>
   </div>
 </div>

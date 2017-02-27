@@ -48,7 +48,8 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
               title: section.name,
               start: new Date(y, m, d + daysOfWeek[dow], startTime, 0),
               end: new Date(y, m, d + daysOfWeek[dow], endTime, 0),
-              allDay: false
+              allDay: false,
+              section : section
             }
           );
         }
@@ -57,8 +58,9 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
   }
 
   /* alert on eventClick */
-  $scope.alertOnEventClick = function( date, jsEvent, view){
-    console.log(date.title + ' was clicked ');
+  $scope.alertOnEventClick = function( sectionEvent, jsEvent, view){
+    $scope.selectedSection = sectionEvent.section;
+    console.log(sectionEvent.section);
   };
   /* alert on Drop */
   $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
