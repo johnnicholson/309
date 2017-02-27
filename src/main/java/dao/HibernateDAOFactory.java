@@ -41,8 +41,10 @@ public class HibernateDAOFactory extends DAOFactory {
   public SectionDAO getSectionDAO() {
 	  return ((SectionDAO) instantiateDAO(SectionDAO.class));
   }
-  
 
+	public TimePrefDAO getTimePrefDAO() {
+		return ((TimePrefDAO) instantiateDAO(TimePrefDAO.class));
+	}
 
 
 	public ComponentTypeDAO getComponentTypeDAO() {
