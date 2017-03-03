@@ -152,6 +152,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Schedule/Calendar/calendar.template.html',
         controller: 'calendarController'
       })
+      .state('pref', {
+        parent: 'base',
+        url: '/pref',
+        templateUrl: 'Pref/pref.template.html',
+        controller: 'prefController'
+      })
+
 
 
    }]);

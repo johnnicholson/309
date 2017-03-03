@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import model.CoursePref;
+import model.TimePref;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +58,20 @@ public class PersonController {
       HttpServletResponse res) {
     Person p = new GetPerson(prsId).run(req, res);
     return p;
+  }
+
+  @RequestMapping(value = "/{PrsId}/timeprefs", method = RequestMethod.GET)
+  public static List<TimePref> getPersonTimePrefs(@PathVariable(value = "PrsId") int prsId, HttpServletRequest req,
+      HttpServletResponse res) {
+    List<TimePref> prefs = new PersonTransactions.GetPersonTimePrefs(prsId).run(req, res);
+    return prefs;
+  }
+
+  @RequestMapping(value = "/{PrsId}/courseprefs", method = RequestMethod.GET)
+  public static List<CoursePref> getPersonCoursePrefs(@PathVariable(value = "PrsId") int prsId, HttpServletRequest req,
+      HttpServletResponse res) {
+    List<CoursePref> prefs = new PersonTransactions.GetPersonCoursePrefs(prsId).run(req, res);
+    return prefs;
   }
 
   @RequestMapping(value = "/{PrsId}", method = RequestMethod.DELETE)
