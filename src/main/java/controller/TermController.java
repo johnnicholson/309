@@ -64,6 +64,7 @@ public class TermController {
 	@RequestMapping(value = "/{TermID}/section", method = RequestMethod.POST)
 	public static Integer postSection(@PathVariable(value = "TermID") int tID, @RequestBody Section s,
 			HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("RECEIVED REQUEST FOR " + s.getName());
 		Integer sectionID = new PostSection(tID, s).run(req, res);
 		return sectionID;
 	}

@@ -1,5 +1,8 @@
-app.controller('termController', ['$scope', '$state', '$http',
-function(scope, $state, $http) {
+app.controller('termController', ['$scope', '$state', '$http', 'login',
+function(scope, $state, $http, login) {
+
+  // Only admin users can edit
+  scope.showEdit = login.isAdmin();
 
   // Grabs all terms from the server
   scope.fetchAllTerms = function() {

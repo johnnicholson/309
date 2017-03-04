@@ -1,4 +1,4 @@
-<div>
+<div class="container-fluid">
   <form>
     <div class="form-group">
       <label for="sel-course">Select course:</label>
@@ -6,11 +6,20 @@
       ng-model="selectedCourse" ng-options="course.name for course in courses" ng-change="startNewSections()">
       </select>
     </div>
+    <hr />
+    <div ng-repeat="section in sections track by $index">
+      <div>
+        <div>
+          <h3 ng-if="!section.name">New section</h3>
+          <h3>{{section.name}}</h3>
+        </div>
+        <div>
+          <button class="btn btn-danger btn-sm pull-right" ng-click="sections.splice($index, 1)">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
 
-    <div ng-repeat="section in sections">
-      <br/>
-      <h3 ng-if="!section.name">New section</h3>
-      <h3>{{section.name}}</h3>
       <div class="form-group">
         <label for="sel-component">Component:</label>
         <select ng-disabled="!selectedCourse" class="form-control" id="sel-component" ng-model="section.component"
@@ -25,6 +34,12 @@
         <label for="sel-prof">Select professor:</label>
         <select class="form-control" id="sel-prof" ng-model="section.selectedProfessor"
         ng-options="user.firstName + ' ' + user.lastName for user in users">
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sel-room">Select room:</label>
+        <select class="form-control" id="sel-room" ng-model="section.room"
+        ng-options="room.roomNumber for room in rooms">
         </select>
       </div>
       <div class="row">
@@ -48,9 +63,24 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <label>Days of Week:</label><br/>
+        <div ng-repeat="day in daysOfWeek">
+          <div class="col-sm-1">
+            <label><input type="checkbox" ng-model="section[day.lName]"> {{day.sName}}</label>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <div>
+      <button ng-click="addSection()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Add Another Section</button>
+    </div>
+    <br /><br />
+    <div>
+      <button ng-click="submitSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
+      <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
     </div>
 
-    <button ng-click="submitSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
-    <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
   </form>
 </div>

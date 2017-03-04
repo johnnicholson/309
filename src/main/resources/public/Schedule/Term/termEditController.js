@@ -4,15 +4,15 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
   // Get hold on termID for adding sections
   $scope.termID = $stateParams.id;
 
-  //Generate day to post sections relative to
-  var date = new Date();
+  //First sunday of 1980
+  var date = new Date("January 6, 1980 11:13:00");
   var d = date.getDate();
   var m = date.getMonth();
   var y = date.getFullYear();
 
   $scope.sections = {
       events : [
-        {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false}
+        {title: 'Birthday Party',start: new Date(y, m, d, 19, 0),end: new Date(y, m, d, 22, 30),allDay: false}
       ]
   };
   $scope.eventSources = [$scope.sections];
@@ -20,30 +20,47 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
   // Call this function to regenerate the events shown on the
   // calendar
   $scope.updateEvents = function(sections) {
+    var daysOfWeek = {
+      "sunday" : 0,
+      "monday" : 1,
+      "tuesday" : 2,
+      "wednesday" : 3,
+      "thursday" : 4,
+      "friday" : 5,
+      "saturday" : 6
+    }
     // Get rid of old events
     $scope.sections.events.splice(0);
 
     //Iterate through sections and add them to events
     for (var sId in sections) {
       var section = sections[sId];
-      $scope.sections.events.push(
-        {
-          title: section.name,
-          start: new Date(y, m, d + 1, 19, 0),
-          end: new Date(y, m, d + 1, 22, 0),
-          allDay: false
+
+      // Get start and end times
+      var startTime = parseInt(section.startTime.split(/:/)[0], 10);
+      var endTime = parseInt(section.endTime.split(/:/)[0], 10);
+
+      // Add new event for each day of week
+      for (var dow in daysOfWeek) {
+        if (section[dow] === true) {
+          $scope.sections.events.push(
+            {
+              title: section.name,
+              start: new Date(y, m, d + daysOfWeek[dow], startTime, 0),
+              end: new Date(y, m, d + daysOfWeek[dow], endTime, 0),
+              allDay: false,
+              section : section
+            }
+          );
         }
-      );
+      }
     }
-    // console.log(newEvents);
-    // console.log($scope.sections)
-    // $scope.sections.events = newEvents;
-    // console.log($scope.sections);
   }
 
   /* alert on eventClick */
-  $scope.alertOnEventClick = function( date, jsEvent, view){
-    console.log(date.title + ' was clicked ');
+  $scope.alertOnEventClick = function( sectionEvent, jsEvent, view){
+    $scope.selectedSection = sectionEvent.section;
+    console.log(sectionEvent.section);
   };
   /* alert on Drop */
   $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
@@ -78,23 +95,20 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
       //This allows drag and drop
       //editable: true,
       header:{
-        left: 'title',
+        left: '',
         center: '',
         right: ''
       },
       defaultView: 'agendaWeek',
       columnFormat: 'dddd',
-      titleFormat: 'YYYY',
-      defaultDate: null,
+      // titleFormat: 'YYYY',
+      defaultDate: date,
       eventClick: $scope.alertOnEventClick,
       eventDrop: $scope.alertOnDrop,
       eventResize: $scope.alertOnResize,
       eventRender: $scope.eventRender
     }
   };
-
-  /* event sources array*/
-  //$scope.eventSources = [$scope.events];
 
   // Grabs specific term from the server
   $scope.fetchTerm = function(id) {

@@ -122,6 +122,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Schedule/Term/term.template.html',
         controller: 'termController'
       })
+      .state('term-add', {
+        parent: 'base',
+        url: '/term/add',
+        templateUrl: 'Schedule/Term/termAdd.template.html',
+        controller: 'termAddController'
+      })
       .state('term-edit', {
         parent: 'base',
         url: '/term/:id/edit',
@@ -140,6 +146,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Schedule/Calendar/calendar.template.html',
         controller: 'calendarController'
       })
+      .state('pref', {
+        parent: 'base',
+        url: '/pref',
+        templateUrl: 'Pref/pref.template.html',
+        controller: 'prefController'
+      })
+
 
 
    }]);

@@ -15,7 +15,8 @@ public class Section {
 
 	}
 
-	public Section(String name, Person prof, Course course, Component comp, Date startTime, Date endTime) {
+	public Section(String name, Person prof, Course course, Component comp, Date startTime, Date endTime, Room room,
+			Boolean sunday, Boolean monday, Boolean tuesday, Boolean wednesday, Boolean thursday, Boolean friday, Boolean saturday) {
 		super();
 		this.name = name;
 		this.professor = prof;
@@ -23,6 +24,14 @@ public class Section {
 		this.comp = comp;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.room = room;
+		this.sunday = sunday;
+		this.monday = monday;
+		this.tuesday = tuesday;
+		this.wednesday = wednesday;
+		this.thursday = thursday;
+		this.friday = friday;
+		this.saturday = saturday;
 	}
 
 	private Integer id;
@@ -31,6 +40,19 @@ public class Section {
 	private Course course;
 	private Component comp;
 	private Date startTime, endTime;
+	private Room room;
+
+	// Days of week
+	// Other representations are possible but this is simple
+	private Boolean sunday;
+	private Boolean monday;
+	private Boolean tuesday;
+	private Boolean wednesday;
+	private Boolean thursday;
+	private Boolean friday;
+	private Boolean saturday;
+
+
 
 	@Id
 	@JsonProperty
@@ -98,5 +120,73 @@ public class Section {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+
+	@ManyToOne
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+
+	public Boolean getSunday() {
+		return sunday;
+	}
+
+	public void setSunday(Boolean sunday) {
+		this.sunday = sunday;
+	}
+
+	public Boolean getMonday() {
+		return monday;
+	}
+
+	public void setMonday(Boolean monday) {
+		this.monday = monday;
+	}
+
+
+	public Boolean getTuesday() {
+		return tuesday;
+	}
+
+
+	public void setTuesday(Boolean tuesday) {
+		this.tuesday = tuesday;
+	}
+
+	public Boolean getWednesday() {
+		return wednesday;
+	}
+
+	public void setWednesday(Boolean wednesday) {
+		this.wednesday = wednesday;
+	}
+
+	public Boolean getThursday() {
+		return thursday;
+	}
+
+	public void setThursday(Boolean thursday) {
+		this.thursday = thursday;
+	}
+
+	public Boolean getFriday() {
+		return friday;
+	}
+
+	public void setFriday(Boolean friday) {
+		this.friday = friday;
+	}
+
+	public Boolean getSaturday() {
+		return saturday;
+	}
+
+	public void setSaturday(Boolean saturday) {
+		this.saturday = saturday;
+	}
+
 
 }

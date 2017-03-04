@@ -65,7 +65,7 @@ function($scope, $compile, config){
       defaultView: 'agendaWeek',
       columnFormat: 'dddd',
       titleFormat: 'YYYY',
-      defaultDate: null,
+      defaultDate: date,
       eventClick: $scope.alertOnEventClick,
       eventDrop: $scope.alertOnDrop,
       eventResize: $scope.alertOnResize,

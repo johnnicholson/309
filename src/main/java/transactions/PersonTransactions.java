@@ -1,11 +1,15 @@
 package transactions;
 
 import controller.PersonController.PasswordChange;
+import dao.CoursePrefDAO;
 import dao.PersonDAO;
+import dao.TimePrefDAO;
 import hibernate.HibernateUtil;
+import model.CoursePref;
 import model.Person;
 import model.Person.Role;
 
+import model.TimePref;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
@@ -162,6 +166,43 @@ public class PersonTransactions {
       } else {
         responseCode = HttpStatus.UNAUTHORIZED;
       }
+      return null;
+    }
+  }
+
+
+  public static class GetPersonTimePrefs extends Transaction<List<TimePref>>{
+    private final int prsId;
+
+    public GetPersonTimePrefs(int prsId) {
+      this.prsId = prsId;
+    }
+
+    @Override public List<TimePref> action() {
+       TimePrefDAO pDAO = HibernateUtil.getDAOFact().getTimePrefDAO();
+
+       if (isAdminOrUser(prsId)) {
+         return pDAO.findByUser(prsId);
+       }
+       responseCode = HttpStatus.UNAUTHORIZED;
+       return null;
+    }
+  }
+
+
+  public static class GetPersonCoursePrefs extends Transaction<List<CoursePref>>{
+    private int prsId;
+
+    public GetPersonCoursePrefs(int prsId) {
+      this.prsId = prsId;
+    }
+
+    @Override public List<CoursePref> action() {
+      CoursePrefDAO cpDAO = HibernateUtil.getDAOFact().getCoursePrefDAO();
+      if (isAdminOrUser(prsId)) {
+        return cpDAO.findByUser(prsId);
+      }
+      responseCode = HttpStatus.UNAUTHORIZED;
       return null;
     }
   }
