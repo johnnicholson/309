@@ -21,12 +21,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Home/home.template.html',
          controller: 'homeController'
       })
-      .state('login', {
-         parent: 'base',
-         url: '/login',
-         templateUrl: 'Login/login.template.html',
-         controller: 'loginController',
-      })
       .state('setup', {
          parent: 'base',
          url: '/setup',

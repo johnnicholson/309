@@ -8,6 +8,7 @@
 .navbar-nav-center {
   width: 100%;
   text-align: center;
+  background-color: #FFFFFF;
 }
 
 .cpn-edit-grp .btn {
@@ -17,4 +18,15 @@
 
 .fc-unthemed .fc-today {
     background: none;
+}
+
+.navbar .navbar-default {
+  background-color: #FFFFFF;
+
+}
+
+.jumbotron {
+    padding-top: 64px;
+    padding-left: 500px;
+    padding-right: 500px;
 }
