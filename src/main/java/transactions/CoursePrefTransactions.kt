@@ -29,7 +29,7 @@ class CoursePrefTransactions {
     class PostPref(val crsPref: CoursePref) : Transaction<Int?>() {
         override fun action(): Int? {
             val crsPrefDAO = HibernateUtil.getDAOFact().coursePrefDAO
-            if (isAdmin() && crsPref.id == null)
+            if (isAdminOrUser(crsPref.prof!!.id) && crsPref.id == null)
                 return crsPrefDAO.makePersistent(crsPref).id
             responseCode = HttpStatus.UNAUTHORIZED
             return null
@@ -44,7 +44,7 @@ class CoursePrefTransactions {
                 responseCode = if(isAdmin()) HttpStatus.NOT_FOUND else HttpStatus.UNAUTHORIZED
             }
             else if ( isAdmin() || (dbPref.prof != null && isAdminOrUser(dbPref.prof!!.id)))
-               BeanUtils.copyProperties(crsPref, dbPref, "id");
+               copyNonNulls(crsPref, dbPref, "id");
             else
                 responseCode = HttpStatus.UNAUTHORIZED
             return null

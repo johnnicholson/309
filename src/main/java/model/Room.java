@@ -44,7 +44,7 @@ public class Room {
 
   }
 
-  public Room(int capacity, String roomNumber, RoomType roomType) {
+  public Room(Integer capacity, String roomNumber, RoomType roomType) {
     super();
     this.capacity = capacity;
     this.roomNumber = roomNumber;
@@ -65,7 +65,7 @@ public class Room {
 	    return id;
   }
   
-  public void setId(int id) {
+  public void setId(Integer id) {
 	    this.id = id;
   }
   
@@ -74,7 +74,7 @@ public class Room {
     return capacity;
   }
 
-  public void setCapacity(int capacity) {
+  public void setCapacity(Integer capacity) {
     this.capacity = capacity;
   }
 

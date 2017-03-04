@@ -42,9 +42,9 @@ public class RoomTransactions {
 	/** This class represents how the GetRoom method in the Controller interacts with our database.
 	 */
 	public static class GetRoom extends Transaction<Room> {
-		private int roomId;
+		private Integer roomId;
 
-		public GetRoom(int roomId) {
+		public GetRoom(Integer roomId) {
 			this.roomId = roomId;
 		}
 
@@ -137,7 +137,7 @@ public class RoomTransactions {
 
 		private int rmID;
 
-		public DeleteRoom(int roomID) {
+		public DeleteRoom(Integer roomID) {
 			this.rmID = roomID;
 		}
 
