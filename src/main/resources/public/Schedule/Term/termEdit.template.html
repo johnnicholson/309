@@ -1,8 +1,28 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-2" >
       <h3>Filter</h3>
+      <span>Hold command to select multiple options for each filter</span>
       <hr />
+      <div>
+        <div>
+          By Professor:
+          <select class="form-control" ng-model="selectedProfessors" ng-options="user.id as user.firstName for user in users" ng-change="reload()" multiple>
+          </select>
+        </div>
+        <div>
+          By Course:
+          <select class="form-control" ng-model="selectedCourses" ng-options="course.id as course.name for course in courses" ng-change="reload()" multiple>
+          </select>
+        </div>
+        <div>
+          By Room:
+          <select class="form-control" ng-model="selectedRooms" ng-options="room.id as room.roomNumber for room in rooms" ng-change="reload()" multiple>
+          </select>
+        </div>
+        <br />
+        <button class="btn btn-warning" ng-click="resetFilters()">Clear All Filters</button>
+      </div>
     </div>
     <div class="col-sm-8">
       <h3 class="pull-left">{{term.name}}</h3>
@@ -14,10 +34,11 @@
       <hr />
       <span ng-if="!selectedSection">Click on a section to see info about it</span>
       <div ng-if="selectedSection">
-          Course: {{selectedSection.course.name}}<br />
-          Section: {{selectedSection.name}}<br />
-          Type: {{selectedSection.component.componentType.name}}<br />
-          Room: {{selectedSection.room.roomNumber}}
+        Course: {{selectedSection.course.name}}<br />
+        Section: {{selectedSection.name}}<br />
+        Type: {{selectedSection.component.componentType.name}}<br />
+        Room: {{selectedSection.room.roomNumber}}<br />
+        <button type="button" class="btn btn-warning" ui-sref="section-edit(selectedSection)">Edit</button>
       </div>
     </div>
   </div>
