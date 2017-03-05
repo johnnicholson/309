@@ -20,6 +20,8 @@
           <select class="form-control" ng-model="selectedRooms" ng-options="room.id as room.roomNumber for room in rooms" ng-change="reload()" multiple>
           </select>
         </div>
+        <br />
+        <button class="btn btn-warning" ng-click="resetFilters()">Clear All Filters</button>
       </div>
     </div>
     <div class="col-sm-8">

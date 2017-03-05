@@ -4,11 +4,6 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
   // Get hold on termID for adding sections
   $scope.termID = $stateParams.id;
 
-  // Initialize filter data to nothing
-  $scope.selectedCourses = [];
-  $scope.selectedProfessors = [];
-  $scope.selectedRooms = [];
-
   //First sunday of 1980
   var date = new Date("January 6, 1980 11:13:00");
   var d = date.getDate();
@@ -198,6 +193,20 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
       $scope.updateEvents(sections);
   }
 
+  // Resets all filters to empty arrays
+  var clearFilters = function() {
+    $scope.selectedCourses = [];
+    $scope.selectedProfessors = [];
+    $scope.selectedRooms = [];
+  }
+
+  // Clear filters and force calendar to reload
+  $scope.resetFilters = function() {
+    clearFilters();
+    $scope.reload();
+  }
+
+  clearFilters();
   // Fetch term when first loaded up
   $scope.fetchTerm($stateParams.id);
 
