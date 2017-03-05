@@ -9,6 +9,6 @@ import java.util.List;
  */
 public class TimePrefDAO extends GenericHibernateDAO<TimePref> {
     public List<TimePref> findByUser(int prsId) {
-        return (List<TimePref>) getSession().createSQLQuery("select * from timepref where prof_id = :prof").setInteger("prof", prsId).list();
+        return (List<TimePref>) getSession().createQuery("from TimePref where prof_id = :prof").setInteger("prof", prsId).list();
     }
 }

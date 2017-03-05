@@ -161,13 +161,18 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Schedule/Calendar/calendar.template.html',
         controller: 'calendarController'
       })
-      .state('pref', {
+      .state('course-pref', {
         parent: 'base',
-        url: '/pref',
+        url: '/coursepref',
         templateUrl: 'Pref/pref.template.html',
         controller: 'prefController'
       })
-
+      .state('time-pref', {
+        parent: 'base',
+        url: '/timepref',
+        templateUrl: 'Pref/timepref.template.html',
+        controller: 'timePrefController'
+      })
 
 
    }]);
