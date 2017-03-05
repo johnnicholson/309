@@ -17,6 +17,28 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
   };
   $scope.eventSources = [$scope.sections];
 
+  // Grabs all resources from endpoint and sets $scope[resAttr] to the result
+  var fetchAllResourcesAtEndpoint = function(endPoint, resAttr) {
+    $http({
+      method: 'GET',
+      url: endPoint
+    })
+    .then(function success(response) {
+      $scope[resAttr] = response.data;
+      console.log($scope[resAttr]);
+    })
+    .catch(function error(response) {
+      return notifyDlg.show($scope, "Could not fetch filter data for" + resAttr + " : " + response.status);
+    });
+  }
+
+  $scope.fetchFilterData = function() {
+    fetchAllResourcesAtEndpoint('api/prss/', "users");
+    fetchAllResourcesAtEndpoint('api/course/', "courses");
+    fetchAllResourcesAtEndpoint('api/room/', "rooms");
+  }
+  $scope.fetchFilterData();
+
   // Call this function to regenerate the events shown on the
   // calendar
   $scope.updateEvents = function(sections) {
