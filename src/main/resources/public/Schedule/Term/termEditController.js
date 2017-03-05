@@ -1,8 +1,13 @@
-app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg',
-function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
+app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg', '$filter',
+function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filter) {
 
   // Get hold on termID for adding sections
   $scope.termID = $stateParams.id;
+
+  // Initialize filter data to nothing
+  $scope.selectedCourses = [];
+  $scope.selectedProfessors = [];
+  $scope.selectedRooms = [];
 
   //First sunday of 1980
   var date = new Date("January 6, 1980 11:13:00");
@@ -25,7 +30,6 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
     })
     .then(function success(response) {
       $scope[resAttr] = response.data;
-      console.log($scope[resAttr]);
     })
     .catch(function error(response) {
       return notifyDlg.show($scope, "Could not fetch filter data for" + resAttr + " : " + response.status);
@@ -42,6 +46,7 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
   // Call this function to regenerate the events shown on the
   // calendar
   $scope.updateEvents = function(sections) {
+
     var daysOfWeek = {
       "sunday" : 0,
       "monday" : 1,
@@ -145,6 +150,43 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
     .catch(function error(response) {
       return notifyDlg.show($scope, "Could not fetch: " + response.status);
     });
+  }
+
+  // This reloads the calendar to reflect whatever filters are in place
+  $scope.reload = function() {
+    // Filter through the options
+    // This could be optimized, as performance is not great as of now
+
+
+    var sections = $filter('filter')($scope.term.sections,
+      function(value, index, array) {
+        var roomMatch = true;
+        var courseMatch = true;
+
+        // If there is a professor filter selected, check whether object is valid
+        if ($scope.selectedRooms.length > 0) {
+          if (value.room) {
+            roomMatch = ($scope.selectedRooms.indexOf(value.room.id) > -1);
+          }
+          else {
+            roomMatch = false;
+          }
+        }
+
+        // Filter by courses if filter is selected
+        if ($scope.selectedCourses.length > 0) {
+          if (value.course) {
+            courseMatch = ($scope.selectedCourses.indexOf(value.course.id) > -1);
+          }
+          else {
+            courseMatch = false;
+          }
+        }
+
+        return roomMatch && courseMatch;
+      });
+
+      $scope.updateEvents(sections);
   }
 
   // Fetch term when first loaded up

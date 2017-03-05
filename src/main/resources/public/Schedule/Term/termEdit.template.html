@@ -7,17 +7,17 @@
       <div>
         <div>
           By Professor:
-          <select class="form-control" ng-model="selectedProfessors" ng-options="user.firstName for user in users" multiple>
+          <select class="form-control" ng-model="selectedProfessors" ng-options="user.id as user.firstName for user in users" ng-change="reload()" multiple>
           </select>
         </div>
         <div>
           By Course:
-          <select class="form-control" ng-model="selectedCourses" ng-options="course.name for course in courses" multiple>
+          <select class="form-control" ng-model="selectedCourses" ng-options="course.id as course.name for course in courses" ng-change="reload()" multiple>
           </select>
         </div>
         <div>
           By Room:
-          <select class="form-control" ng-model="selectedRooms" ng-options="room.roomNumber for room in rooms" multiple>
+          <select class="form-control" ng-model="selectedRooms" ng-options="room.id as room.roomNumber for room in rooms" ng-change="reload()" multiple>
           </select>
         </div>
       </div>
