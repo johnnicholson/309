@@ -1,86 +1,93 @@
 <div class="container-fluid">
-  <form>
+  <form name="sectionForm" ng-submit="submitForm(sectionForm.$valid)" novalidate>
     <div class="form-group">
       <label for="sel-course">Select course:</label>
       <select class="form-control" id="sel-course"
-      ng-model="selectedCourse" ng-options="course.name for course in courses" ng-change="startNewSections()">
-      </select>
-    </div>
-    <hr />
-    <div ng-repeat="section in sections track by $index">
+      ng-model="selectedCourse" ng-options="course.name for course in courses" ng-change="startNewSections()" required>
+    </select>
+  </div>
+  <hr />
+  <div ng-repeat="section in sections track by $index">
+    <div>
       <div>
-        <div>
-          <h3 ng-if="!section.name">New section</h3>
-          <h3>{{section.name}}</h3>
-        </div>
-        <div>
-          <button class="btn btn-danger btn-sm pull-right" ng-click="sections.splice($index, 1)">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-          </button>
-        </div>
+        <h3 ng-if="!section.name">New section</h3>
+        <h3>{{section.name}}</h3>
       </div>
-
-      <div class="form-group">
-        <label for="sel-component">Component:</label>
-        <select ng-disabled="!selectedCourse" class="form-control" id="sel-component" ng-model="section.component"
-        ng-options="component.componentType.name + ' - ' + component.componentType.description for component in selectedCourse.components">
-        </select>
+      <div>
+        <button class="btn btn-danger btn-sm pull-right" ng-click="sections.splice($index, 1)">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
       </div>
-      <fieldset class="form-group">
-        <label>Section Name:</label>
-        <input type="text" class="form-control" placeholder="Enter section name" ng-model="section.name">
-      </fieldset>
-      <div class="form-group">
-        <label for="sel-prof">Select professor:</label>
-        <select class="form-control" id="sel-prof" ng-model="section.professor"
-        ng-options="user.firstName + ' ' + user.lastName for user in users">
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="sel-room">Select room:</label>
-        <select class="form-control" id="sel-room" ng-model="section.room"
-        ng-options="room.roomNumber for room in rooms">
-        </select>
-      </div>
-      <div class="row">
-        <div class="col-md-2">
-          <div class="form-group">
-            <label for="sel-time">Start Time:</label>
-            <select class="form-control" id="sel-time" ng-model="section.startTime"
-            ng-options="timeToReadable(time) for time in times">
-            </select>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="form-group">
-            <label for="sel-end-time">End Time:</label>
-            <select class="form-control" id="sel-end-time" ng-model="section.endTime"
-            ng-options="timeToReadable(time) for time in times">
-            </select>
-            <label class="label-warning" ng-if="section.startTime && section.endTime && !timeValid(section)">
-              End must come after start time
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <label>Days of Week:</label><br/>
-        <div ng-repeat="day in daysOfWeek">
-          <div class="col-sm-1">
-            <label><input type="checkbox" ng-model="section[day.lName]"> {{day.sName}}</label>
-          </div>
-        </div>
-      </div>
-      <hr />
-    </div>
-    <div>
-      <button ng-click="addSection()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Add Another Section</button>
-    </div>
-    <br /><br />
-    <div>
-      <button ng-click="submitSections()" ng-disabled="!selectedCourse" type="button" class="btn btn-primary">Create Sections</button>
-      <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
     </div>
 
-  </form>
+    <div class="form-group">
+      <label for="sel-component">Component:</label>
+      <select ng-disabled="!selectedCourse" class="form-control" id="sel-component" ng-model="section.component"
+      ng-options="component.componentType.name + ' - ' + component.componentType.description for component in selectedCourse.components" required>
+    </select>
+    <p ng-show="showErrors && !section.component" class="form-text text-muted">Component is required.</p>
+  </div>
+  <fieldset class="form-group">
+    <label>Section Name:</label>
+    <input name="sectName" type="text" class="form-control" placeholder="Enter section name" ng-model="section.name" required>
+    <p ng-show="showErrors && !section.name" class="form-text text-muted">Section name is required.</p>
+  </fieldset>
+  <div class="form-group">
+    <label for="sel-prof">Select professor:</label>
+    <select class="form-control" id="sel-prof" ng-model="section.professor"
+    ng-options="user.firstName + ' ' + user.lastName for user in users" required>
+  </select>
+  <p ng-show="showErrors && !section.professor" class="form-text text-muted">Professor is required.</p>
+</div>
+<div class="form-group">
+  <label for="sel-room">Select room:</label>
+  <select class="form-control" id="sel-room" ng-model="section.room"
+  ng-options="room.roomNumber for room in rooms" required>
+</select>
+<p ng-show="showErrors && !section.room" class="form-text text-muted">Room is required.</p>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <div class="form-group">
+      <label for="sel-time">Start Time:</label>
+      <select class="form-control" id="sel-time" ng-model="section.startTime"
+      ng-options="timeToReadable(time) for time in times" required>
+    </select>
+    <p ng-show="showErrors && !section.startTime" class="form-text text-muted">Start time is required.</p>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="form-group">
+    <label for="sel-end-time">End Time:</label>
+    <select class="form-control" id="sel-end-time" ng-model="section.endTime"
+    ng-options="timeToReadable(time) for time in times" required>
+  </select>
+  <p ng-show="showErrors && !section.endTime" class="form-text text-muted">End time is required.</p>
+  <label class="label-warning" ng-if="section.startTime && section.endTime && !timeValid(section)">
+    End must come after start time
+  </label>
+</div>
+</div>
+</div>
+<div class="row">
+  <label>Days of Week:</label><br/>
+  <div ng-repeat="day in daysOfWeek">
+    <div class="col-sm-1">
+      <label><input type="checkbox" ng-model="section[day.lName]"> {{day.sName}}</label>
+    </div>
+  </div>
+</div>
+  <p ng-show="showErrors && !scheduledAtLeastOneDay(section)" class="form-text text-muted">At least 1 day of the week is required.</p>
+<hr />
+</div>
+<div>
+  <button ng-click="addSection()" ng-show="selectedCourse" type="button" class="btn btn-primary">Add Another Section</button>
+</div>
+<br /><br />
+<div>
+  <button type="submit" ng-disabled="!selectedCourse" class="btn btn-primary">Create Sections</button>
+  <button type="button" class="btn btn-warning" ng-click="quit()">Cancel</button>
+</div>
+
+</form>
 </div>

@@ -148,7 +148,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
       })
       .state('section-edit', {
         parent: 'base',
-        url: '/term/section/:id/edit',
+        url: '/term/:termID/section/:sectionID/edit',
         templateUrl: 'Schedule/Term/Section/editSection.template.html',
         controller: 'editSectionController',
         params: {

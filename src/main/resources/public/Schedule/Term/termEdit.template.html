@@ -36,9 +36,10 @@
       <div ng-if="selectedSection">
         Course: {{selectedSection.course.name}}<br />
         Section: {{selectedSection.name}}<br />
+        Professor: {{selectedSection.professor.firstName}} {{selectedSection.professor.lastName}}<br />
         Type: {{selectedSection.component.componentType.name}}<br />
         Room: {{selectedSection.room.roomNumber}}<br />
-        <button type="button" class="btn btn-warning" ui-sref="section-edit(selectedSection)">Edit</button>
+        <button type="button" class="btn btn-warning" ui-sref="section-edit({termID : termID, sectionID: selectedSection.id, section: selectedSection})">Edit</button>
       </div>
     </div>
   </div>

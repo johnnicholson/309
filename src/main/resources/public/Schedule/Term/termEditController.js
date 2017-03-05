@@ -82,7 +82,6 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
   /* alert on eventClick */
   $scope.alertOnEventClick = function( sectionEvent, jsEvent, view){
     $scope.selectedSection = sectionEvent.section;
-    console.log(sectionEvent.section);
   };
   /* alert on Drop */
   $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
@@ -124,6 +123,7 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
       defaultView: 'agendaWeek',
       columnFormat: 'dddd',
       // titleFormat: 'YYYY',
+      minTime: '06:00:00',
       defaultDate: date,
       eventClick: $scope.alertOnEventClick,
       eventDrop: $scope.alertOnDrop,
