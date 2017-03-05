@@ -160,10 +160,9 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
 
     var sections = $filter('filter')($scope.term.sections,
       function(value, index, array) {
-        var roomMatch = true;
-        var courseMatch = true;
+        var roomMatch = true, professorMatch = true, courseMatch = true;
 
-        // If there is a professor filter selected, check whether object is valid
+        // If there is a room filter selected, check whether object is valid
         if ($scope.selectedRooms.length > 0) {
           if (value.room) {
             roomMatch = ($scope.selectedRooms.indexOf(value.room.id) > -1);
@@ -183,7 +182,17 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
           }
         }
 
-        return roomMatch && courseMatch;
+        // Filter by professors if filter is selected
+        if ($scope.selectedProfessors.length > 0) {
+          if (value.professor) {
+            professorMatch = ($scope.selectedProfessors.indexOf(value.professor.id) > -1);
+          }
+          else {
+            professorMatch = false;
+          }
+        }
+
+        return roomMatch && courseMatch && professorMatch;
       });
 
       $scope.updateEvents(sections);

@@ -43,10 +43,7 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
   }
 
   $scope.times = genRange(6, 23);
-
-
-  // Gets
-
+  
   // Fetches courses
   $scope.fetchAllCourses = function() {
     $http({
