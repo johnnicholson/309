@@ -37,6 +37,7 @@ class TimePrefTransactions {
             val timePrefDAO = HibernateUtil.getDAOFact().timePrefDAO
             if (pref.id == null && isAdminOrUser(pref.prof!!.id)) {
                 timePrefDAO.makePersistent(pref);
+                return pref.id
             }
             responseCode = HttpStatus.UNAUTHORIZED;
             return null
@@ -50,6 +51,7 @@ class TimePrefTransactions {
             val timePref : TimePref? = timePrefDAO.findById(prefId)
             if (isAdminOrUser(timePref!!.prof!!.id)) {
                 timePrefDAO.makeTransient(timePref);
+                return timePref.id
             }
             responseCode = HttpStatus.UNAUTHORIZED;
             return null
@@ -63,6 +65,7 @@ class TimePrefTransactions {
             var timePref : TimePref? = timePrefDAO.findById(prefId)
             if (isAdminOrUser(timePref!!.prof!!.id)) {
                 copyNonNulls(pref, timePref, "id");
+                return timePref.id
             }
             responseCode = HttpStatus.UNAUTHORIZED;
             return null
