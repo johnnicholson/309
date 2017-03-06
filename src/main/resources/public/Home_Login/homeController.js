@@ -2,6 +2,7 @@ app.controller('homeController', ['$scope', '$state', 'login', '$http', 'notifyD
  function(scope, state, login, $http, nDlg, $uibM) {
    scope.user={};
 
+   console.log("here");
    scope.goToLogin = function() {
       state.go('login');
    };
@@ -11,7 +12,6 @@ app.controller('homeController', ['$scope', '$state', 'login', '$http', 'notifyD
    };
 
    scope.login = function() {
-     console.log("inside login");
      login.login(scope.user)
      .then(function(response) {
        state.go('home');
