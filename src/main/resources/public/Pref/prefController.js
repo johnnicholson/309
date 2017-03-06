@@ -2,7 +2,7 @@ app.controller('prefController', ['$scope', '$state', 'login', '$http', 'notifyD
   function(scope, state, login, $http, nDlg, $uibM) {
     scope.coursePrefs = [];
     scope.addCoursePref = function() {
-        scope.coursePrefs.unshift({id: null, prof: {id: login.getUser().id}, course: null, level: 1})
+        scope.coursePrefs.unshift({id: null, prof: {id: login.getUser().id}, course: null, level: 1, edit: true})
     }
     login.getUserPromise()
     .then(function(user) {

@@ -25,6 +25,7 @@
 <script src="Login/loginController.js"></script>
 <script src="Login/loginService.js"></script>
 <script src="Pref/prefController.js"></script>
+<script src="Pref/timePrefController.js"></script>
 <script src="Setup/setupController.js"></script>
 <script src="Setup/Equipment/equipmentController.js"></script>
 <script src="Setup/RoomType/roomTypeController.js"></script>
@@ -43,6 +44,7 @@
 <script src="Schedule/Term/termAddController.js"></script>
 <script src="Schedule/Term/termEditController.js"></script>
 <script src="Schedule/Term/Section/addSectionController.js"></script>
+<script src="Schedule/Term/Section/editSectionController.js"></script>
 <script src="Util/notifyDlg.js"></script>
 
 <script src="ui-routes.js"></script>
@@ -55,7 +57,8 @@
          </li>
          <li ng-if="!!user"><a ui-sref="setup">Resources</a></li>
          <li ng-if="!!user"><a ui-sref="term-home">Scheduling</a></li>
-         <li ng-if="!!user && user.role == 'Admin' "><a ui-sref="pref">Preferences</a></li>
+         <li ng-if="!!user && user.role != 'Faculty' "><a ui-sref="course-pref">Course Preferences</a></li>
+         <li ng-if="!!user && user.role != 'Faculty' "><a ui-sref="time-pref">Time Preferences</a></li>
       </ul>
       <ul ng-if="!!user" class="nav navbar-nav pull-right">
          <li >

@@ -1,5 +1,5 @@
-app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg',
-function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
+app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg', '$filter',
+function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filter) {
 
   // Get hold on termID for adding sections
   $scope.termID = $stateParams.id;
@@ -17,9 +17,31 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
   };
   $scope.eventSources = [$scope.sections];
 
+  // Grabs all resources from endpoint and sets $scope[resAttr] to the result
+  var fetchAllResourcesAtEndpoint = function(endPoint, resAttr) {
+    $http({
+      method: 'GET',
+      url: endPoint
+    })
+    .then(function success(response) {
+      $scope[resAttr] = response.data;
+    })
+    .catch(function error(response) {
+      return notifyDlg.show($scope, "Could not fetch filter data for" + resAttr + " : " + response.status);
+    });
+  }
+
+  $scope.fetchFilterData = function() {
+    fetchAllResourcesAtEndpoint('api/prss/', "users");
+    fetchAllResourcesAtEndpoint('api/course/', "courses");
+    fetchAllResourcesAtEndpoint('api/room/', "rooms");
+  }
+  $scope.fetchFilterData();
+
   // Call this function to regenerate the events shown on the
   // calendar
   $scope.updateEvents = function(sections) {
+
     var daysOfWeek = {
       "sunday" : 0,
       "monday" : 1,
@@ -60,7 +82,6 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
   /* alert on eventClick */
   $scope.alertOnEventClick = function( sectionEvent, jsEvent, view){
     $scope.selectedSection = sectionEvent.section;
-    console.log(sectionEvent.section);
   };
   /* alert on Drop */
   $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
@@ -102,6 +123,7 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
       defaultView: 'agendaWeek',
       columnFormat: 'dddd',
       // titleFormat: 'YYYY',
+      minTime: '06:00:00',
       defaultDate: date,
       eventClick: $scope.alertOnEventClick,
       eventDrop: $scope.alertOnDrop,
@@ -125,6 +147,66 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg) {
     });
   }
 
+  // This reloads the calendar to reflect whatever filters are in place
+  $scope.reload = function() {
+    // Filter through the options
+    // This could be optimized, as performance is not great as of now
+
+
+    var sections = $filter('filter')($scope.term.sections,
+      function(value, index, array) {
+        var roomMatch = true, professorMatch = true, courseMatch = true;
+
+        // If there is a room filter selected, check whether object is valid
+        if ($scope.selectedRooms.length > 0) {
+          if (value.room) {
+            roomMatch = ($scope.selectedRooms.indexOf(value.room.id) > -1);
+          }
+          else {
+            roomMatch = false;
+          }
+        }
+
+        // Filter by courses if filter is selected
+        if ($scope.selectedCourses.length > 0) {
+          if (value.course) {
+            courseMatch = ($scope.selectedCourses.indexOf(value.course.id) > -1);
+          }
+          else {
+            courseMatch = false;
+          }
+        }
+
+        // Filter by professors if filter is selected
+        if ($scope.selectedProfessors.length > 0) {
+          if (value.professor) {
+            professorMatch = ($scope.selectedProfessors.indexOf(value.professor.id) > -1);
+          }
+          else {
+            professorMatch = false;
+          }
+        }
+
+        return roomMatch && courseMatch && professorMatch;
+      });
+
+      $scope.updateEvents(sections);
+  }
+
+  // Resets all filters to empty arrays
+  var clearFilters = function() {
+    $scope.selectedCourses = [];
+    $scope.selectedProfessors = [];
+    $scope.selectedRooms = [];
+  }
+
+  // Clear filters and force calendar to reload
+  $scope.resetFilters = function() {
+    clearFilters();
+    $scope.reload();
+  }
+
+  clearFilters();
   // Fetch term when first loaded up
   $scope.fetchTerm($stateParams.id);
 

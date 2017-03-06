@@ -140,19 +140,33 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'Schedule/Term/Section/addSection.template.html',
         controller: 'addSectionController'
       })
+      .state('section-edit', {
+        parent: 'base',
+        url: '/term/:termID/section/:sectionID/edit',
+        templateUrl: 'Schedule/Term/Section/editSection.template.html',
+        controller: 'editSectionController',
+        params: {
+          section : null
+        }
+      })
       .state('calendar', {
         parent: 'base',
         url: '/calendar',
         templateUrl: 'Schedule/Calendar/calendar.template.html',
         controller: 'calendarController'
       })
-      .state('pref', {
+      .state('course-pref', {
         parent: 'base',
-        url: '/pref',
+        url: '/coursepref',
         templateUrl: 'Pref/pref.template.html',
         controller: 'prefController'
       })
-
+      .state('time-pref', {
+        parent: 'base',
+        url: '/timepref',
+        templateUrl: 'Pref/timepref.template.html',
+        controller: 'timePrefController'
+      })
 
 
    }]);
