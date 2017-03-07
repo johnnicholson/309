@@ -55,10 +55,10 @@
          <li>
             <a style="padding:0px;" ui-sref="home"><img class="logo" src="myfavicon.ico" style="height: 70px;"/></a>
          </li>
-         <li ng-if="!!user"><a ui-sref="setup">Resources</a></li>
-         <li ng-if="!!user"><a ui-sref="term-home">Scheduling</a></li>
-         <li ng-if="!!user && user.role != 'Faculty' "><a ui-sref="course-pref">Course Preferences</a></li>
-         <li ng-if="!!user && user.role != 'Faculty' "><a ui-sref="time-pref">Time Preferences</a></li>
+         <li ng-if="!!user"><a class="nav_item" ui-sref="setup">RESOURCES</a></li>
+         <li ng-if="!!user"><a class="nav_item" ui-sref="term-home">SCHEDULING</a></li>
+         <li ng-if="!!user && user.role != 'Faculty' "><a class="nav_item" ui-sref="course-pref">COURSE PREFERENCES</a></li>
+         <li ng-if="!!user && user.role != 'Faculty' "><a class="nav_item" ui-sref="time-pref">TIME PREFERENCES</a></li>
       </ul>
       <ul ng-if="!!user" class="nav navbar-nav pull-right">
          <li >

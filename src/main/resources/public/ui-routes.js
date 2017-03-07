@@ -21,6 +21,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Home/home.template.html',
          controller: 'homeController'
       })
+      .state('welcome', {
+        parent: 'base',
+        url: '/welcome',
+        templateUrl: 'Welcome/welcome.template.html',
+        controller: 'welcomeController'
+      })
       .state('setup', {
          parent: 'base',
          url: '/setup',
