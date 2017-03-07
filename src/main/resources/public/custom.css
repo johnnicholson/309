@@ -8,7 +8,27 @@
 .navbar-nav-center {
   width: 100%;
   text-align: center;
+  /*background-color: #FFFFFF;*/
+}
+
+.navbar-default {
   background-color: #FFFFFF;
+}
+
+/*Navigation Bar*/
+.navbar-default .navbar-nav .nav_item:hover {
+    color: #49654E;
+    background-color: #FFFFFF;
+}
+
+.navbar-default .navbar-nav .nav_item, .nav_item:link,
+.nav_item:visited{
+  color: black;
+  font-weight: bold;
+  background-color: #FFFFFF;
+
+  /*border-style: solid;*/
+  /*border-width: 5px;*/
 }
 
 .cpn-edit-grp .btn {
@@ -20,8 +40,45 @@
     background: none;
 }
 
+.btn-primary, .btn-primary:hover, .btn-primary:active,
+.btn-primary[disabled], .btn-primary:focus{
+  background-color: #8BA889;
+  border-color: #8BA889;
+}
+
+.btn-danger {
+  background-color: #5B6469;
+  border-color: #5B6469;
+}
+
+.btn-warning {
+  background-color: #5B6469;
+  border-color: #5B6469;
+
+}
+
+/*Setup Header Bar */
+.nav.navbar-nav-center a.btn.btn-lg {
+  color: black;
+}
+
+.nav.navbar-nav-center a.btn.btn-lg:hover {
+  color: #49654E;
+}
+
+/*Resource Tables*/
+div .ng-scope {
+  width: 90%;
+  padding-left: 10%;
+
+}
+
+.ng-scope.btn.btn-primary.pull-right.ng-scope {
+  width: 1px;
+  background-color: #8BA889;
+}
 .navbar .navbar-default {
-  background-color: #FFFFFF;
+  background-color: blue;
 
 }
 
