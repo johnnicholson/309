@@ -1,7 +1,17 @@
 app.controller('timePrefController', ['$scope', '$state', 'login', '$http', 'notifyDlg', '$uibModal',
   function(scope, state, login, $http, nDlg, $uibM) {
     scope.coursePrefs = [];
-
+    scope.levelToEnglish = function(level) {
+      if (level == 1) {
+        return "I am unable to teach at this time"
+      }
+      if (level == 2) {
+        return "I am able to teach at this time, but would rather not"
+      }
+      if (level == 3) {
+        return "I prefer to teach at this time"
+      }
+    }
     // Supply days of week data
     scope.daysOfWeek = [
       {sName: "Sun", lName: "SUNDAY"},
