@@ -30,7 +30,7 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
       $scope[resAttr] = response.data;
     })
     .catch(function error(response) {
-      return notifyDlg.show($scope, "Could not fetch filter data for" + resAttr + " : " + response.status);
+      return notifyDlg.show($scope, "Could not fetch filter data for " + resAttr + " : " + response.status);
     });
   }
 
@@ -39,7 +39,11 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
     fetchAllResourcesAtEndpoint('api/course/', "courses");
     fetchAllResourcesAtEndpoint('api/room/', "rooms");
   }
-  $scope.fetchFilterData();
+
+  // Only admins can filter as of now
+  if (login.isAdmin()) {
+    $scope.fetchFilterData();
+  }
 
   // Call this function to regenerate the events shown on the
   // calendar

@@ -41,22 +41,29 @@ public class TermTransactions {
 
 	    @Override
 	    public Term action() {
-	      Term t = null;
-	      if (isStaff()) {
-	        t = HibernateUtil.getDAOFact().getTermDAO().findById(termID);
-	        if (t != null) {
-	          Hibernate.initialize(t);
-	        } else {
-	          // Non admin entities don't need to know if that id exists
-	          if (isAdmin()) {
-	            responseCode = HttpStatus.NOT_FOUND;
-	          } else {
-	            responseCode = HttpStatus.UNAUTHORIZED;
-	          }
-	        }
-	      } else {
-	        responseCode = HttpStatus.UNAUTHORIZED;
-	      }
+	      Term t = null, potentialTerm = null;
+
+				potentialTerm = HibernateUtil.getDAOFact().getTermDAO().findById(termID);
+				if (potentialTerm != null) {
+					Hibernate.initialize(potentialTerm);
+
+					// Only return for non-admins if published
+					if (isAdmin()) {
+						t = potentialTerm;
+					} else if (potentialTerm.getIsPublished() != 0) {
+						t = potentialTerm;
+					} else {
+						responseCode = HttpStatus.UNAUTHORIZED;
+					}
+				} else {
+					// Non admin entities don't need to know if that id exists
+					if (isAdmin()) {
+						responseCode = HttpStatus.NOT_FOUND;
+					} else {
+						responseCode = HttpStatus.UNAUTHORIZED;
+					}
+				}
+
 	      return t;
 	    }
 
