@@ -53,7 +53,7 @@
    <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
          <li>
-            <a style="padding:0px;" ui-sref="home"><img class="logo" src="myfavicon.ico" style="height: 70px;"/></a>
+            <a style="padding:0px;" ui-sref="home"><img id="mylogo" class="logo" src="myfavicon.ico" style="height: 70px;"/></a>
          </li>
          <li ng-if="!!user && user.role == 'Staff' || user.role == 'Admin'"><a class="nav_item" ui-sref="setup">RESOURCES</a></li>
          <li ng-if="!!user"><a class="nav_item" ui-sref="term-home">SCHEDULING</a></li>

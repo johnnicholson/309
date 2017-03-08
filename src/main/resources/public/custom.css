@@ -16,6 +16,12 @@
   padding-top: 20px;
 }
 
+#mylogo {
+  height: 70px;
+  margin-top: -12px;
+  margin-right: 40px;
+  margin-left: 20px;
+}
 
 /*Navigation Bar*/
 .navbar-default .navbar-nav .nav_item:hover {
