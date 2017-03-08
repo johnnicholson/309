@@ -22,13 +22,12 @@ public class TermTransactions {
 	public static class GetAllTerms extends Transaction<List<Term>> {
 	    @Override
 	    public List<Term> action() {
+				TermDAO termDAO = HibernateUtil.getDAOFact().getTermDAO();
 	      if (isAdmin()) {
-	        TermDAO termDAO = HibernateUtil.getDAOFact().getTermDAO();
-	        List<Term> t = termDAO.findAll();
-	        return t;
+	        return termDAO.findAll();
 	      } else {
-	        responseCode = HttpStatus.UNAUTHORIZED;
-	        return null;
+					return termDAO.getPublishedTerms();
+
 	      }
 	    }
 	  }
