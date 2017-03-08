@@ -1,8 +1,11 @@
-app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg', '$filter',
-function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filter) {
+app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg', '$filter', 'login',
+function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filter, login) {
 
   // Get hold on termID for adding sections
   $scope.termID = $stateParams.id;
+
+  // Only admin users can edit
+  $scope.showEdit = login.isAdmin();
 
   //First sunday of 1980
   var date = new Date("January 6, 1980 11:13:00");
