@@ -14,7 +14,7 @@ app.controller('homeController', ['$scope', '$state', 'login', '$http', 'notifyD
      console.log("inside login");
      login.login(scope.user)
      .then(function(response) {
-       state.go('welcome');
+       state.go('equipment');
      });
    };
 

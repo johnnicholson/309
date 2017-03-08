@@ -13,6 +13,7 @@
 
 .navbar-default {
   background-color: #FFFFFF;
+  padding-top: 20px;
 }
 
 
@@ -42,16 +43,27 @@
     background: none;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active,
+.btn-primary, .btn-primary:active,
 .btn-primary[disabled], .btn-primary:focus{
   background-color: #8BA889;
   border-color: #8BA889;
+}
+
+.btn-primary:hover {
+  background-color: #C0CFB2;
+  border-color: #C0CFB2;
 }
 
 .btn-danger {
   background-color: #5B6469;
   border-color: #5B6469;
 }
+
+.btn-danger:hover {
+  background-color: #89959C;
+  border-color: #89959C;
+}
+
 
 .btn-warning {
   background-color: #5B6469;
@@ -72,8 +84,6 @@
 .ng-scope > table {
   margin-left: auto;
   margin-right: auto;
-
-
 }
 
 .ng-scope.btn.btn-primary.pull-right.ng-scope {
