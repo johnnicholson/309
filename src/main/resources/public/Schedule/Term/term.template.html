@@ -9,7 +9,10 @@
     </thead>
     <tr ng-repeat="term in terms">
       <td>{{term.name}}</td>
-      <td>{{term.isPublished ? "YES" : "NO"}}</td>
+      <td>
+        <select ng-model="term.isPublished" ng-options="pOption.val as pOption.name for pOption in publishedOptions" ng-change="updateTerm(term)">
+        </select>
+      </td>
       <td><button ui-sref="term-edit({id : term.id})" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
     </tr>
   </table>
