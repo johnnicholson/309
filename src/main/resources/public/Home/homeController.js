@@ -2,10 +2,6 @@ app.controller('homeController', ['$scope', '$state', 'login', '$http', 'notifyD
  function(scope, state, login, $http, nDlg, $uibM) {
    scope.user={};
 
-  //  scope.goToLogin = function() {
-      // state.go('login');
-  //  };
-
    scope.goToRegister = function() {
       state.go('register');
    };
@@ -18,4 +14,11 @@ app.controller('homeController', ['$scope', '$state', 'login', '$http', 'notifyD
      });
    };
 
+   var studentUser = {username : "student@11test.edu", password : "passB"};
+   scope.signInAsStudent = function() {
+     login.login(studentUser)
+     .then(function(response) {
+       state.go('welcome');
+     });
+   }
 }]);

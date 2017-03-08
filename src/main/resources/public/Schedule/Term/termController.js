@@ -16,7 +16,7 @@ function(scope, $state, $http, login, notifyDlg) {
       scope.terms = response.data;
     })
     .catch(function error(response) {
-      return notifyDlg.show($scope, "Could not fetch: " + response.status);
+      return notifyDlg.show(scope, "Could not fetch: " + response.status);
     });
   }
 

@@ -1,16 +1,17 @@
 <div class="jumbotron">
   <h1 class="display-3">Login</h1>
-   <form>
-      <fieldset class="form-group">
-        <label>Username</label>
-        <input type="username" class="form-control" placeholder="Enter username" ng-model="user.username">
-      </fieldset>
-      <fieldset class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
-      </fieldset>
+  <form>
+    <fieldset class="form-group">
+      <label>Username</label>
+      <input type="username" class="form-control" placeholder="Enter username" ng-model="user.username">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+    </fieldset>
 
-  <button type="submit" value="Submit" class="btn btn-primary" ng-click="login()"
-  ng-disabled="!user.password || !user.username">Submit</button>
-</form>
+    <button type="submit" value="Submit" class="btn btn-primary" ng-click="login()"
+    ng-disabled="!user.password || !user.username">Submit</button>
+    <button type="button" class="btn btn-primary" ng-click="signInAsStudent()">Sign in as student</button>
+  </form>
 </div>
