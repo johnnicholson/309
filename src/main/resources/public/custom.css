@@ -15,20 +15,22 @@
   background-color: #FFFFFF;
 }
 
+
 /*Navigation Bar*/
 .navbar-default .navbar-nav .nav_item:hover {
     color: #49654E;
     background-color: #FFFFFF;
 }
 
-.navbar-default .navbar-nav .nav_item, .nav_item:link,
-.nav_item:visited{
-  color: black;
-  font-weight: bold;
+.navbar-default .navbar-nav > li > a {
+  color : black;
   background-color: #FFFFFF;
+  font-weight: bold;
+}
 
-  /*border-style: solid;*/
-  /*border-width: 5px;*/
+.navbar-default .navbar-nav > li > a:hover {
+  background-color: white;
+  color: #49654E;
 }
 
 .cpn-edit-grp .btn {
@@ -67,21 +69,16 @@
 }
 
 /*Resource Tables*/
-div .ng-scope {
-  width: 90%;
-  padding-left: 10%;
+.ng-scope > table {
+  margin-left: auto;
+  margin-right: auto;
+
 
 }
 
 .ng-scope.btn.btn-primary.pull-right.ng-scope {
-  width: 1px;
   background-color: #8BA889;
 }
-.navbar .navbar-default {
-  background-color: blue;
-
-}
-
 .jumbotron {
     padding-top: 64px;
     padding-left: 500px;
