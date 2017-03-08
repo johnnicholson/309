@@ -57,8 +57,8 @@
          </li>
          <li ng-if="!!user"><a class="nav_item" ui-sref="setup">RESOURCES</a></li>
          <li ng-if="!!user"><a class="nav_item" ui-sref="term-home">SCHEDULING</a></li>
-         <li ng-if="!!user && user.role != 'Faculty' "><a class="nav_item" ui-sref="course-pref">COURSE PREFERENCES</a></li>
-         <li ng-if="!!user && user.role != 'Faculty' "><a class="nav_item" ui-sref="time-pref">TIME PREFERENCES</a></li>
+         <li ng-if="!!user && user.role == 'Staff' "><a class="nav_item" ui-sref="course-pref">COURSE PREFERENCES</a></li>
+         <li ng-if="!!user && user.role == 'Staff' "><a class="nav_item" ui-sref="time-pref">TIME PREFERENCES</a></li>
       </ul>
       <ul ng-if="!!user" class="nav navbar-nav pull-right">
          <li >

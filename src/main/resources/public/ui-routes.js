@@ -165,13 +165,19 @@ app.config(['$stateProvider', '$urlRouterProvider',
         parent: 'base',
         url: '/coursepref',
         templateUrl: 'Pref/pref.template.html',
-        controller: 'prefController'
+        controller: 'prefController',
+        params: {
+          user : null
+        }
       })
       .state('time-pref', {
         parent: 'base',
         url: '/timepref',
         templateUrl: 'Pref/timepref.template.html',
-        controller: 'timePrefController'
+        controller: 'timePrefController',
+        params: {
+          user : null
+        }
       })
 
 

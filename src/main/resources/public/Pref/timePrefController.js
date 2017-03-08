@@ -1,5 +1,5 @@
-app.controller('timePrefController', ['$scope', '$state', 'login', '$http', 'notifyDlg', '$uibModal',
-  function(scope, state, login, $http, nDlg, $uibM) {
+app.controller('timePrefController', ['$scope', '$state', 'login', '$http', 'notifyDlg', '$uibModal', '$stateParams',
+  function(scope, state, login, $http, nDlg, $uibM, params) {
     scope.coursePrefs = [];
     scope.levelToEnglish = function(level) {
       if (level == 1) {
@@ -36,8 +36,12 @@ app.controller('timePrefController', ['$scope', '$state', 'login', '$http', 'not
 
     // Returns the human readable string for a time
     scope.timeToReadable = function(tVal) {
-      var reducedNum = tVal % 12 > 0 ? tVal % 12 : 12;
-      return "" + reducedNum + (tVal / 12 < 1 ? " AM" : " PM");
+      if (tVal != null) {
+        tVal = tVal.split(":")[0]
+        var reducedNum = tVal % 12 > 0 ? tVal % 12 : 12;
+        return "" + reducedNum + (tVal / 12 < 1 ? " AM" : " PM");
+      }
+      return "";
     }
 
     // Returns db ready string for given time
@@ -77,7 +81,13 @@ app.controller('timePrefController', ['$scope', '$state', 'login', '$http', 'not
 
     login.getUserPromise()
     .then(function(user) {
-      return $http.get("/api/prss/" + login.getUser().id + "/timeprefs")
+      if (params.user) {
+        scope.curUser = params.user;
+        return $http.get("/api/prss/" + params.user.id + "/courseprefs")
+
+      } else {
+        return $http.get("/api/prss/" + login.getUser().id + "/courseprefs")
+      }
     })
     .then(function(response) {
       scope.coursePrefs = response.data;
@@ -98,5 +108,19 @@ app.controller('timePrefController', ['$scope', '$state', 'login', '$http', 'not
         $http.put("/api/pref/time/" + pref.id, pref)
       }
     }
+
+     scope.deletePref = function(pref) {
+       if (pref.id == null) {
+         scope.coursePrefs.splice(scope.coursePrefs.indexOf(pref), 1);
+       } else {
+         $http.delete("/api/pref/time/" + pref.id)
+         .then(function (response) {
+           scope.coursePrefs.splice(scope.coursePrefs.indexOf(pref), 1);
+         })
+         .catch(function (response) {
+           console.log(response.data);
+         })
+       }
+     }
 
   }]);

@@ -1,5 +1,5 @@
-app.controller('prefController', ['$scope', '$state', 'login', '$http', 'notifyDlg', '$uibModal',
-  function(scope, state, login, $http, nDlg, $uibM) {
+app.controller('prefController', ['$scope', '$state', 'login', '$http', 'notifyDlg', '$uibModal', '$stateParams',
+  function(scope, state, login, $http, nDlg, $uibM, params) {
     scope.coursePrefs = [];
 
      scope.levelToEnglish = function(level) {
@@ -18,7 +18,13 @@ app.controller('prefController', ['$scope', '$state', 'login', '$http', 'notifyD
     }
     login.getUserPromise()
     .then(function(user) {
-      return $http.get("/api/prss/" + login.getUser().id + "/courseprefs")
+      if (params.user) {
+        scope.curUser = params.user;
+        return $http.get("/api/prss/" + params.user.id + "/courseprefs")
+
+      } else {
+        return $http.get("/api/prss/" + login.getUser().id + "/courseprefs")
+      }
     })
     .then(function(response) {
       scope.coursePrefs = response.data;
@@ -38,6 +44,20 @@ app.controller('prefController', ['$scope', '$state', 'login', '$http', 'notifyD
       } else {
         $http.put("/api/pref/crs/" + pref.id, pref)
       }
+    }
+
+    scope.deletePref = function(pref) {
+       if (pref.id == null) {
+         scope.coursePrefs.splice(scope.coursePrefs.indexOf(pref), 1);
+       } else {
+         $http.delete("/api/pref/crs/" + pref.id)
+         .then(function(response) {
+           scope.coursePrefs.splice(scope.coursePrefs.indexOf(pref), 1);
+         })
+         .catch(function(response) {
+            console.log(response.data);
+         })
+       }
     }
 
   }]);
