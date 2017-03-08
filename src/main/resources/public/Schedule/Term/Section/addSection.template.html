@@ -35,7 +35,7 @@
   <div class="form-group">
     <label for="sel-prof">Select professor:</label>
     <select class="form-control" id="sel-prof" ng-model="section.professor"
-    ng-options="user.firstName + ' ' + user.lastName for user in users" required>
+    ng-options="user.firstName + ' ' + user.lastName for user in users | filter : {role : 'Staff'}" required>
   </select>
   <p ng-show="showErrors && !section.professor" class="form-text text-muted">Professor is required.</p>
 </div>

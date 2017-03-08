@@ -79,6 +79,7 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
       })
       .then(function success(response) {
         $scope.users = response.data;
+        console.log($scope.users);
       })
       .catch(function error(response) {
         return notifyDlg.show($scope, "Could not fetch: " + response.status);

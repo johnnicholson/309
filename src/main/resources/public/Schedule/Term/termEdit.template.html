@@ -4,7 +4,8 @@
       <h3>Filter</h3>
       <span>Hold command to select multiple options for each filter</span>
       <hr />
-      <div>
+      <span ng-if="!showEdit">No filters available.</span>
+      <div ng-show="showEdit">
         <div>
           By Professor:
           <select class="form-control" ng-model="selectedProfessors" ng-options="user.id as user.firstName for user in users" ng-change="reload()" multiple>
@@ -26,7 +27,7 @@
     </div>
     <div class="col-sm-8">
       <h3 class="pull-left">{{term.name}}</h3>
-      <button ui-sref="section-add({id : {{termID}}})" class="btn btn-primary pull-right">Add Section</button>
+      <button ng-if="showEdit" ui-sref="section-add({id : {{termID}}})" class="btn btn-primary pull-right">Add Section</button>
       <div ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
     </div>
     <div class="col-sm-2">
@@ -39,7 +40,7 @@
         Professor: {{selectedSection.professor.firstName}} {{selectedSection.professor.lastName}}<br />
         Type: {{selectedSection.component.componentType.name}}<br />
         Room: {{selectedSection.room.roomNumber}}<br />
-        <button type="button" class="btn btn-warning" ui-sref="section-edit({termID : termID, sectionID: selectedSection.id, section: selectedSection})">Edit</button>
+        <button ng-if="showEdit" type="button" class="btn btn-warning" ui-sref="section-edit({termID : termID, sectionID: selectedSection.id, section: selectedSection})">Edit</button>
       </div>
     </div>
   </div>

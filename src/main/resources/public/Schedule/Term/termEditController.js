@@ -1,8 +1,11 @@
-app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg', '$filter',
-function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filter) {
+app.controller('termEditController', ['$scope', '$state', '$http', '$stateParams', 'uiCalendarConfig', '$compile', 'notifyDlg', '$filter', 'login',
+function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filter, login) {
 
   // Get hold on termID for adding sections
   $scope.termID = $stateParams.id;
+
+  // Only admin users can edit
+  $scope.showEdit = login.isAdmin();
 
   //First sunday of 1980
   var date = new Date("January 6, 1980 11:13:00");
@@ -12,8 +15,8 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
 
   $scope.sections = {
       events : [
-        {title: 'Birthday Party',start: new Date(y, m, d, 19, 0),end: new Date(y, m, d, 22, 30),allDay: false}
-      ]
+        //  {title: 'Birthday Party',start: new Date(y, m, d, 19, 0),end: new Date(y, m, d, 22, 30),allDay: false}
+     ]
   };
   $scope.eventSources = [$scope.sections];
 
@@ -27,7 +30,7 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
       $scope[resAttr] = response.data;
     })
     .catch(function error(response) {
-      return notifyDlg.show($scope, "Could not fetch filter data for" + resAttr + " : " + response.status);
+      return notifyDlg.show($scope, "Could not fetch filter data for " + resAttr + " : " + response.status);
     });
   }
 
@@ -36,7 +39,11 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
     fetchAllResourcesAtEndpoint('api/course/', "courses");
     fetchAllResourcesAtEndpoint('api/room/', "rooms");
   }
-  $scope.fetchFilterData();
+
+  // Only admins can filter as of now
+  if (login.isAdmin()) {
+    $scope.fetchFilterData();
+  }
 
   // Call this function to regenerate the events shown on the
   // calendar
@@ -139,6 +146,7 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
       url: 'api/term/' + id
     })
     .then(function success(response) {
+      console.log(response.data);
       $scope.term = response.data;
       $scope.updateEvents($scope.term.sections);
     })
@@ -189,7 +197,6 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
 
         return roomMatch && courseMatch && professorMatch;
       });
-
       $scope.updateEvents(sections);
   }
 
