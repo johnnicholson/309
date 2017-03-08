@@ -4,7 +4,8 @@
       <h3>Filter</h3>
       <span>Hold command to select multiple options for each filter</span>
       <hr />
-      <div>
+      <span ng-if="!showEdit">No filters available.</span>
+      <div ng-show="showEdit">
         <div>
           By Professor:
           <select class="form-control" ng-model="selectedProfessors" ng-options="user.id as user.firstName for user in users" ng-change="reload()" multiple>

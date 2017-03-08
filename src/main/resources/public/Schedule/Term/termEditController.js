@@ -15,8 +15,8 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
 
   $scope.sections = {
       events : [
-        {title: 'Birthday Party',start: new Date(y, m, d, 19, 0),end: new Date(y, m, d, 22, 30),allDay: false}
-      ]
+        //  {title: 'Birthday Party',start: new Date(y, m, d, 19, 0),end: new Date(y, m, d, 22, 30),allDay: false}
+     ]
   };
   $scope.eventSources = [$scope.sections];
 
@@ -146,6 +146,7 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
       url: 'api/term/' + id
     })
     .then(function success(response) {
+      console.log(response.data);
       $scope.term = response.data;
       $scope.updateEvents($scope.term.sections);
     })
@@ -196,7 +197,6 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
 
         return roomMatch && courseMatch && professorMatch;
       });
-
       $scope.updateEvents(sections);
   }
 
