@@ -60,6 +60,7 @@ public class TermTest {
     when(req.getAttribute(app.Session.ATTRIBUTE_NAME)).thenReturn(mockSession);
 
     Term mockterm = mock(Term.class);
+    when(mockterm.getIsPublished()).thenReturn(1);
     when(termDAO.findById(1)).thenReturn(mockterm);
     Term t = TermController.getTerm(1, req, res);
     verify(termDAO, times(1)).findById(1);

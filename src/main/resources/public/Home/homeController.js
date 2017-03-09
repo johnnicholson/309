@@ -10,7 +10,7 @@ app.controller('homeController', ['$scope', '$state', 'login', '$http', 'notifyD
      console.log("inside login");
      login.login(scope.user)
      .then(function(response) {
-       state.go('equipment');
+       state.go('term-home');
      });
    };
 
@@ -18,7 +18,7 @@ app.controller('homeController', ['$scope', '$state', 'login', '$http', 'notifyD
    scope.signInAsStudent = function() {
      login.login(studentUser)
      .then(function(response) {
-       state.go('welcome');
+       state.go('term-home');
      });
    }
 }]);
