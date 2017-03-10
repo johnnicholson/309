@@ -80,12 +80,7 @@ public abstract class Transaction<T> {
         done = true;
       } catch (Exception ex) {
         ex.printStackTrace();
-        try {
-          if (session.isOpen())
-              session.getTransaction().rollback();
-        }catch (Exception rollBackEx) {
-
-        }
+        session.getTransaction().rollback();
         counter--;
       }
     }
