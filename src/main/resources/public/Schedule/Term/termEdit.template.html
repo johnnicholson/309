@@ -8,7 +8,7 @@
       <div ng-show="showEdit">
         <div>
           By Professor:
-          <select class="form-control" ng-model="selectedProfessors" ng-options="user.id as user.firstName for user in users" ng-change="reload()" multiple>
+          <select class="form-control" ng-model="selectedProfessors" ng-options="user.id as user.firstName for user in users | filter: {role: 'Staff'}" ng-change="reload()" multiple>
           </select>
         </div>
         <div>

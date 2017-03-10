@@ -154,15 +154,47 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
     // Prepares and submits sections to db
     $scope.submitSections = function() {
       var dbReady = createDBReadySections($scope.sections);
+      var nPosts = dbReady.length;
+      var sStatement = "";
+      var fStatement = "";
+
+      // Shows which sections were successfully or Unsuccessfully posted
+      function displayResults() {
+        var res = "";
+        if (sStatement.length > 0 ) {
+          res += "Successfully posted: " + sStatement + "\n";
+        }
+        if (fStatement.length > 0 ) {
+          res += "Unsuccessfully posted: " + fStatement;
+        }
+
+        nDlg.show($scope, res)
+        .then(function() {
+          $state.go("term-edit", {id : $scope.termID});
+        });
+      }
+
+      // Iterate through and post each section
+      // Display results when all posts return
       for (var sKey in dbReady) {
         var section = dbReady[sKey];
 
-        $http.post("api/term/" + $scope.termID + "/section", section)
+        // Wrapping in immediately called function in order to capture
+        // value of sectName in scope
+        (function () {
+          var sectName = section.name;
+          $http.post("api/term/" + $scope.termID + "/section", section)
         .then(function(response) {
-          return nDlg.show($scope, "New Section Added: " + section.name);
+          sStatement += sectName + " ";
+          if (--nPosts == 0) {
+            displayResults();
+          }
         }).catch(function(response) {
-          return nDlg.show($scope, "Addition failed: " + section.name);
-        })
+          fStatement += sectName + " ";
+          if (--nPosts == 0) {
+            displayResults();
+          }
+        })})();
       }
     }
 
