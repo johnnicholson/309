@@ -41,7 +41,7 @@ public class Section {
 	private Component comp;
 	private Date startTime, endTime;
 	private Room room;
-
+	private Term term;
 	// Days of week
 	// Other representations are possible but this is simple
 	private Boolean sunday;
@@ -188,5 +188,12 @@ public class Section {
 		this.saturday = saturday;
 	}
 
+	@ManyToOne
+	public Term getTerm() {
+		return term;
+	}
 
+	public void setTerm(Term term) {
+		this.term = term;
+	}
 }

@@ -3,13 +3,8 @@ package model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 @JsonAutoDetect
@@ -58,7 +53,7 @@ public class Term {
 	    this.isPublished = isPublished;
   }
 
-  @OneToMany(fetch = FetchType.EAGER)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy="term")
   public List<Section> getSections() {
     return sections;
   }
