@@ -127,7 +127,7 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
       // Makes a deep copy of the sections passed in
       var sections = JSON.parse(JSON.stringify(inSections));
 
-      // Iterate through and modify values
+      // Iterate through and modify values (like times)
       for (var sKey in sections) {
         var section = sections[sKey];
         if (section.startTime) {
@@ -139,10 +139,22 @@ function($scope, $state, $http, nDlg, $q, login, params, notifyDlg) {
       }
       return sections;
     }
+
     // Submits new section if they're valid,
     // else notifies the user that they need to fix the fields
     $scope.submitForm = function(isValid) {
-      if (isValid) {
+
+      // Manually check if at least 1 day is scheduled
+      // and times are valid for each section
+      var sectIt = $scope.sections.length;
+      var manualCheck = true;
+      while (sectIt-- && manualCheck) {
+        var section = $scope.sections[sectIt];
+        manualCheck = manualCheck && $scope.scheduledAtLeastOneDay(section)
+        && $scope.timeValid(section);
+      }
+
+      if (isValid && manualCheck) {
         $scope.submitSections();
       }
       else {
