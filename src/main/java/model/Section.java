@@ -2,6 +2,7 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -188,7 +189,8 @@ public class Section {
 		this.saturday = saturday;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnore
 	public Term getTerm() {
 		return term;
 	}
