@@ -2,6 +2,7 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -41,7 +42,7 @@ public class Section {
 	private Component comp;
 	private Date startTime, endTime;
 	private Room room;
-
+	private Term term;
 	// Days of week
 	// Other representations are possible but this is simple
 	private Boolean sunday;
@@ -188,5 +189,13 @@ public class Section {
 		this.saturday = saturday;
 	}
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnore
+	public Term getTerm() {
+		return term;
+	}
 
+	public void setTerm(Term term) {
+		this.term = term;
+	}
 }

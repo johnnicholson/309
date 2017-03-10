@@ -1,22 +1,15 @@
 package transactions;
 
+import dao.SectionDAO;
 import dao.TermDAO;
-import java.util.List;
-
+import hibernate.HibernateUtil;
+import model.Section;
 import model.Term;
 import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
-import controller.PersonController.PasswordChange;
-import dao.ComponentTypeDAO;
-import dao.EquipmentDAO;
-import dao.PersonDAO;
-import dao.SectionDAO;
-import hibernate.HibernateUtil;
-import model.ComponentType;
-import model.Equipment;
-import model.Section;
+import java.util.List;
 
 public class SectionTransactions {
 	
@@ -84,8 +77,8 @@ public class SectionTransactions {
 	      	if (term == null) {
 						responseCode = HttpStatus.NOT_FOUND;
 					} else {
+						section.setTerm(term);
 						sectDAO.makePersistent(section);
-						term.addSection(section);
 					}
 	      } else {
 	        responseCode = HttpStatus.BAD_REQUEST;
