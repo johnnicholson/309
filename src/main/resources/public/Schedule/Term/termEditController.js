@@ -146,9 +146,8 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
       url: 'api/term/' + id
     })
     .then(function success(response) {
-      console.log(response.data);
       $scope.term = response.data;
-      $scope.updateEvents($scope.term.sections);
+      $scope.reload();
     })
     .catch(function error(response) {
       return notifyDlg.show($scope, "Could not fetch: " + response.status);
@@ -198,6 +197,27 @@ function($scope, $state, $http, $stateParams, config, $compile, notifyDlg, $filt
         return roomMatch && courseMatch && professorMatch;
       });
       $scope.updateEvents(sections);
+  }
+
+  // Confirms that user wants to delete section and then deletes it
+  $scope.deleteSection = function(section) {
+    notifyDlg.show($scope, "Delete " + section.name + "?", "Are you sure?", ["NO", "YES"])
+    .then(function(btn) {
+      if (btn == "YES") {
+        return $http({
+          method: 'DELETE',
+          url: 'api/section/' + section.id
+        })
+      }
+    })
+    .then(function success() {
+      $scope.fetchTerm($scope.termID);
+      $scope.selectedSection = null;
+      return notifyDlg.show($scope, "Successfully deleted section")
+    })
+    .catch(function error() {
+      notifyDlg.show($scope, "Unable to delete section")
+    });
   }
 
   // Resets all filters to empty arrays

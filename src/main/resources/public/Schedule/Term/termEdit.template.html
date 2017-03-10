@@ -40,7 +40,7 @@
         Professor: {{selectedSection.professor.firstName}} {{selectedSection.professor.lastName}}<br />
         Type: {{selectedSection.component.componentType.name}}<br />
         Room: {{selectedSection.room.roomNumber}}<br />
-        <button ng-if="showEdit" type="button" class="btn btn-warning" ui-sref="section-edit({termID : termID, sectionID: selectedSection.id, section: selectedSection})">Edit</button>
+        <button ng-if="showEdit" type="button" class="btn btn-danger" ng-click="deleteSection(selectedSection)">Delete</button>
       </div>
     </div>
   </div>
